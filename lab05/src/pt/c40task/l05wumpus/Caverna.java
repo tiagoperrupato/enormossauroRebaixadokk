@@ -33,7 +33,7 @@ public class Caverna {
 		salas[linha-1][coluna-1].retiraComponente(cp);
 	}
 	
-	public void verificaConstrucao(int qtdLinhas, int qtdColunas) {
+	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
 		if(salas[0][0].primeiroComponente()!='P') {
 			System.out.println("Erro de contrução de caverna, por favor"
 					+ "reinicie o jogo");

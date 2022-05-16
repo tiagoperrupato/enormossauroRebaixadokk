@@ -2,11 +2,11 @@ package pt.c40task.l05wumpus;
 import java.util.ArrayList;
 
 public class Sala {
-	private ArrayList<Componentes> listaComponentes;
+	private ArrayList<Componente> listaComponentes;
 	private int visitada;
 	
 	public Sala() {
-		this.listaComponentes=new ArrayList<Componentes>();
+		this.listaComponentes=new ArrayList<Componente>();
 		this.visitada=0;
 	}
 	
@@ -29,10 +29,10 @@ public class Sala {
 	}
 	
 	public void retiraComponente(Componente cp) {
-		char tipoComponente=cp.getTipoComponente;
+		char tipoComponente=cp.getTipo();
 		int i=0;
-		while(i<this.listaComponentes.size) {
-			if(listaComponentes.get(i).getTipoComponente==tipoComponente) {
+		while(i<this.listaComponentes.size()) {
+			if(listaComponentes.get(i).getTipo() == tipoComponente) {
 				break;
 			}
 			i++;

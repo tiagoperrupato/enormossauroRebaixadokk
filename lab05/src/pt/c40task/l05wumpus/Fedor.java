@@ -3,8 +3,7 @@ package pt.c40task.l05wumpus;
 public class Fedor extends Componente {
 	
 	public Fedor(int posLinha, int posColuna, char tipo, Caverna caverna) {
-		super(posLinha, posColuna, caverna);
-		this.setTipo(tipo);
+		super(posLinha, posColuna, tipo, caverna);
 	}
 	
 	public void insere() {

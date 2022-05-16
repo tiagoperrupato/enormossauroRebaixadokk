@@ -3,8 +3,7 @@ package pt.c40task.l05wumpus;
 public class Brisa extends Componente {
 	
 	public Brisa(int posLinha, int posColuna, char tipo, Caverna caverna) {
-		super(posLinha, posColuna, caverna);
-		this.setTipo(tipo);
+		super(posLinha, posColuna, tipo, caverna);
 	}
 	
 	public void insere() {
