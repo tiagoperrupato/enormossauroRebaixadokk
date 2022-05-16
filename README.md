@@ -1,2 +1,7 @@
-# enormossauroRebaixadokk
-Respositório em dupla para disciplina MC322 - Unicamp
+# Grupo Enormossauro Rebaixadokk
+
+* colocar imagem aqui
+
+## Membros
+* João Vitor Mendes
+* Tiago Perrupato Antunes
