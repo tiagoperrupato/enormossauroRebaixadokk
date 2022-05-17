@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Montador {
 	private Caverna caverna;
 	private String montadorCaverna[][];
-	
+	//testetstetstetststetst
 	public Montador(String[][] montadorCaverna) {
 		this.montadorCaverna=montadorCaverna;
 	}
@@ -27,7 +27,6 @@ public class Montador {
 			int posLinha=Integer.parseInt(montadorCaverna[i][0]);
 			int posColuna=Integer.parseInt(montadorCaverna[i][1]);
 			char charComp=montadorCaverna[i][2].charAt(0);
-			
 			criaComponente(charComp, posLinha, posColuna);
 		}
 		return caverna1;
