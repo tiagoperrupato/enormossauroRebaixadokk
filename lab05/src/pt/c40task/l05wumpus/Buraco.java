@@ -3,8 +3,7 @@ package pt.c40task.l05wumpus;
 public class Buraco extends Componente {
 	
 	public Buraco(int posLinha, int posColuna, char tipo, Caverna caverna) {
-		super(posLinha, posColuna, caverna);
-		this.setTipo(tipo);
+		super(posLinha, posColuna, tipo, caverna);
 	}
 	
 	public void insere() {

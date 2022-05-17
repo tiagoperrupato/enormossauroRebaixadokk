@@ -29,10 +29,10 @@ public class Sala {
 	}
 	
 	public void retiraComponente(Componente cp) {
-		char tipoComponente=cp.getTipoComponente;
+		char tipoComponente=cp.getTipo();
 		int i=0;
-		while(i<this.listaComponentes.size) {
-			if(listaComponentes.get(i).getTipoComponente==tipoComponente) {
+		while(i<this.listaComponentes.size()) {
+			if(listaComponentes.get(i).getTipo() == tipoComponente) {
 				break;
 			}
 			i++;

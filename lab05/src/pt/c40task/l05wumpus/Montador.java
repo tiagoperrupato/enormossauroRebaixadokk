@@ -37,24 +37,26 @@ public class Montador {
 		Componente cp1;
 		switch (tipoComponente) {
 			case 'P':
-				cp1=new Heroi(this.caverna, posLinha, posColuna);
+				cp1=new Heroi(posLinha, posColuna, tipoComponente, this.caverna);
 				break;
 			case 'W':
-				cp1=new Wumpus(this.caverna, posLinha, posColuna);
+				cp1=new Wumpus(posLinha, posColuna, tipoComponente, this.caverna);
 				break;
 			case 'B':
-				cp1=new Buraco(this.caverna, posLinha, posColuna);
+				cp1=new Buraco(posLinha, posColuna, tipoComponente, this.caverna);
 				break;
 			case 'O':
-				cp1=new Ouro(this.caverna, posLinha, posColuna);
+				cp1=new Ouro(posLinha, posColuna, tipoComponente, this.caverna);
 				break;
+			default:
+				cp1 = null;
 		}
 		this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
 	}
 	
-	private void verificaConstrucao() {
-		boolean teste=this.caverna.verificaConstrucao();
-		if(teste==false) {
+	private void verificaConstrucao(int qtdLinhas, int qtdColunas) {
+		boolean teste = this.caverna.verificaConstrucao(qtdLinhas, qtdColunas);
+		if(teste == false) {
 			System.out.println("Erro de contrução de caverna, por favor,"
 					+ "renecie o jogo");
 			//fazer algo capaz de fechar o programa todo e recomeçar
