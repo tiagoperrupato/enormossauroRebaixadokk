@@ -24,7 +24,7 @@ public class Heroi extends Componente {
 		// caso a ação tenha sido se mover para outra sala
 		if ((mov == 'w') || (mov == 'a') || (mov == 's') || (mov == 'd')) {
 			
-			// analisa se encontrou algum componente primário
+			// analisa se encontrou algum componente primário!
 			if (/* precisa de um metodo para acessar o arraylist das salas == 'O'*/) {
 				System.out.println("Você encontrou o Ouro!");
 				isCorreto = true;
