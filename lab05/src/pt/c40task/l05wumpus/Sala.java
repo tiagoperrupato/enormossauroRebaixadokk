@@ -42,6 +42,24 @@ public class Sala {
 		return null;
 	}
 	
+	//verifica se há 2 componentes com maiores prioridades na sala
+	public boolean verificaSala() {
+		int m=0;
+		if(buscaArraylist('O') != -1) {
+			m++;
+		}
+		if(buscaArraylist('W') != -1) {
+			m++;
+		}
+		if(buscaArraylist('W') != -1) {
+			m++;
+		}
+		if (m<2) {
+			return true;
+		}
+		return false;
+	}
+	
 	//metodo se baseia em que a caverna já foi verificada e não precisa se
 	//preocupar com invalidações
 	private void elencarPrioridade() {
@@ -81,7 +99,6 @@ public class Sala {
 		}
 		listaComponentes=listaAtualizada;	
 	}
-
 	
 	public void retiraComponente(Componente cp) {
 		char tipoComponente=cp.getTipo();
