@@ -20,13 +20,68 @@ public class Sala {
 
 	public void insereComponente(Componente cp, int posLinha, int posColuna) {
 		listaComponentes.add(cp);
-		organizaArray();
-		
+		elencarPrioridade();
 	}
 	
-	public void organizaArray() {
-		//organiza array de acordo com as prioridades
+	private int buscaArraylist(char cp) {
+		int i=0;
+		while(i<this.listaComponentes.size()) {
+			if(listaComponentes.get(i).getTipo() == cp) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
 	}
+	
+	public Componente getComponente(char cp) {
+		int index=buscaArraylist(cp);
+		if(index != -1) {
+			return listaComponentes.get(index);
+		}
+		return null;
+	}
+	
+	//metodo se baseia em que a caverna já foi verificada e não precisa se
+	//preocupar com invalidações
+	private void elencarPrioridade() {
+		char aux=' ';
+		Componente compAux=null;
+		ArrayList<Componente> listaAtualizada = new ArrayList<Componente>();
+		int i=buscaArraylist('O');
+		int m =-1;
+		if(i != -1) {
+			m=i;
+		}
+		i=buscaArraylist('W');
+		if(i != -1) {
+			m=i;
+		}
+		i=buscaArraylist('B');
+		if(i != -1) {
+			m=i;
+		}
+		listaAtualizada.add(listaComponentes.get(m));
+		listaComponentes.remove(m);
+		
+		i=buscaArraylist('P');
+		if(i!=-1) {
+			listaAtualizada.add(listaComponentes.get(i));
+			listaComponentes.remove(i);
+		}
+		i=buscaArraylist('f');
+		if(i!=-1) {
+			listaAtualizada.add(listaComponentes.get(i));
+			listaComponentes.remove(i);
+		}
+		i=buscaArraylist('b');
+		if(i!=-1) {
+			listaAtualizada.add(listaComponentes.get(i));
+			listaComponentes.remove(i);
+		}
+		listaComponentes=listaAtualizada;	
+	}
+
 	
 	public void retiraComponente(Componente cp) {
 		char tipoComponente=cp.getTipo();
@@ -40,10 +95,12 @@ public class Sala {
 		listaComponentes.remove(i);
 	}
 	
-	
-	//metodo para retornar primeiro componente da arraylist
-	public char primeiroComponente() {
-		
-		return 
+	public Componente getPrimeiroComponente() {
+		return listaComponentes.get(0);
 	}
+	
+	public char getTipoPrimeiroComponente() {
+		return getPrimeiroComponente().getTipo();
+	}
+
 }

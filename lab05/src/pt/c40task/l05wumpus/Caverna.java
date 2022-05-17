@@ -29,16 +29,17 @@ public class Caverna {
 		salas[linha-1][coluna-1].insereComponente(cp, linha, coluna);
 	}
 	
-	public void retiraComponente(Componente cp, int linha, int coluna) {
-		salas[linha-1][coluna-1].retiraComponente(cp);
+	public void retiraComponente(Componente cp, int posLinha, int posColuna) {
+		salas[posLinha-1][posColuna-1].retiraComponente(cp);
 	}
 	
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
-		if(salas[0][0].primeiroComponente()!='P') {
+		if(salas[0][0].getTipoPrimeiroComponente()!='P') {
 			System.out.println("Erro de contrução de caverna, por favor"
 					+ "reinicie o jogo");
-			//quebra inicialização do jogo
+			return false;
 		}
+		//adcionar verificação que o ouro não pode estar na sala do wumpus
 		
 		int buracos=0;
 		int wumpus=0;
@@ -47,7 +48,7 @@ public class Caverna {
 		
 		for(int i=0; i<qtdLinhas; i++) {
 			for(int j=0; j<qtdColunas; j++) {
-				switch (salas[i][j].primeiroComponente()) {
+				switch (salas[i][j].getTipoPrimeiroComponente()) {
 				case 'W':
 					wumpus++;
 					break;
@@ -66,7 +67,16 @@ public class Caverna {
 		if(buracos!=2 || buracos!=3 || wumpus!=1 || ouro !=1 || heroi !=1) {
 		System.out.println("Erro de contrução de caverna, por favor"
 				+ "reinicie o jogo");
-		//quebra inicialização
+		return false;
 		}
+	return true;
+	}
+	
+	public Componente getComponente(int posLinha, int posColuna) {
+		return salas[posLinha-1][posColuna-1].getPrimeiroComponente();
+	}
+	
+	public char getTipoPrimeiroComponente(int posLinha, int posColuna) {
+		return salas[posLinha-1][posColuna-1].getTipoPrimeiroComponente();
 	}
 }
