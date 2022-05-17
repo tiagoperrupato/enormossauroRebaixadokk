@@ -48,6 +48,15 @@ public class Caverna {
 		
 		for(int i=0; i<qtdLinhas; i++) {
 			for(int j=0; j<qtdColunas; j++) {
+				
+				//verifica sala por sala se há mais de um componente principal (W, B, O)
+				if(salas[i][j].verificaSala()==false) {
+					System.out.println("Erro de contrução de caverna, por favor"
+							+ "reinicie o jogo");
+					return false;
+				}
+				
+				//faz a contagem dos elementos que são limitados 
 				switch (salas[i][j].getTipoPrimeiroComponente()) {
 				case 'W':
 					wumpus++;
@@ -72,11 +81,15 @@ public class Caverna {
 	return true;
 	}
 	
-	public Componente getComponente(int posLinha, int posColuna) {
+	public Componente getPrimeiroComponente(int posLinha, int posColuna) {
 		return salas[posLinha-1][posColuna-1].getPrimeiroComponente();
 	}
 	
 	public char getTipoPrimeiroComponente(int posLinha, int posColuna) {
 		return salas[posLinha-1][posColuna-1].getTipoPrimeiroComponente();
+	}
+	
+	public Componente getComponente(char cp, int posLinha, int posColuna) {
+		return salas[posLinha-1][posColuna-1].getComponente(cp);
 	}
 }

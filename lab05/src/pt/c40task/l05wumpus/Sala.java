@@ -63,8 +63,6 @@ public class Sala {
 	//metodo se baseia em que a caverna já foi verificada e não precisa se
 	//preocupar com invalidações
 	private void elencarPrioridade() {
-		char aux=' ';
-		Componente compAux=null;
 		ArrayList<Componente> listaAtualizada = new ArrayList<Componente>();
 		int i=buscaArraylist('O');
 		int m =-1;

@@ -1,10 +1,9 @@
 package pt.c40task.l05wumpus;
-import java.util.Scanner;
 
 public class Montador {
 	private Caverna caverna;
 	private String montadorCaverna[][];
-	//testetstetstetststetst
+	
 	public Montador(String[][] montadorCaverna) {
 		this.montadorCaverna=montadorCaverna;
 	}
@@ -29,6 +28,8 @@ public class Montador {
 			char charComp=montadorCaverna[i][2].charAt(0);
 			criaComponente(charComp, posLinha, posColuna);
 		}
+		
+		verificaConstrucao(qtdLinhas, qtdColunas);
 		return caverna1;
 	}
 	
