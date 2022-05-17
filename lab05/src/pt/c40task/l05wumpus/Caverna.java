@@ -5,28 +5,34 @@ public class Caverna {
 	private char[][] caverna;
 	private int qtdLinhas;
 	private int qtdColunas;	
-	
-	//
+		
 	public Caverna(int qtdLinhas, int qtdColunas){
 		this.qtdLinhas=qtdLinhas;
 		this.qtdColunas=qtdColunas;
 		caverna=new char[qtdLinhas][qtdColunas];
 		salas=new Sala[qtdLinhas][qtdColunas];
-		ocupaCaverna(qtdLinhas, qtdColunas);
-		
+		ocupaCaverna();
+	}
+	
+	public int getQtdLinhas() {
+		return qtdLinhas;
+	}
+
+	public int getQtdColunas() {
+		return qtdColunas;
 	}
 	
 	//cria espaço na memoria para as salas
-	private void ocupaCaverna(int qtdLinhas, int qtdColunas) {
-		for(int i=0; i<qtdLinhas; i++) {
-			for(int j=0; j<qtdColunas; j++) {
+	private void ocupaCaverna() {
+		for(int i=0; i<this.getQtdLinhas(); i++) {
+			for(int j=0; j<this.getQtdColunas(); j++) {
 				salas[i][j]=new Sala();
 			}
 		}
 	}
 	
-	public void insereComponente(Componente cp, int linha, int coluna){
-		salas[linha-1][coluna-1].insereComponente(cp, linha, coluna);
+	public void insereComponente(Componente cp, int posLinha, int posColuna){
+		salas[posLinha-1][posColuna-1].insereComponente(cp, posLinha, posColuna);
 	}
 	
 	public void retiraComponente(Componente cp, int posLinha, int posColuna) {
@@ -39,7 +45,6 @@ public class Caverna {
 					+ "reinicie o jogo");
 			return false;
 		}
-		//adcionar verificação que o ouro não pode estar na sala do wumpus
 		
 		int buracos=0;
 		int wumpus=0;
