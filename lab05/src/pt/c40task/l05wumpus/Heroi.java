@@ -19,9 +19,8 @@ public class Heroi extends Componente {
 	public void remove() {
 		this.getCaverna().retiraComponente(this, this.getPosLinha(), this.getPosColuna());
 	}
-	
-	/* se heroi usar flecha retorna 2
-	 * se heroi matar wumpus retorna 3
+	 
+	/* se heroi matar wumpus retorna -1
 	 * se movimento falhar retorna 0
 	 * se ocorrer tudo bem retorna 1
 	 */
@@ -44,7 +43,7 @@ public class Heroi extends Componente {
 					Random rand = new Random();
 					int matouWumpus = rand.nextInt(2); 				// sorteia número entre 0 e 1 (50% de chance para matar)
 					if (matouWumpus == 1) {
-						situacao = 3;
+						situacao = -1;
 						this.setMatouWumpus(true);
 						System.out.println("Você matou o Wumpus!");
 					}
@@ -52,7 +51,7 @@ public class Heroi extends Componente {
 						this.setVivo(false);
 						System.out.println("Você morreu para o Wumpus... =(");
 						situacao = 1;
-						return 1;
+						return situacao;
 					}
 				}
 			}
@@ -61,6 +60,11 @@ public class Heroi extends Componente {
 				System.out.println("Você caiu no Buraco... =(");
 				situacao = 1;
 				return situacao;
+			}
+			// solta a flecha se estiver equipada
+			if (this.isEquipaFlecha()) {
+				this.setSoltouFlecha(true);
+				this.setEquipaFlecha(false);
 			}
 			
 			
@@ -89,19 +93,21 @@ public class Heroi extends Componente {
 		// se ação foi equipar flecha
 		else if (mov == 'k') {
 			if (this.getQtdFlecha() > 0) {
-				situacao = 2;
+				situacao = 1;
 			}
 		}
 		return situacao;
 	}
 	
 	/* executa o movimento designado pelo controle (o cliente ou arquivo .csv)
-	 * retorna 2 se heroi usa flecha
-	 * retorna 3 se heroi matou wumpus
-	 * retorna 0 se não ocorreu nenhum dos anteriores
+	 * retorna true se matou o wumpus
+	 * retorna false se não matou
 	 */
-	public int executaMovimento(char mov) {
+	public boolean executaMovimento(char mov) {
 		int situacao = 0;
+		boolean matouWumpus = false;
+		this.setSoltouFlecha(false);
+		
 		if (mov == 'w') {
 			//vai para frente
 			this.remove();
@@ -133,7 +139,7 @@ public class Heroi extends Componente {
 		else if (mov == 'k') {
 			// tenta equipar flecha
 			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
-			if (situacao == 2) {	// analisa se pode equipar flecha
+			if (situacao == 1) {	// analisa se pode equipar flecha
 				this.setEquipaFlecha(true);
 				this.setQtdFlecha(0);
 			}
@@ -148,7 +154,10 @@ public class Heroi extends Componente {
 			}
 		}
 		
-		return situacao;
+		if (situacao == -1)
+			matouWumpus = true;
+		
+		return matouWumpus;
 	}
 	
 	public int[] tamanhoCaverna() {

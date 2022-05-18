@@ -67,25 +67,29 @@ public class Controle {
 	 */
 	public boolean executaComando(char comando) {
 		//verifica se entrada foi válida
-		boolean valido = verificaComando(comando);
+		boolean valido = verificaComando(comando);;
+		boolean matouWumpus = false;
 		boolean saiuJogo = false;
-		int situacao = 0;
 		
 		if (valido) {
 			if (comando == 'q')
 				saiuJogo = true;
 			else {
-				situacao = jogador.executaMovimento(comando);
+				matouWumpus = jogador.executaMovimento(comando);
 				if (comando != 'k' && comando != 'c')	// se jogador fez uma movimentação
 					this.score -= 15;
-				if (situacao == 2)		// se usou a flecha
+				if (this.jogador.isSoltouFlecha())		// se usou a flecha
 					this.score -= 100;
-				else if (situacao == 3)	// se matou wumpus
+				if (matouWumpus)	// se matou o wumpus
 					this.score += 500;
-				else if (jogador.ispegouOuro() && jogador.getPosLinha()==1 
-						&& jogador.getPosColuna()==1 ) { // saiu da caverna
+				if (jogador.ispegouOuro() && jogador.getPosLinha()==1 
+						&& jogador.getPosColuna()==1) { // ganhou o jogo
 					this.score += 1000;
 					this.status = 'W';
+				}
+				if (!jogador.isVivo()) {
+					this.score -= 1000;
+					this.status = 'L';
 				}
 				
 				/*
@@ -100,41 +104,27 @@ public class Controle {
 		return !saiuJogo;
 	}
 	
-	public void registraJogada() {
-		
-		
-	}
-	
 	public char[][] getCharCaverna(){
 		return this.jogador.getCharCaverna();
 	}
 	
 	public void imprimeCavernaParcial() {
 		char [][] caverna=getCharCaverna();
-		for(int i=0; i<caverna.length; i++) {
-			for(int j=0; j < caverna[i].length; j++) {
+		for(int i=0; i<caverna.length; i++)
+			for(int j=0; j < caverna[i].length; j++)
 				System.out.println(caverna[i][j] + ((j < caverna[i].length-1) ? ", " : ""));				
-			}
-		}
+				
 		System.out.println("Player: "+this.nomeJogador);
 		System.out.println("Score: "+ this.score);
 	}
 	
 	public void imprimeCavernaFinal() {
 		imprimeCavernaParcial();
-		
-		  if(this.status=='W') { 
-			  System.out.println("Você ganhou =D !!!"); 
-		  } 
-		  else if(this.status=='L') { 
-			  System.out.println("Você perdeu =( ...");
-			  }
-		  else {
-		  System.out.println("Volte sempre !"); 
-		  }
-		 
-		
+		if(this.status=='W')
+			System.out.println("Você ganhou =D !!!"); 
+		else if(this.status=='L')
+			System.out.println("Você perdeu =( ...");
+		else
+			System.out.println("Volte sempre !");
 	}
-	
-
 }

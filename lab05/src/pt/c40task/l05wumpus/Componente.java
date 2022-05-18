@@ -4,7 +4,7 @@ package pt.c40task.l05wumpus;
 public class Componente {
 	
 	private int posLinha, posColuna, qtdFlecha;
-	private boolean pegouOuro, equipaFlecha, matouWumpus, vivo;
+	private boolean pegouOuro, equipaFlecha, matouWumpus, vivo, soltouFlecha;
 	private char tipo;
 	
 	private Caverna caverna;	// ponteiro para a caverna
@@ -19,6 +19,7 @@ public class Componente {
 		this.equipaFlecha = false;
 		this.matouWumpus = false;
 		this.vivo = false;
+		this.soltouFlecha = false;
 	}
 
 	public void setPosColuna(int posColuna) {
@@ -76,6 +77,14 @@ public class Componente {
 	public void setVivo(boolean vivo) {
 		this.vivo = vivo;
 	}
+	
+	public boolean isSoltouFlecha() {
+		return soltouFlecha;
+	}
+
+	public void setSoltouFlecha(boolean soltouFlecha) {
+		this.soltouFlecha = soltouFlecha;
+	}
 
 	public char getTipo() {
 		return tipo;
@@ -95,8 +104,8 @@ public class Componente {
 		return 0;
 	}
 	
-	public int executaMovimento(char movimento) {
-		return 0;
+	public boolean executaMovimento(char movimento) {
+		return false;
 	}
 	
 	public int[] tamanhoCaverna() {
