@@ -18,6 +18,25 @@ public class Toolkit {
    
    private boolean firstBoard = true;
    
+   public static Toolkit start(String cavePath, String outputPath) {
+	   tk = new Toolkit();
+	      String caveFile = (cavePath == null)
+	            ? DIRETORIO + "cave.csv" : cavePath;
+	      String outputFile = (outputPath == null)
+	            ? DIRETORIO + "results.csv" : outputPath;
+	      System.out.println("files - cave: " + caveFile +
+	                         "; output: " + outputFile);
+	      try {
+	         tk.caveStr = new BufferedReader(
+	               new FileReader(caveFile));
+	         tk.outputStr = new PrintWriter(
+	               new FileWriter(outputFile));
+	      } catch(IOException erro){
+	         erro.printStackTrace();
+	      }
+	      return tk;
+   }
+   
    public static Toolkit start(String cavePath, String outputPath,
                                String movePath) {
       tk = new Toolkit();
