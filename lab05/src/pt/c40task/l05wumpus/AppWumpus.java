@@ -39,14 +39,14 @@ public class AppWumpus {
 	   
 	   boolean aux=true;
 	   char comando;
-	   char[][] caverna;
-	   while(aux) {
+	   
+	   while(aux && ctrl.getStatus() == 'P') {
 		   comando=keyboard.nextLine().charAt(0);
 		   aux=ctrl.executaComando(comando);
-		   caverna=ctrl.getCharCaverna();
-		   
-		   
+		   ctrl.imprimeCaverna();
 	   }
+	   
+	   ctrl.imprimeEncerramento();
 	   
 	   keyboard.close();
    }

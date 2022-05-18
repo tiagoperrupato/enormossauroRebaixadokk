@@ -13,6 +13,10 @@ public class Controle {
 		this.status = 'P';
 	}
 	
+	public char getStatus() {
+		return status;
+	}
+
 	private boolean verificaComando(char comando) {
 		
 		boolean verif = true;
@@ -108,7 +112,7 @@ public class Controle {
 		return this.jogador.getCharCaverna();
 	}
 	
-	public void imprimeCavernaParcial() {
+	public void imprimeCaverna() {
 		char [][] caverna=getCharCaverna();
 		for(int i=0; i<caverna.length; i++)
 			for(int j=0; j < caverna[i].length; j++)
@@ -118,8 +122,7 @@ public class Controle {
 		System.out.println("Score: "+ this.score);
 	}
 	
-	public void imprimeCavernaFinal() {
-		imprimeCavernaParcial();
+	public void imprimeEncerramento() {
 		if(this.status=='W')
 			System.out.println("Você ganhou =D !!!"); 
 		else if(this.status=='L')

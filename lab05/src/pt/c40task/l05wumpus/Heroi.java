@@ -54,6 +54,12 @@ public class Heroi extends Componente {
 						return situacao;
 					}
 				}
+				else {
+					this.setVivo(false);
+					System.out.println("Você morreu para o Wumpus... =(");
+					situacao = 1;
+					return situacao;
+				}
 			}
 			else if (tipoPrimario == 'B') {
 				this.setVivo(false);
@@ -61,6 +67,7 @@ public class Heroi extends Componente {
 				situacao = 1;
 				return situacao;
 			}
+			
 			// solta a flecha se estiver equipada
 			if (this.isEquipaFlecha()) {
 				this.setSoltouFlecha(true);
