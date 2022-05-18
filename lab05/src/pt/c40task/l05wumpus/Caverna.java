@@ -13,15 +13,7 @@ public class Caverna {
 		salas=new Sala[qtdLinhas][qtdColunas];
 		ocupaCaverna();
 	}
-	
-	public int getQtdLinhas() {
-		return qtdLinhas;
-	}
-
-	public int getQtdColunas() {
-		return qtdColunas;
-	}
-	
+		
 	public int getQtdLinhas() {
 		return qtdLinhas;
 	}

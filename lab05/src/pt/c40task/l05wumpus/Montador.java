@@ -10,14 +10,6 @@ public class Montador {
 		this.montadorCaverna=montadorCaverna;
 		this.caverna = constroi();
 	}
-	
-	public int getQtdLinhas() {
-		return qtdLinhas;
-	}
-	public int getQtdColunas() {
-		return qtdColunas;
-	}
-
 
 	public Caverna constroi() {
 		Caverna cv;
