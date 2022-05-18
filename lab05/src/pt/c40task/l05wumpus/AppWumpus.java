@@ -19,14 +19,14 @@ public class AppWumpus {
 	   mt.constroi();
 	   boolean verifica = mt.verificaConstrucao(mt.getQtdLinhas(), mt.getQtdColunas());
 	   if (verifica==false) {
-		   System.exit(-1);
+		   System.exit(1);
 	   }
 	   Scanner keyboard=new Scanner(System.in);
 	   System.out.println("Digite o nome do jogador");
 	   String nomeJogador = keyboard.nextLine();
 	   
 	   Componente jogador=mt.getHeroi();
-	   Controle ct=new Controle(jogador, 0, nomeJogador, 'x');
+	   Controle ct=new Controle(jogador, nomeJogador);
 	   
 	   boolean aux=true;
 	   char comando;

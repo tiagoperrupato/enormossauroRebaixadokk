@@ -6,11 +6,11 @@ public class Controle {
 	private String nomeJogador;
 	private char status;
 	
-	public Controle(Componente jogador, int score, String nomeJogador, char status) {
+	public Controle(Componente jogador, String nomeJogador) {
 		this.jogador = jogador;
-		this.score = score;
+		this.score=0;
 		this.nomeJogador = nomeJogador;
-		this.status = status;
+		this.status = 'x';
 	}
 	
 	private boolean verificaComando(char comando) {
@@ -99,24 +99,36 @@ public class Controle {
 		
 	}
 	
-	public void imprimeCaverna() {
+	public char[][] getCharCaverna(){
+		return this.jogador.getCharCaverna();
+	}
+	
+	public void imprimeCavernaParcial() {
 		char [][] caverna=getCharCaverna();
 		for(int i=0; i<caverna.length; i++) {
-			for(int j=0; j < caverna[0].length; j++) {
-				System.out.println(caverna[i][j]);				
+			for(int j=0; j < caverna[i].length; j++) {
+				System.out.println(caverna[i][j] + ((j < caverna[i].length-1) ? ", " : ""));				
 			}
 		}
 		System.out.println("Player: "+this.nomeJogador);
 		System.out.println("Score: "+ this.score);
-		System.out.println("==========================");
-		/*
-		 * if(this.status=='W') { System.out.println("Você ganhou =D !!!"); } else
-		 * if(this.status=='L') { System.out.println("Você perdeu =( ..."); } else {
-		 * System.out.println("Volte sempre !"); }
-		 */
 	}
 	
-	public char[][] getCharCaverna(){
-		return this.jogador.getCharCaverna();
+	public void imprimeCavernaFinal() {
+		imprimeCavernaParcial();
+		
+		  if(this.status=='W') { 
+			  System.out.println("Você ganhou =D !!!"); 
+		  } 
+		  else if(this.status=='L') { 
+			  System.out.println("Você perdeu =( ...");
+			  }
+		  else {
+		  System.out.println("Volte sempre !"); 
+		  }
+		 
+		
 	}
+	
+
 }
