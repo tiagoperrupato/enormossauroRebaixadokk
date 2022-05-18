@@ -3,8 +3,6 @@ package pt.c40task.l05wumpus;
 public class Montador {
 	private Caverna caverna;
 	private String montadorCaverna[][];
-	private int qtdLinhas;
-	private int qtdColunas;
 	
 	public Montador(String[][] montadorCaverna) {
 		this.montadorCaverna=montadorCaverna;
