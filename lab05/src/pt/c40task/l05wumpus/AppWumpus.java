@@ -3,10 +3,28 @@ package pt.c40task.l05wumpus;
 public class AppWumpus {
 
    public static void main(String[] args) {
+	   System.out.println("qntd de entradas: "+args.length);
       AppWumpus.executaJogo(
             (args.length > 0) ? args[0] : null,
             (args.length > 1) ? args[1] : null,
             (args.length > 2) ? args[2] : null);
+   }
+   
+   public static void executaJogoInterativo(String arquivoCaverna, String arquivoSaida) {
+	   Toolkit tk= Toolkit.start(arquivoCaverna, arquivoSaida, null);
+	   //monta a caverna e faz verificação dela
+	   String cave[][] = tk.retrieveCave();
+	   Montador mt=new Montador(cave);
+	   mt.constroi();
+	   boolean verifica = mt.verificaConstrucao(mt.getQtdLinhas(), mt.getQtdColunas());
+	   if (verifica==false) {
+		   System.exit(-1);
+	   }
+	   
+	   
+	   
+	   
+	   
    }
    
    public static void executaJogo(String arquivoCaverna, String arquivoSaida,

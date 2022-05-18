@@ -3,34 +3,37 @@ package pt.c40task.l05wumpus;
 public class Montador {
 	private Caverna caverna;
 	private String montadorCaverna[][];
+	private int qtdLinhas;
+	private int qtdColunas;
 	
 	public Montador(String[][] montadorCaverna) {
 		this.montadorCaverna=montadorCaverna;
+		this.caverna = constroi();
 	}
 	
-	public Caverna getCaverna() {
-		return caverna;
+	public int getQtdLinhas() {
+		return qtdLinhas;
 	}
-	public void setCaverna(Caverna caverna) {
-		this.caverna = caverna;
+	public int getQtdColunas() {
+		return qtdColunas;
 	}
-	
-	public Caverna constroi(String[][] montadorCaverna) {
-		Caverna caverna1;
-		int qtdLinhas=Integer.parseInt(montadorCaverna[montadorCaverna.length-1][0]);
-		int qtdColunas=Integer.parseInt(montadorCaverna[montadorCaverna.length-1][1]);
+
+
+	public Caverna constroi() {
+		Caverna cv;
+		int qtdLinhas=Integer.parseInt(this.montadorCaverna[this.montadorCaverna.length-1][0]);
+		int qtdColunas=Integer.parseInt(this.montadorCaverna[this.montadorCaverna.length-1][1]);
 		
-		caverna1=new Caverna(qtdLinhas, qtdColunas);
-		setCaverna(caverna1);
-		for(int i = 0; i<montadorCaverna.length; i++) {
-			int posLinha=Integer.parseInt(montadorCaverna[i][0]);
-			int posColuna=Integer.parseInt(montadorCaverna[i][1]);
-			char charComp=montadorCaverna[i][2].charAt(0);
+		cv=new Caverna(qtdLinhas, qtdColunas);
+		
+		for(int i = 0; i<this.montadorCaverna.length; i++) {
+			int posLinha=Integer.parseInt(this.montadorCaverna[i][0]);
+			int posColuna=Integer.parseInt(this.montadorCaverna[i][1]);
+			char charComp=this.montadorCaverna[i][2].charAt(0);
 			criaComponente(charComp, posLinha, posColuna);
 		}
 		
-		verificaConstrucao(qtdLinhas, qtdColunas);
-		return caverna1;
+		return cv;
 	}
 	
 	private void criaComponente(char tipoComponente, int posLinha, int posColuna) {
@@ -54,12 +57,13 @@ public class Montador {
 		this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
 	}
 	
-	private void verificaConstrucao(int qtdLinhas, int qtdColunas) {
+	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
 		boolean teste = this.caverna.verificaConstrucao(qtdLinhas, qtdColunas);
 		if(teste == false) {
 			System.out.println("Erro de contrução de caverna, por favor,"
-					+ "renecie o jogo");
-			//fazer algo capaz de fechar o programa todo e recomeçar
+					+ "renicie o jogo");
+			return false;
 		}
+		return true;
 	}
 }
