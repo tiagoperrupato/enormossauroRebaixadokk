@@ -25,15 +25,16 @@ public class Sala {
 	
 	private int buscaArraylist(char cp) {
 		int i=0;
+		
 		while(i<this.listaComponentes.size()) {
 			if(listaComponentes.get(i).getTipo() == cp) {
 				return i;
 			}
 			i++;
 		}
-		return -1;
-	}
+	return -1;
 	
+	}
 	public Componente getComponente(char cp) {
 		int index=buscaArraylist(cp);
 		if(index != -1) {
@@ -64,8 +65,9 @@ public class Sala {
 	//preocupar com invalidações
 	private void elencarPrioridade() {
 		ArrayList<Componente> listaAtualizada = new ArrayList<Componente>();
-		int i=buscaArraylist('O');
 		int m =-1;
+		int i=buscaArraylist('O');
+
 		if(i != -1) {
 			m=i;
 		}
@@ -77,9 +79,11 @@ public class Sala {
 		if(i != -1) {
 			m=i;
 		}
-		listaAtualizada.add(listaComponentes.get(m));
-		listaComponentes.remove(m);
-		
+		if(m !=-1) {
+			listaAtualizada.add(listaComponentes.get(m));
+			listaComponentes.remove(m);
+		}
+		System.out.println("2");
 		i=buscaArraylist('P');
 		if(i!=-1) {
 			listaAtualizada.add(listaComponentes.get(i));
@@ -95,6 +99,7 @@ public class Sala {
 			listaAtualizada.add(listaComponentes.get(i));
 			listaComponentes.remove(i);
 		}
+		System.out.println("3");
 		listaComponentes=listaAtualizada;	
 	}
 	
@@ -111,7 +116,10 @@ public class Sala {
 	}
 	
 	public Componente getPrimeiroComponente() {
-		return listaComponentes.get(0);
+		if(listaComponentes.size()==0) {
+			return	null;
+		}
+		return listaComponentes.get(0); 
 	}
 	
 	public char getTipoPrimeiroComponente() {

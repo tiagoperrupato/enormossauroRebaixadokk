@@ -6,7 +6,8 @@ public class Montador {
 	
 	public Montador(String[][] montadorCaverna) {
 		this.montadorCaverna=montadorCaverna;
-		this.caverna = constroi();
+		this.caverna = null;
+		constroi();
 	}
 		
 	public Caverna getCaverna() {
@@ -24,21 +25,20 @@ public class Montador {
 		return caverna.getQtdColunas();
 	}
 	
-	public Caverna constroi() {
+	public void constroi() {
 		Caverna cv;
 		int qtdLinhas=Integer.parseInt(this.montadorCaverna[this.montadorCaverna.length-1][0]);
 		int qtdColunas=Integer.parseInt(this.montadorCaverna[this.montadorCaverna.length-1][1]);
 		
 		cv=new Caverna(qtdLinhas, qtdColunas);
-		
+		this.caverna=cv;
 		for(int i = 0; i<this.montadorCaverna.length; i++) {
 			int posLinha=Integer.parseInt(this.montadorCaverna[i][0]);
 			int posColuna=Integer.parseInt(this.montadorCaverna[i][1]);
 			char charComp=this.montadorCaverna[i][2].charAt(0);
+
 			criaComponente(charComp, posLinha, posColuna);
 		}
-		
-		return cv;
 	}
 	
 	private void criaComponente(char tipoComponente, int posLinha, int posColuna) {
@@ -59,7 +59,8 @@ public class Montador {
 			default:
 				cp1 = null;
 		}
-		this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
+		if (cp1!=null)
+			this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
 	}
 	
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
