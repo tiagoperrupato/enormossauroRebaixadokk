@@ -7,7 +7,7 @@ public class Wumpus extends Componente {
 	}
 	
 	public void insere() {
-		this.getCaverna().insereComponente(this);
+		this.getCaverna().insereComponente(this, this.getPosLinha(), this.getPosColuna());
 		Componente fedor;
 		
 		for(int i=-1; i<2; i++)
@@ -19,7 +19,6 @@ public class Wumpus extends Componente {
 	}
 	
 	public void remove() {
-		this.getCaverna().removeComponente(this);
-		// precisa remover os fedores em volta dele.
+		this.getCaverna().retiraComponente(this, this.getPosLinha(), this.getPosColuna());
 	}
 }
