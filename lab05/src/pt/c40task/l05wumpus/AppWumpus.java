@@ -26,15 +26,15 @@ public class AppWumpus {
 	   String nomeJogador = keyboard.nextLine();
 	   
 	   Componente jogador=mt.getHeroi();
-	   Controle ct=new Controle(jogador, nomeJogador);
+	   Controle ctrl=new Controle(jogador, nomeJogador);
 	   
 	   boolean aux=true;
 	   char comando;
 	   char[][] caverna;
 	   while(aux) {
 		   comando=keyboard.nextLine().charAt(0);
-		   aux=ct.executaComando(comando);
-		   caverna=ct.getCharCaverna();
+		   aux=ctrl.executaComando(comando);
+		   caverna=ctrl.getCharCaverna();
 		   
 		   
 	   }

@@ -10,7 +10,7 @@ public class Controle {
 		this.jogador = jogador;
 		this.score=0;
 		this.nomeJogador = nomeJogador;
-		this.status = 'x';
+		this.status = 'P';
 	}
 	
 	private boolean verificaComando(char comando) {
@@ -82,6 +82,12 @@ public class Controle {
 					this.score -= 100;
 				else if (situacao == 3)	// se matou wumpus
 					this.score += 500;
+				else if (jogador.ispegouOuro() && jogador.getPosLinha()==1 
+						&& jogador.getPosColuna()==1 ) { // saiu da caverna
+					this.score += 1000;
+					this.status = 'W';
+				}
+				
 				/*
 				 * adicionar uma sitação para quando ele vai para sala1,1 com o ouro assim
 				 * poderemos ativar o gatilho para ele acabar o jogo esse gatilho deve fazer
