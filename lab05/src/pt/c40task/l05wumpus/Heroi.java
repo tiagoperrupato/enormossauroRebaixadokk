@@ -157,4 +157,8 @@ public class Heroi extends Componente {
 		tam[1] = this.getCaverna().getQtdColunas();
 		return tam;
 	}
+	
+	public char[][] getCharCaverna(){
+		return this.getCaverna().getCharCaverna();
+	}
 }

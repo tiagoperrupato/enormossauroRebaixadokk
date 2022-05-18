@@ -1,4 +1,5 @@
 package pt.c40task.l05wumpus;
+import java.util.Scanner;
 
 public class AppWumpus {
 
@@ -20,12 +21,25 @@ public class AppWumpus {
 	   if (verifica==false) {
 		   System.exit(-1);
 	   }
+	   Scanner keyboard=new Scanner(System.in);
+	   System.out.println("Digite o nome do jogador");
+	   String nomeJogador = keyboard.nextLine();
 	   
+	   Componente jogador=mt.getHeroi();
+	   Controle ct=new Controle(jogador, 0, nomeJogador, 'x');
 	   
+	   boolean aux=true;
+	   char comando;
+	   char[][] caverna;
+	   while(aux) {
+		   comando=keyboard.nextLine().charAt(0);
+		   aux=ct.executaComando(comando);
+		   caverna=ct.getCharCaverna();
+		   
+		   
+	   }
 	   
-	   
-	   
-	   
+	   keyboard.close();
    }
    
    public static void executaJogo(String arquivoCaverna, String arquivoSaida,

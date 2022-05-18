@@ -8,6 +8,14 @@ public class Montador {
 		this.montadorCaverna=montadorCaverna;
 		this.caverna = constroi();
 	}
+		
+	public Caverna getCaverna() {
+		return caverna;
+	}
+
+	public Componente getHeroi() {
+		return caverna.getComponente('H', 1, 1);
+	}
 	
 	public int getQtdLinhas(){
 		return caverna.getQtdLinhas();

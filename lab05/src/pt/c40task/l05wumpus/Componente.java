@@ -102,4 +102,8 @@ public class Componente {
 	public int[] tamanhoCaverna() {
 		return null;
 	}
+	
+	public char[][] getCharCaverna(){
+		return null;
+	}
 }

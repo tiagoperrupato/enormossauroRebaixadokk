@@ -115,7 +115,12 @@ public class Sala {
 	}
 	
 	public char getTipoPrimeiroComponente() {
-		return getPrimeiroComponente().getTipo();
+		Componente cp;
+		cp=this.getPrimeiroComponente();
+		if (cp==null) {
+			return '#';
+		}
+		return cp.getTipo();
 	}
 
 }

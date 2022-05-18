@@ -14,10 +14,18 @@ public class Caverna {
 		ocupaCaverna();
 	}
 	
-	public char[][] getCaverna(){
+	public char[][] getCharCaverna(){
+		char cp;
 		for(int i=0; i<this.getQtdLinhas(); i++) {
 			for(int j=0; j<this.getQtdColunas(); j++) {
-				this.caverna[i][j]=salas[i][j].getTipoPrimeiroComponente();
+				if(salas[i][j].getVisitada()==0) {
+					this.caverna[i][j]='_';
+				}
+				else {
+					cp=salas[i][j].getTipoPrimeiroComponente();
+					this.caverna[i][j]=cp;
+				}
+				
 			}
 		}
 		return this.caverna;
@@ -36,7 +44,7 @@ public class Caverna {
 	public int getQtdColunas() {
 		return qtdColunas;
 	}
-
+	
 	//cria espaço na memoria para as salas
 	private void ocupaCaverna() {
 		for(int i=0; i<this.getQtdLinhas(); i++) {

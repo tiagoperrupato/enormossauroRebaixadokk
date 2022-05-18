@@ -82,6 +82,12 @@ public class Controle {
 					this.score -= 100;
 				else if (situacao == 3)	// se matou wumpus
 					this.score += 500;
+				/*
+				 * adicionar uma sitação para quando ele vai para sala1,1 com o ouro assim
+				 * poderemos ativar o gatilho para ele acabar o jogo esse gatilho deve fazer
+				 * efeito quando ele sai da caverna, quando ele aperta "q"
+				 * quando é morto pelo wumpus e quando ele cai no buraco
+				 */
 			}
 		}
 		
@@ -91,5 +97,26 @@ public class Controle {
 	public void registraJogada() {
 		
 		
+	}
+	
+	public void imprimeCaverna() {
+		char [][] caverna=getCharCaverna();
+		for(int i=0; i<caverna.length; i++) {
+			for(int j=0; j < caverna[0].length; j++) {
+				System.out.println(caverna[i][j]);				
+			}
+		}
+		System.out.println("Player: "+this.nomeJogador);
+		System.out.println("Score: "+ this.score);
+		System.out.println("==========================");
+		/*
+		 * if(this.status=='W') { System.out.println("Você ganhou =D !!!"); } else
+		 * if(this.status=='L') { System.out.println("Você perdeu =( ..."); } else {
+		 * System.out.println("Volte sempre !"); }
+		 */
+	}
+	
+	public char[][] getCharCaverna(){
+		return this.jogador.getCharCaverna();
 	}
 }
