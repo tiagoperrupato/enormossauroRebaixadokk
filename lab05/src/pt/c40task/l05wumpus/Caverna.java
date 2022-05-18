@@ -21,14 +21,6 @@ public class Caverna {
 	public int getQtdColunas() {
 		return qtdColunas;
 	}
-	
-	public int getQtdLinhas() {
-		return qtdLinhas;
-	}
-
-	public int getQtdColunas() {
-		return qtdColunas;
-	}
 
 	//cria espaço na memoria para as salas
 	private void ocupaCaverna() {
