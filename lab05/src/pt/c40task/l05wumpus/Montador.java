@@ -8,7 +8,14 @@ public class Montador {
 		this.montadorCaverna=montadorCaverna;
 		this.caverna = constroi();
 	}
-
+	
+	public int getQtdLinhas(){
+		return caverna.getQtdLinhas();
+	}
+	public int getQtdColunas() {
+		return caverna.getQtdColunas();
+	}
+	
 	public Caverna constroi() {
 		Caverna cv;
 		int qtdLinhas=Integer.parseInt(this.montadorCaverna[this.montadorCaverna.length-1][0]);
