@@ -15,7 +15,7 @@ public class Montador {
 	}
 
 	public Componente getHeroi() {
-		return caverna.getComponente('H', 1, 1);
+		return caverna.getComponente('P', 1, 1);
 	}
 	
 	public int getQtdLinhas(){

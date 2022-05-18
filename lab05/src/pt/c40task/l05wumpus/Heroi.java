@@ -119,13 +119,15 @@ public class Heroi extends Componente {
 			//vai para frente
 			this.remove();
 			this.setPosLinha(this.getPosLinha()-1);
+			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
 			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
 		}
 		else if (mov == 'a') {
 			//vai para esquerda
 			this.remove();
-			this.setPosLinha(this.getPosColuna()-1);
+			this.setPosColuna(this.getPosColuna()-1);
+			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
 			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
 		}
@@ -133,13 +135,15 @@ public class Heroi extends Componente {
 			//vai para trás
 			this.remove();
 			this.setPosLinha(this.getPosLinha()+1);
+			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
 			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
 		}
 		else if (mov == 'd') {
 			// vai para direita
 			this.remove();
-			this.setPosLinha(this.getPosColuna()+1);
+			this.setPosColuna(this.getPosColuna()+1);
+			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
 			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
 		}

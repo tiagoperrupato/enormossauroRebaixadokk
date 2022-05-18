@@ -2,7 +2,8 @@ package pt.c40task.l05wumpus;
 import java.util.ArrayList;
 
 public class Sala {
-	private ArrayList<Componente> listaComponentes;
+	//arrumar public
+	public ArrayList<Componente> listaComponentes;
 	private int visitada;
 	
 	public Sala() {
@@ -52,7 +53,7 @@ public class Sala {
 		if(buscaArraylist('W') != -1) {
 			m++;
 		}
-		if(buscaArraylist('W') != -1) {
+		if(buscaArraylist('B') != -1) {
 			m++;
 		}
 		if (m<2) {
@@ -83,7 +84,6 @@ public class Sala {
 			listaAtualizada.add(listaComponentes.get(m));
 			listaComponentes.remove(m);
 		}
-		System.out.println("2");
 		i=buscaArraylist('P');
 		if(i!=-1) {
 			listaAtualizada.add(listaComponentes.get(i));
@@ -99,7 +99,7 @@ public class Sala {
 			listaAtualizada.add(listaComponentes.get(i));
 			listaComponentes.remove(i);
 		}
-		System.out.println("3");
+
 		listaComponentes=listaAtualizada;	
 	}
 	

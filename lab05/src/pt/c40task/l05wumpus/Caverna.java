@@ -2,33 +2,30 @@ package pt.c40task.l05wumpus;
 
 public class Caverna {
 	private Sala[][] salas;
-	private char[][] caverna;
 	private int qtdLinhas;
 	private int qtdColunas;	
 		
 	public Caverna(int qtdLinhas, int qtdColunas){
 		this.qtdLinhas=qtdLinhas;
 		this.qtdColunas=qtdColunas;
-		caverna=new char[qtdLinhas][qtdColunas];
 		salas=new Sala[qtdLinhas][qtdColunas];
 		ocupaCaverna();
 	}
 	
 	public char[][] getCharCaverna(){
-		char cp;
+		char[][] cp= new char[this.getQtdLinhas()][this.getQtdColunas()];
 		for(int i=0; i<this.getQtdLinhas(); i++) {
 			for(int j=0; j<this.getQtdColunas(); j++) {
 				if(salas[i][j].getVisitada()==0) {
-					this.caverna[i][j]='_';
+					cp[i][j]='_';
 				}
 				else {
-					cp=salas[i][j].getTipoPrimeiroComponente();
-					this.caverna[i][j]=cp;
+					cp[i][j]=salas[i][j].getTipoPrimeiroComponente();
 				}
 				
 			}
 		}
-		return this.caverna;
+		return cp;
 	}
 	
 	public void visitarSala(int posLinha, int posColuna) {
@@ -71,7 +68,7 @@ public class Caverna {
 		int buracos=0;
 		int wumpus=0;
 		int ouro=0;
-		int heroi=1;
+		int heroi=0;
 		
 		for(int i=0; i<qtdLinhas; i++) {
 			for(int j=0; j<qtdColunas; j++) {
@@ -99,11 +96,13 @@ public class Caverna {
 				}
 			}
 		}
-		if(buracos!=2 || buracos!=3 || wumpus!=1 || ouro !=1 || heroi !=1) {
-		System.out.println("Erro: há uma qunatidade maior/menor de componentes no jogo");
-		return false;
+				
+		if((buracos!=2 && buracos!=3) || wumpus!=1 || ouro !=1 || heroi !=1) {
+			System.out.println("Erro: há uma qunatidade maior/menor de componentes no jogo");
+			return false;
 		}
 	return true;
+	
 	}
 	
 	public Componente getPrimeiroComponente(int posLinha, int posColuna) {
