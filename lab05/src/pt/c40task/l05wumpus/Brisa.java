@@ -7,10 +7,10 @@ public class Brisa extends Componente {
 	}
 	
 	public void insere() {
-		this.getCaverna().insereComponente(this);
+		this.getCaverna().insereComponente(this, this.getPosLinha(), this.getPosColuna());
 	}
 	
 	public void remove() {
-		this.getCaverna().removeComponente(this);
+		this.getCaverna().retiraComponente(this, this.getPosLinha(), this.getPosColuna());
 	}
 }

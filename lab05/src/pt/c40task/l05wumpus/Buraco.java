@@ -7,7 +7,7 @@ public class Buraco extends Componente {
 	}
 	
 	public void insere() {
-		this.getCaverna().insereComponente(this);
+		this.getCaverna().insereComponente(this, this.getPosLinha(), this.getPosColuna());
 		Componente brisa;
 		
 		for(int i=-1; i<2; i++)
@@ -19,7 +19,6 @@ public class Buraco extends Componente {
 	}
 	
 	public void remove() {
-		this.getCaverna().removeComponente(this);
-		// precisa remover as brisas em volta dele.
+		this.getCaverna().retiraComponente(this, this.getPosLinha(), this.getPosColuna());
 	}
 }
