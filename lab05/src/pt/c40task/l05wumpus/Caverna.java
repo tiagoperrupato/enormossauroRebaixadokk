@@ -22,6 +22,14 @@ public class Caverna {
 		return qtdColunas;
 	}
 	
+	public int getQtdLinhas() {
+		return qtdLinhas;
+	}
+
+	public int getQtdColunas() {
+		return qtdColunas;
+	}
+
 	//cria espaço na memoria para as salas
 	private void ocupaCaverna() {
 		for(int i=0; i<this.getQtdLinhas(); i++) {
@@ -41,8 +49,7 @@ public class Caverna {
 	
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
 		if(salas[0][0].getTipoPrimeiroComponente()!='P') {
-			System.out.println("Erro de contrução de caverna, por favor"
-					+ "reinicie o jogo");
+			System.out.println("Erro: Jogador não esta na sala (1,1)");
 			return false;
 		}
 		
@@ -56,9 +63,8 @@ public class Caverna {
 				
 				//verifica sala por sala se há mais de um componente principal (W, B, O)
 				if(salas[i][j].verificaSala()==false) {
-					System.out.println("Erro de contrução de caverna, por favor"
-							+ "reinicie o jogo");
-					return false;
+					System.out.println("Erro: há mais de um componente de alta prioridade em"
+							+ "uma das salas");
 				}
 				
 				//faz a contagem dos elementos que são limitados 
@@ -79,8 +85,7 @@ public class Caverna {
 			}
 		}
 		if(buracos!=2 || buracos!=3 || wumpus!=1 || ouro !=1 || heroi !=1) {
-		System.out.println("Erro de contrução de caverna, por favor"
-				+ "reinicie o jogo");
+		System.out.println("Erro: há uma qunatidade maior/menor de componentes no jogo");
 		return false;
 		}
 	return true;
