@@ -25,6 +25,7 @@ public class AppWumpus {
 	   
 	   
 	   
+	   
    }
    
    public static void executaJogo(String arquivoCaverna, String arquivoSaida,

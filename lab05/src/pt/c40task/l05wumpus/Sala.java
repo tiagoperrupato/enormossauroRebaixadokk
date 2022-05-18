@@ -14,8 +14,8 @@ public class Sala {
 		return visitada;
 	}
 
-	public void setVisitada(int visitada) {
-		this.visitada = visitada;
+	public void visitarSala() {
+		this.visitada = 1;
 	}
 
 	public void insereComponente(Componente cp, int posLinha, int posColuna) {
