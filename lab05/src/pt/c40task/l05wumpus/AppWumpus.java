@@ -8,7 +8,8 @@ public class AppWumpus {
 	   File movements = new File(System.getProperty("user.dir") +
 			   "/src/pt/c40task/l05wumpus/movements.csv");
 	   if(!(movements.exists() && !movements.isDirectory())) {
-		   System.out.println("oi");
+		   AppWumpus.executaJogoInterativo((args.length > 0) ? args[0] : null,
+				   (args.length > 1) ? args[1] : null);
 	   }
 	   else {
        AppWumpus.executaJogo(
@@ -20,7 +21,7 @@ public class AppWumpus {
 	   
    
    public static void executaJogoInterativo(String arquivoCaverna, String arquivoSaida) {
-	   Toolkit tk= Toolkit.start(arquivoCaverna, arquivoSaida, null);
+	   Toolkit tk= Toolkit.start(arquivoCaverna, arquivoSaida);
 	   //monta a caverna e faz verificação dela
 	   String cave[][] = tk.retrieveCave();
 	   Montador mt=new Montador(cave);
