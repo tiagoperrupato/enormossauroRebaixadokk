@@ -18,6 +18,9 @@ public class Caverna {
 		ocupaCaverna();
 	}
 ~~~
+Ao construi a classe da caverna, foi idealizado um modelo no qual seria possível aumentar o número de salas presentes na caverna.
+Isso foi feito utilizando dois atributos da caverna (qtdLinhas e qtdColunas) e ao decorrer do código são utilizada funções getQtdLinhas e getQtdColunas
+
 * Possibilidade de criação de novos componentes
 ~~~Aumento de Componentes
 
