@@ -35,6 +35,6 @@ Isso foi feito utilizando dois atributos da caverna (qtdLinhas e qtdColunas) e a
 		salas[posLinha-1][posColuna-1].retiraComponente(cp);
 	}
 ~~~
-Foi utilizado uma super classe Componente para representar todos os componentes que possuíamos. Ao decorrer do código os objetos do tipo Componente foram instanciados em suas subclasses, assim através de polimorfismo foram criadas funções capazes manusear os componentes de forma padronizada conforme as funções acima.
+Foi utilizado uma super classe Componente para representar todos os componentes que possuíamos. Ao decorrer do código os objetos do tipo Componente foram instanciados em suas subclasses, assim através de polimorfismo foram criadas funções capazes manusear os componentes de forma padronizada conforme as funções acima. Elas recebem como parametro um componente e insere em uma sala, independente da sub classe que foi instanciado.
 
 
