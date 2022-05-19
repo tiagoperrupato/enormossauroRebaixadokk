@@ -1,6 +1,6 @@
-# Grupo Enormossauro Rebaixadokk
+# Enormossauro Rebaixadokk
 
-* colocar imagem aqui
+![Enormossauro Rebaixadokk] (enormossauroRebaixadokk.png)
 
 ## Membros
 * João Vitor Mendes
