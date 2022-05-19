@@ -1,6 +1,6 @@
 # Enormossauro Rebaixadokk
 
-![Enormossauro Rebaixadokk] (enormossauroRebaixadokk.png)
+![Enormossauro Rebaixadokk] (./enormossauroRebaixadokk.png)
 
 ## Membros
 * João Vitor Mendes
