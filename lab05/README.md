@@ -4,11 +4,23 @@
 
 ### Destaques de Implementação
 
-~~~Expansão da Caverna
 * Possibilidade de expensão de caverna
+~~~Expansão da Caverna
+public class Caverna {
+	private Sala[][] salas;
+	private int qtdLinhas;
+	private int qtdColunas;	
+		
+	public Caverna(int qtdLinhas, int qtdColunas){
+		this.qtdLinhas=qtdLinhas;
+		this.qtdColunas=qtdColunas;
+		salas=new Sala[qtdLinhas][qtdColunas];
+		ocupaCaverna();
+	}
 ~~~
-~~~Aumento de Componentes
 * Possibilidade de criação de novos componentes
+~~~Aumento de Componentes
+
 ~~~
 
 
