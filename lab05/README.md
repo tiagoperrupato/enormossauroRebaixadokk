@@ -4,3 +4,11 @@
 
 ### Destaques de Implementação
 
+~~~Expansão da Caverna
+* Possibilidade de expensão de caverna
+~~~
+~~~Aumento de Componentes
+* Possibilidade de criação de novos componentes
+~~~
+
+
