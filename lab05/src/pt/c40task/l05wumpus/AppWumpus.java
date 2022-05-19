@@ -39,16 +39,26 @@ public class AppWumpus {
 	   
 	   boolean aux=true;
 	   char comando;
+	   String input;
 	   ctrl.imprimeCaverna();
-	   while(aux && ctrl.getStatus() == 'P') {
-		   comando=keyboard.nextLine().charAt(0);
-		   aux=ctrl.executaComando(comando);
-		   ctrl.imprimeCaverna();
-	   }
+	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 	   
+	   while(aux && ctrl.getStatus() == 'P') {
+		   input=keyboard.nextLine();
+		   if(!input.isEmpty()) {
+			   comando=input.charAt(0);
+			   aux=ctrl.executaComando(comando);
+			   ctrl.imprimeCaverna();
+			   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+		   }
+		   else {
+			   System.out.println("Tecla selecionada é inválida, selecione outra.");
+		   }
+	   }
 	   ctrl.imprimeEncerramento();
 	   
 	   keyboard.close();
+	   tk.stopInterativo();
    }
    
    public static void executaJogo(String arquivoCaverna, String arquivoSaida,
@@ -56,40 +66,34 @@ public class AppWumpus {
       Toolkit tk = Toolkit.start(arquivoCaverna, arquivoSaida, arquivoMovimentos);
       
       String cave[][] = tk.retrieveCave();
-      System.out.println("=== Caverna");
-      for (int l = 0; l < cave.length; l++) {
-         for (int c = 0; c < cave[l].length; c++)
-            System.out.print(cave[l][c] + ((c < cave[l].length-1) ? ", " : ""));
-         System.out.println();
-      }
-      
-      String movements = tk.retrieveMovements();
-      System.out.println("=== Movimentos");
-      System.out.println(movements);
-      
-      System.out.println("=== Caverna Intermediaria");
-      char partialCave[][] = {
-         {'#', '#', 'b', '-'},
-         {'#', 'b', '-', '-'},
-         {'b', '-', '-', '-'},
-         {'p', '-', '-', '-'}
-      };
-      int score = -120;
-      char status = 'x'; // 'w' para venceu; 'n' para perdeu; 'x' intermediárias
-      tk.writeBoard(partialCave, score, status);
+      Montador mt=new Montador(cave);
+	   mt.constroi();
+	   boolean verifica = mt.verificaConstrucao(mt.getQtdLinhas(), mt.getQtdColunas());
+	   if (verifica==false) {
+		   return;
+	   }
+	   
+	   String movements = tk.retrieveMovements();
+	   Componente jogador=mt.getHeroi();
+	   Controle ctrl=new Controle(jogador, "Alcebiades");
+	   
+	   boolean aux=true;
+	   char comando;
+	   ctrl.imprimeCaverna();
+	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+	   
+	   int acc=0;
+	   while(aux && ctrl.getStatus() == 'P' && acc<movements.length()) {
+		   
+		   comando=movements.charAt(acc);
+		   aux=ctrl.executaComando(comando);
+		   ctrl.imprimeCaverna();
+		   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+		   acc++;
 
-      System.out.println("=== Última Caverna");
-      char finalCave[][] = {
-         {'#', '#', 'b', '-'},
-         {'#', 'b', '#', 'f'},
-         {'b', '-', '-', 'w'},
-         {'#', '-', '-', '-'}
-      };
-      score = -1210;
-      status = 'n'; // 'w' para venceu; 'n' para perdeu; 'x' intermediárias
-      tk.writeBoard(finalCave, score, status);
-      
-      tk.stop();
+	   }
+	   ctrl.imprimeEncerramento();
+	   tk.stop();
    }
 
 }

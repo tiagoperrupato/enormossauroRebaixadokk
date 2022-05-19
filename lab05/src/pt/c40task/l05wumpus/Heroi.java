@@ -101,6 +101,15 @@ public class Heroi extends Componente {
 		else if (mov == 'k') {
 			if (this.getQtdFlecha() > 0) {
 				situacao = 1;
+				System.out.println("Você equipou a flecha!");
+			}else {
+				if(this.isEquipaFlecha()) {
+					System.out.println("Sua flecha já esta equipada");
+				}
+				else {
+					System.out.println("Você não tem flechas para equipar, cuidado com o wumpus");
+				}
+
 			}
 		}
 		return situacao;

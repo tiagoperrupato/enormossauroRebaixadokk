@@ -119,4 +119,12 @@ public class Toolkit {
          erro.printStackTrace();
       }
    }
+   public void stopInterativo() {
+	      try {
+	         caveStr.close();
+	         outputStr.close();
+	      } catch(Exception erro){
+	         erro.printStackTrace();
+	      }
+	   }
 }

@@ -16,6 +16,11 @@ public class Controle {
 	public char getStatus() {
 		return status;
 	}
+	
+
+	public int getScore() {
+		return score;
+	}
 
 	private boolean verificaComando(char comando) {
 		
