@@ -36,26 +36,27 @@ public class AppWumpus {
 	   
 	   Componente jogador=mt.getHeroi();
 	   Controle ctrl=new Controle(jogador, nomeJogador);
+	   Impressora imp=new Impressora(ctrl);
 	   
-	   boolean aux=true;
+	   boolean continuaJogo=true;
 	   char comando;
 	   String input;
-	   ctrl.imprimeCaverna();
+	   imp.imprimeCaverna();
 	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 	   
-	   while(aux && ctrl.getStatus() == 'P') {
+	   while(continuaJogo && ctrl.getStatus() == 'P') {
 		   input=keyboard.nextLine();
 		   if(!input.isEmpty()) {
 			   comando=input.charAt(0);
-			   aux=ctrl.executaComando(comando);
-			   ctrl.imprimeCaverna();
+			   continuaJogo=ctrl.executaComando(comando);
+			   imp.imprimeCaverna();
 			   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 		   }
 		   else {
 			   System.out.println("Tecla selecionada é inválida, selecione outra.");
 		   }
 	   }
-	   ctrl.imprimeEncerramento();
+	   imp.imprimeEncerramento();
 	   
 	   keyboard.close();
 	   tk.stopInterativo();
@@ -76,23 +77,24 @@ public class AppWumpus {
 	   String movements = tk.retrieveMovements();
 	   Componente jogador=mt.getHeroi();
 	   Controle ctrl=new Controle(jogador, "Alcebiades");
+	   Impressora imp =new Impressora(ctrl);
 	   
-	   boolean aux=true;
+	   boolean continuaJogo=true;
 	   char comando;
-	   ctrl.imprimeCaverna();
+	   imp.imprimeCaverna();
 	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 	   
-	   int acc=0;
-	   while(aux && ctrl.getStatus() == 'P' && acc<movements.length()) {
-		   
-		   comando=movements.charAt(acc);
-		   aux=ctrl.executaComando(comando);
-		   ctrl.imprimeCaverna();
+	   
+	   
+	   int movimentosFeitos=0;
+	   while(continuaJogo && ctrl.getStatus() == 'P' && movimentosFeitos<movements.length()) {
+		   comando=movements.charAt(movimentosFeitos);
+		   continuaJogo=ctrl.executaComando(comando);
+		   imp.imprimeCaverna();
 		   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
-		   acc++;
-
+		   movimentosFeitos++;
 	   }
-	   ctrl.imprimeEncerramento();
+	   imp.imprimeEncerramento();
 	   tk.stop();
    }
 

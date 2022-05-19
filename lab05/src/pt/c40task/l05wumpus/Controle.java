@@ -12,11 +12,14 @@ public class Controle {
 		this.nomeJogador = nomeJogador;
 		this.status = 'P';
 	}
-	
+
+	public String getNomeJogador() {
+		return nomeJogador;
+	}
+
 	public char getStatus() {
 		return status;
 	}
-	
 
 	public int getScore() {
 		return score;
