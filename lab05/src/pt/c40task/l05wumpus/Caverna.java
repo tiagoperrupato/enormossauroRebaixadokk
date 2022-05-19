@@ -17,7 +17,7 @@ public class Caverna {
 		for(int i=0; i<this.getQtdLinhas(); i++) {
 			for(int j=0; j<this.getQtdColunas(); j++) {
 				if(salas[i][j].getVisitada()==0) {
-					cp[i][j]='_';
+					cp[i][j]='-';
 				}
 				else {
 					cp[i][j]=salas[i][j].getTipoPrimeiroComponente();
@@ -47,12 +47,23 @@ public class Caverna {
 		for(int i=0; i<this.getQtdLinhas(); i++) {
 			for(int j=0; j<this.getQtdColunas(); j++) {
 				salas[i][j]=new Sala();
+				if(i==0 && j==0) {
+					salas[i][j].visitarSala(); // define a sala (0,0) como já visitada
+				}
 			}
 		}
 	}
+	private boolean verificaInsercao(int posLinha, int posColuna) {
+		if(posLinha<1 || posLinha>this.qtdLinhas || posColuna<1 || posColuna>this.qtdColunas) {
+			return false;
+		}
+		return true;
+	}
 	
 	public void insereComponente(Componente cp, int posLinha, int posColuna){
-		salas[posLinha-1][posColuna-1].insereComponente(cp, posLinha, posColuna);
+		if(verificaInsercao(posLinha,posColuna)) {
+			salas[posLinha-1][posColuna-1].insereComponente(cp, posLinha, posColuna);
+		}
 	}
 	
 	public void retiraComponente(Componente cp, int posLinha, int posColuna) {

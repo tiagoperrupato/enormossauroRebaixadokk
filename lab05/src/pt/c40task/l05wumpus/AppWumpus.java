@@ -39,7 +39,7 @@ public class AppWumpus {
 	   
 	   boolean aux=true;
 	   char comando;
-	   
+	   ctrl.imprimeCaverna();
 	   while(aux && ctrl.getStatus() == 'P') {
 		   comando=keyboard.nextLine().charAt(0);
 		   aux=ctrl.executaComando(comando);

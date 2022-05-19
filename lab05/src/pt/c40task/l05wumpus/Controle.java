@@ -115,7 +115,8 @@ public class Controle {
 	public void imprimeCaverna() {
 		char [][] caverna=getCharCaverna();
 		for(int i=0; i<caverna.length; i++) {
-				System.out.println(caverna[i]);	
+			System.out.println(caverna[i]);
+
 		}
 				
 		System.out.println("Player: "+this.nomeJogador);

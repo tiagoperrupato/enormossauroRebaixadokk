@@ -60,7 +60,10 @@ public class Montador {
 				cp1 = null;
 		}
 		if (cp1!=null)
-			this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
+			cp1.insere();
+			//this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
+			
+			
 	}
 	
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
