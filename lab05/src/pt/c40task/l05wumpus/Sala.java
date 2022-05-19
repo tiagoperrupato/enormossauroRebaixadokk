@@ -2,8 +2,7 @@ package pt.c40task.l05wumpus;
 import java.util.ArrayList;
 
 public class Sala {
-	//arrumar public
-	public ArrayList<Componente> listaComponentes;
+	private ArrayList<Componente> listaComponentes;
 	private int visitada;
 	
 	public Sala() {
