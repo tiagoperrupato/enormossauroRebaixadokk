@@ -7,11 +7,13 @@ public class AppWumpus {
    public static void main(String[] args) {
 	   File movements = new File(System.getProperty("user.dir") +
 			   "/src/pt/c40task/l05wumpus/movements.csv");
-	   if(!(movements.exists() && !movements.isDirectory())) {
+	   
+	   // caso não exista arquivo de movements, executa o jogo de modo interativo
+	   if(!(movements.exists() && !movements.isDirectory())) { 
 		   AppWumpus.executaJogoInterativo((args.length > 0) ? args[0] : null,
 				   (args.length > 1) ? args[1] : null);
 	   }
-	   else {
+	   else {	// executa com arquivo movements
        AppWumpus.executaJogo(
             (args.length > 0) ? args[0] : null,
             (args.length > 1) ? args[1] : null,
@@ -19,9 +21,11 @@ public class AppWumpus {
 	   }
    }
 	   
-   
+   // gerencia o jogo de modo interativo com o console
    public static void executaJogoInterativo(String arquivoCaverna, String arquivoSaida) {
+	   
 	   Toolkit tk= Toolkit.start(arquivoCaverna, arquivoSaida);
+	   
 	   //monta a caverna e faz verificação dela
 	   String cave[][] = tk.retrieveCave();
 	   Montador mt=new Montador(cave);
@@ -30,19 +34,25 @@ public class AppWumpus {
 	   if (verifica==false) {
 		   return;
 	   }
+	   
+	   // recebe nome do jogador
 	   Scanner keyboard=new Scanner(System.in);
 	   System.out.println("Digite o nome do jogador");
 	   String nomeJogador = keyboard.nextLine();
 	   
+	   // cria o componente herói
 	   Componente jogador=mt.getHeroi();
 	   Controle ctrl=new Controle(jogador, nomeJogador);
-	   Impressora imp=new Impressora(ctrl);
 	   
+	   // imprime estado inicial da caverna
+	   Impressora imp=new Impressora(ctrl);
+	   imp.imprimeCaverna();
+	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+	   
+	   // recebe os seguintes comandos do console e imprime os estados
 	   boolean continuaJogo=true;
 	   char comando;
 	   String input;
-	   imp.imprimeCaverna();
-	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 	   
 	   while(continuaJogo && ctrl.getStatus() == 'P') {
 		   input=keyboard.nextLine();
@@ -56,16 +66,20 @@ public class AppWumpus {
 			   System.out.println("Tecla selecionada é inválida, selecione outra.");
 		   }
 	   }
+	   // imprime mensagem final
 	   imp.imprimeEncerramento();
 	   
+	   // encerra o jogo
 	   keyboard.close();
 	   tk.stopInterativo();
    }
    
+   // executa o jogo lendo os comandos do arquivo de movements
    public static void executaJogo(String arquivoCaverna, String arquivoSaida,
                                   String arquivoMovimentos) {
       Toolkit tk = Toolkit.start(arquivoCaverna, arquivoSaida, arquivoMovimentos);
       
+      // constroi a caverna inicial
       String cave[][] = tk.retrieveCave();
       Montador mt=new Montador(cave);
 	   mt.constroi();
@@ -74,19 +88,19 @@ public class AppWumpus {
 		   return;
 	   }
 	   
+	   // recebe os comandos e imprime a caverna inicial
 	   String movements = tk.retrieveMovements();
 	   Componente jogador=mt.getHeroi();
 	   Controle ctrl=new Controle(jogador, "Alcebiades");
 	   Impressora imp =new Impressora(ctrl);
-	   
-	   boolean continuaJogo=true;
-	   char comando;
 	   imp.imprimeCaverna();
 	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 	   
-	   
-	   
+	   // lê os seguintes comandos vindos do movements.csv e imprime os estados
+	   boolean continuaJogo=true;
+	   char comando;	   
 	   int movimentosFeitos=0;
+	   
 	   while(continuaJogo && ctrl.getStatus() == 'P' && movimentosFeitos<movements.length()) {
 		   comando=movements.charAt(movimentosFeitos);
 		   continuaJogo=ctrl.executaComando(comando);
@@ -94,8 +108,11 @@ public class AppWumpus {
 		   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 		   movimentosFeitos++;
 	   }
+	   
+	   // imprime mensagem final
 	   imp.imprimeEncerramento();
+	   
+	   // encerra o jogo
 	   tk.stop();
    }
-
 }

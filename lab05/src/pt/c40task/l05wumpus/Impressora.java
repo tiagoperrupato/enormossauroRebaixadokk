@@ -1,5 +1,8 @@
 package pt.c40task.l05wumpus;
 
+/* classe extra para gerenciar as impressões dos estados 
+ * da caverna durante o jogo e algumas mensagens
+ */
 public class Impressora {
 	private Controle controle;
 	
@@ -7,6 +10,7 @@ public class Impressora {
 		this.controle=controle;
 	}
 	
+	// imprime o estado da caverna com algumas informações
 	public void imprimeCaverna() {
 		char[][] caverna=controle.getCharCaverna();
 		for(int i=0; i<caverna.length; i++) {
@@ -15,6 +19,8 @@ public class Impressora {
 		System.out.println("Player: "+ controle.getNomeJogador());
 		System.out.println("Score: "+ controle.getScore());
 	}
+	
+	// imprime uma mensagem de encerramento específica para o jogo dependendo da situação
 	public void imprimeEncerramento() {
 		if(controle.getStatus()=='W')
 			System.out.println("Você ganhou =D !!!"); 
@@ -23,6 +29,4 @@ public class Impressora {
 		else
 			System.out.println("Volte sempre !");
 	}
-	
-	
 }

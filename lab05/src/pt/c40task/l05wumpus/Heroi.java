@@ -33,18 +33,17 @@ public class Heroi extends Componente {
 			
 			// analisa se encontrou algum componente primário
 			tipoPrimario = this.getCaverna().getTipoPrimeiroComponente(this.getPosLinha(), this.getPosColuna());
-			if (tipoPrimario == 'O') {
+			if (tipoPrimario == 'O') {	// se encontrou Ouro
 				System.out.println("Você encontrou o Ouro!");
 				situacao = 1;
 			}
-			else if (tipoPrimario == 'W') {
+			else if (tipoPrimario == 'W') {		// se encontrou Wumpus
 				System.out.println("Você encontrou o Wumpus!");
 				if (this.isEquipaFlecha()) {
 					Random rand = new Random();
-					int matouWumpus = rand.nextInt(2); 				// sorteia número entre 0 e 1 (50% de chance para matar)
+					int matouWumpus = rand.nextInt(2); 	// sorteia número entre 0 e 1 (50% de chance para matar)
 					if (matouWumpus == 1) {
 						situacao = -1;
-						this.setMatouWumpus(true);
 						System.out.println("Você matou o Wumpus!");
 					}
 					else {
@@ -61,7 +60,7 @@ public class Heroi extends Componente {
 					return situacao;
 				}
 			}
-			else if (tipoPrimario == 'B') {
+			else if (tipoPrimario == 'B') {		// se encontrou Buraco
 				this.setVivo(false);
 				System.out.println("Você caiu no Buraco... =(");
 				situacao = 1;
@@ -116,7 +115,7 @@ public class Heroi extends Componente {
 	}
 	
 	/* executa o movimento designado pelo controle (o cliente ou arquivo .csv)
-	 * retorna true se matou o wumpus
+	 * retorna true se matou o Wumpus
 	 * retorna false se não matou
 	 */
 	public boolean executaMovimento(char mov) {
@@ -138,7 +137,7 @@ public class Heroi extends Componente {
 			this.setPosColuna(this.getPosColuna()-1);
 			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
-			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
+			situacao = this.verificaAcao(mov);
 		}
 		else if (mov == 's') {
 			//vai para trás
@@ -146,7 +145,7 @@ public class Heroi extends Componente {
 			this.setPosLinha(this.getPosLinha()+1);
 			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
-			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
+			situacao = this.verificaAcao(mov);
 		}
 		else if (mov == 'd') {
 			// vai para direita
@@ -154,11 +153,11 @@ public class Heroi extends Componente {
 			this.setPosColuna(this.getPosColuna()+1);
 			this.getCaverna().visitarSala(getPosLinha(), getPosColuna());
 			this.insere();
-			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
+			situacao = this.verificaAcao(mov);
 		}
 		else if (mov == 'k') {
 			// tenta equipar flecha
-			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
+			situacao = this.verificaAcao(mov);
 			if (situacao == 1) {	// analisa se pode equipar flecha
 				this.setEquipaFlecha(true);
 				this.setQtdFlecha(0);
@@ -166,7 +165,7 @@ public class Heroi extends Componente {
 		}
 		else if (mov == 'c') {
 			// tenta pegar o ouro
-			situacao = this.verificaAcao(mov);		// executa as analises que precisam ser feitas
+			situacao = this.verificaAcao(mov);
 			if (situacao == 1) {	// analisa se pode pegar ouro
 				this.setpegouOuro(true);
 				Componente ouro = this.getCaverna().getComponente('O', this.getPosLinha(), this.getPosColuna());
@@ -174,12 +173,17 @@ public class Heroi extends Componente {
 			}
 		}
 		
+		// casp tenha matado o Wumpus
 		if (situacao == -1)
 			matouWumpus = true;
 		
 		return matouWumpus;
 	}
 	
+	/* retorna um vetor com o tamanho da caverna
+	 * o primeiro valor é quantidade de linhas
+	 * o segundo o de colunas
+	 */
 	public int[] tamanhoCaverna() {
 		int tam[] = new int[2];
 		tam[0] = this.getCaverna().getQtdLinhas();
@@ -187,6 +191,7 @@ public class Heroi extends Componente {
 		return tam;
 	}
 	
+	// retorna uma matriz de caracteres com a situação da caverna no momento para o herói
 	public char[][] getCharCaverna(){
 		return this.getCaverna().getCharCaverna();
 	}

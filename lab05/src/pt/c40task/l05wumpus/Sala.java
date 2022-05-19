@@ -14,16 +14,19 @@ public class Sala {
 	public int getVisitada() {
 		return visitada;
 	}
-
+	
+	// identifica uma sala como visitada
 	public void visitarSala() {
 		this.visitada = 1;
 	}
-
+	
+	// insere um componente na sala
 	public void insereComponente(Componente cp, int posLinha, int posColuna) {
 		listaComponentes.add(cp);
 		elencarPrioridade();
 	}
 	
+	//busca na ArrayList o índice de um componente de um tipo especificado
 	private int buscaArraylist(char cp) {
 		int i=0;
 		
@@ -34,8 +37,11 @@ public class Sala {
 			i++;
 		}
 	return -1;
-	
 	}
+	
+	/* retorna um ponteiro para um componente de um tipo especificado
+	 * se não encontrar, retorna null
+	 */
 	public Componente getComponente(char cp) {
 		int index=buscaArraylist(cp);
 		if(index != -1) {
@@ -62,8 +68,10 @@ public class Sala {
 		return false;
 	}
 	
-	//metodo se baseia em que a caverna já foi verificada e não precisa se
-	//preocupar com invalidações
+	/* metodo pressupõe que a caverna já foi verificada e não precisa se preocupar com invalidações
+	 * organiza com base na prioridade de componentes
+	 * Ouro=Wumpus=Buraco>Herói>Fedor>Brisa
+	 */ 
 	private void elencarPrioridade() {
 		ArrayList<Componente> listaAtualizada = new ArrayList<Componente>();
 		int m =-1;
@@ -103,6 +111,7 @@ public class Sala {
 		listaComponentes=listaAtualizada;	
 	}
 	
+	// retira um determinado componente da sala
 	public void retiraComponente(Componente cp) {
 		char tipoComponente=cp.getTipo();
 		int i=0;
@@ -115,6 +124,7 @@ public class Sala {
 		listaComponentes.remove(i);
 	}
 	
+	// retorna o primeiro componente da sala
 	public Componente getPrimeiroComponente() {
 		if(listaComponentes.size()==0) {
 			return	null;
@@ -122,6 +132,7 @@ public class Sala {
 		return listaComponentes.get(0); 
 	}
 	
+	// retorna o tipo do primeiro componente da sala
 	public char getTipoPrimeiroComponente() {
 		Componente cp;
 		cp=this.getPrimeiroComponente();
@@ -130,5 +141,4 @@ public class Sala {
 		}
 		return cp.getTipo();
 	}
-
 }

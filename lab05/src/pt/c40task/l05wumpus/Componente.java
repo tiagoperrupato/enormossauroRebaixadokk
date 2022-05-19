@@ -4,11 +4,12 @@ package pt.c40task.l05wumpus;
 public class Componente {
 	
 	private int posLinha, posColuna, qtdFlecha;
-	private boolean pegouOuro, equipaFlecha, matouWumpus, vivo, soltouFlecha;
+	private boolean pegouOuro, equipaFlecha, vivo, soltouFlecha;
 	private char tipo;
 	
-	private Caverna caverna;	// ponteiro para a caverna
+	private Caverna caverna;
 	
+	// construtor base para todos os componentes que herdam a classe
 	public Componente(int posLinha, int posColuna, char tipo, Caverna caverna) {
 		this.posLinha = posLinha;
 		this.posColuna = posColuna;
@@ -17,7 +18,6 @@ public class Componente {
 		this.tipo = tipo;
 		this.pegouOuro = false;
 		this.equipaFlecha = false;
-		this.matouWumpus = false;
 		this.vivo = false;
 		this.soltouFlecha = false;
 	}
@@ -60,14 +60,6 @@ public class Componente {
 
 	public void setEquipaFlecha(boolean equipaFlecha) {
 		this.equipaFlecha = equipaFlecha;
-	}
-	
-	public boolean isMatouWumpus() {
-		return matouWumpus;
-	}
-
-	public void setMatouWumpus(boolean matouWumpus) {
-		this.matouWumpus = matouWumpus;
 	}
 	
 	public boolean isVivo() {

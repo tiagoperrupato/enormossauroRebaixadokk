@@ -25,6 +25,7 @@ public class Montador {
 		return caverna.getQtdColunas();
 	}
 	
+	// constrói a caverna inicial com base em uma entrada
 	public void constroi() {
 		Caverna cv;
 		int qtdLinhas=Integer.parseInt(this.montadorCaverna[this.montadorCaverna.length-1][0]);
@@ -41,6 +42,9 @@ public class Montador {
 		}
 	}
 	
+	/* cria um componente de um tipo especificado
+	 * se o tipo especificado na montagem não for válido, não insere nada
+	 */
 	private void criaComponente(char tipoComponente, int posLinha, int posColuna) {
 		Componente cp1;
 		switch (tipoComponente) {
@@ -60,17 +64,14 @@ public class Montador {
 				cp1 = null;
 		}
 		if (cp1!=null)
-			cp1.insere();
-			//this.caverna.insereComponente(cp1, posLinha, posColuna); //insere o componente na arraylist
-			
-			
+			cp1.insere();	
 	}
 	
+	// verifica se a construção está válida
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
 		boolean teste = this.caverna.verificaConstrucao(qtdLinhas, qtdColunas);
 		if(teste == false) {
-			System.out.println("Erro de contrução de caverna, por favor,"
-					+ "renicie o jogo");
+			System.out.println("Erro de contrução de caverna, por favor, reinicie o jogo");
 			return false;
 		}
 		return true;

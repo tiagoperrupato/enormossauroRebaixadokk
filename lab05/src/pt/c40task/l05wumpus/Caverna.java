@@ -12,6 +12,7 @@ public class Caverna {
 		ocupaCaverna();
 	}
 	
+	// retorna uma matriz de caracteres com a situação da caverna no momento
 	public char[][] getCharCaverna(){
 		char[][] cp= new char[this.getQtdLinhas()][this.getQtdColunas()];
 		for(int i=0; i<this.getQtdLinhas(); i++) {
@@ -28,6 +29,7 @@ public class Caverna {
 		return cp;
 	}
 	
+	// identifica uma sala como visitada pelo herói
 	public void visitarSala(int posLinha, int posColuna) {
 		if(salas[posLinha-1][posColuna-1].getVisitada()==0) {
 			salas[posLinha-1][posColuna-1].visitarSala();
@@ -42,7 +44,7 @@ public class Caverna {
 		return qtdColunas;
 	}
 	
-	//cria espaço na memoria para as salas
+	//cria espaço na memória para as salas
 	private void ocupaCaverna() {
 		for(int i=0; i<this.getQtdLinhas(); i++) {
 			for(int j=0; j<this.getQtdColunas(); j++) {
@@ -53,6 +55,8 @@ public class Caverna {
 			}
 		}
 	}
+	
+	// verifica se a posição pedida para inserir um componente é valida na caverna
 	private boolean verificaInsercao(int posLinha, int posColuna) {
 		if(posLinha<1 || posLinha>this.qtdLinhas || posColuna<1 || posColuna>this.qtdColunas) {
 			return false;
@@ -60,18 +64,21 @@ public class Caverna {
 		return true;
 	}
 	
+	// insere um componente em uma determinada posição da caverna
 	public void insereComponente(Componente cp, int posLinha, int posColuna){
 		if(verificaInsercao(posLinha,posColuna)) {
 			salas[posLinha-1][posColuna-1].insereComponente(cp, posLinha, posColuna);
 		}
 	}
 	
+	// retira um componente de uma determinada posição da caverna
 	public void retiraComponente(Componente cp, int posLinha, int posColuna) {
 		salas[posLinha-1][posColuna-1].retiraComponente(cp);
 	}
 	
+	// verifica se a construção da caverna inicial está correta
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
-		if(salas[0][0].getTipoPrimeiroComponente()!='P') {
+		if(salas[0][0].getTipoPrimeiroComponente()!='P') {	//primeiro elemento na primera sala precisa ser o herói
 			System.out.println("Erro: Jogador não esta na sala (1,1)");
 			return false;
 		}
@@ -107,23 +114,27 @@ public class Caverna {
 				}
 			}
 		}
-				
+		
+		// verifica se as restrições de quantidade de componentes está respeitada
 		if((buracos!=2 && buracos!=3) || wumpus!=1 || ouro !=1 || heroi !=1) {
-			System.out.println("Erro: há uma qunatidade maior/menor de componentes no jogo");
+			System.out.println("Erro: há uma quantidade maior/menor de componentes no jogo");
 			return false;
 		}
 	return true;
 	
 	}
 	
+	// retorna um ponteiro para o primeiro componente de uma sala (em prioridade máxima)
 	public Componente getPrimeiroComponente(int posLinha, int posColuna) {
 		return salas[posLinha-1][posColuna-1].getPrimeiroComponente();
 	}
 	
+	// retorna o tipo do primeiro componente de uma sala
 	public char getTipoPrimeiroComponente(int posLinha, int posColuna) {
 		return salas[posLinha-1][posColuna-1].getTipoPrimeiroComponente();
 	}
 	
+	// retorna um ponteiro para um componente de um tipo específico em uma determinada sala
 	public Componente getComponente(char cp, int posLinha, int posColuna) {
 		return salas[posLinha-1][posColuna-1].getComponente(cp);
 	}
