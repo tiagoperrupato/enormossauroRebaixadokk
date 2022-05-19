@@ -44,6 +44,8 @@ public class Heroi extends Componente {
 					int matouWumpus = rand.nextInt(2); 	// sorteia número entre 0 e 1 (50% de chance para matar)
 					if (matouWumpus == 1) {
 						situacao = -1;
+						//remove o wumpus da caverna
+						this.getCaverna().getComponente('W', this.getPosLinha(), this.getPosColuna()).remove();
 						System.out.println("Você matou o Wumpus!");
 					}
 					else {
