@@ -21,8 +21,16 @@ public class Controle {
 		return status;
 	}
 
+	public void setStatus(char status) {
+		this.status = status;
+	}
+
 	public int getScore() {
 		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	private boolean verificaComando(char comando) {
@@ -72,6 +80,16 @@ public class Controle {
 		}
 		
 		return verif;
+	}
+	
+	public boolean verificaEstadoInicial() {
+		if(this.jogador.verificaEstadoInicial()) {
+			return true;
+		}else {
+			this.setStatus('L');
+			this.setScore(this.getScore()-1000);
+			return false;
+		}
 	}
 	
 	/* retorna false se jogador pediu para sair do jogo

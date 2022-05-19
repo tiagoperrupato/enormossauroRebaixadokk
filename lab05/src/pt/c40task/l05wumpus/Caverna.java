@@ -1,5 +1,6 @@
 package pt.c40task.l05wumpus;
 
+
 public class Caverna {
 	private Sala[][] salas;
 	private int qtdLinhas;
@@ -78,7 +79,7 @@ public class Caverna {
 	
 	// verifica se a construção da caverna inicial está correta
 	public boolean verificaConstrucao(int qtdLinhas, int qtdColunas) {
-		if(salas[0][0].getTipoPrimeiroComponente()!='P') {	//primeiro elemento na primera sala precisa ser o herói
+		if(salas[0][0].getComponente('P')==null) {	//primeiro elemento na primera sala precisa ser o herói
 			System.out.println("Erro: Jogador não esta na sala (1,1)");
 			return false;
 		}
@@ -87,6 +88,8 @@ public class Caverna {
 		int wumpus=0;
 		int ouro=0;
 		int heroi=0;
+		int qtdComponentesSala;
+		char tipoComponente;
 		
 		for(int i=0; i<qtdLinhas; i++) {
 			for(int j=0; j<qtdColunas; j++) {
@@ -98,20 +101,25 @@ public class Caverna {
 				}
 				
 				//faz a contagem dos elementos que são limitados 
-				switch (salas[i][j].getTipoPrimeiroComponente()) {
-				case 'W':
-					wumpus++;
-					break;
-				case 'B':
-					buracos++;
-					break;
-				case 'O':
-					ouro++;
-					break;
-				case 'P':
-					heroi++;
-					break;
+				qtdComponentesSala=salas[i][j].getListaComponentes().size();
+				for(int k=0; k<qtdComponentesSala; k++) {
+					tipoComponente=salas[i][j].getListaComponentes().get(k).getTipo();
+					switch (tipoComponente) {
+					case 'W':
+						wumpus++;
+						break;
+					case 'B':
+						buracos++;
+						break;
+					case 'O':
+						ouro++;
+						break;
+					case 'P':
+						heroi++;
+						break;
+					}
 				}
+				
 			}
 		}
 		

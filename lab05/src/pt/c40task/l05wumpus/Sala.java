@@ -10,6 +10,10 @@ public class Sala {
 		this.visitada=0;
 	}
 	
+	public ArrayList<Componente> getListaComponentes() {
+		return listaComponentes;
+	}
+
 	public int getVisitada() {
 		return visitada;
 	}

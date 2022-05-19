@@ -46,26 +46,31 @@ public class AppWumpus {
 	   
 	   // imprime estado inicial da caverna
 	   Impressora imp=new Impressora(ctrl);
-	   imp.imprimeCaverna();
-	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
 	   
 	   // recebe os seguintes comandos do console e imprime os estados
 	   boolean continuaJogo=true;
 	   char comando;
 	   String input;
 	   
-	   while(continuaJogo && ctrl.getStatus() == 'P') {
-		   input=keyboard.nextLine();
-		   if(!input.isEmpty()) {
-			   comando=input.charAt(0);
-			   continuaJogo=ctrl.executaComando(comando);
-			   imp.imprimeCaverna();
-			   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
-		   }
-		   else {
-			   System.out.println("Tecla selecionada é inválida, selecione outra.");
+	   //verifica se a sala (1,1) tem outros componentes alem do heroi
+	   boolean salaLimpa=ctrl.verificaEstadoInicial();
+	   imp.imprimeCaverna();
+	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+	   if(salaLimpa) {
+		   while(continuaJogo && ctrl.getStatus() == 'P') {
+			   input=keyboard.nextLine();
+			   if(!input.isEmpty()) {
+				   comando=input.charAt(0);
+				   continuaJogo=ctrl.executaComando(comando);
+				   imp.imprimeCaverna();
+				   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+			   }
+			   else {
+				   System.out.println("Tecla selecionada é inválida, selecione outra.");
+			   }
 		   }
 	   }
+	   
 	   // imprime mensagem final
 	   imp.imprimeEncerramento();
 	   
@@ -93,22 +98,27 @@ public class AppWumpus {
 	   Componente jogador=mt.getHeroi();
 	   Controle ctrl=new Controle(jogador, "Alcebiades");
 	   Impressora imp =new Impressora(ctrl);
-	   imp.imprimeCaverna();
-	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+
+	   
 	   
 	   // lê os seguintes comandos vindos do movements.csv e imprime os estados
 	   boolean continuaJogo=true;
 	   char comando;	   
 	   int movimentosFeitos=0;
 	   
-	   while(continuaJogo && ctrl.getStatus() == 'P' && movimentosFeitos<movements.length()) {
-		   comando=movements.charAt(movimentosFeitos);
-		   continuaJogo=ctrl.executaComando(comando);
-		   imp.imprimeCaverna();
-		   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
-		   movimentosFeitos++;
-	   }
 	   
+	   boolean salaLimpa=ctrl.verificaEstadoInicial();
+	   imp.imprimeCaverna();
+	   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+	   if(salaLimpa) {
+		   while(continuaJogo && ctrl.getStatus() == 'P' && movimentosFeitos<movements.length()) {
+			   comando=movements.charAt(movimentosFeitos);
+			   continuaJogo=ctrl.executaComando(comando);
+			   imp.imprimeCaverna();
+			   tk.writeBoard(ctrl.getCharCaverna(), ctrl.getScore(), ctrl.getStatus());
+			   movimentosFeitos++;
+		   }
+	   }
 	   // imprime mensagem final
 	   imp.imprimeEncerramento();
 	   

@@ -107,4 +107,8 @@ public class Componente {
 	public char[][] getCharCaverna(){
 		return null;
 	}
+	
+	public boolean verificaEstadoInicial() {
+		return false;
+	}
 }

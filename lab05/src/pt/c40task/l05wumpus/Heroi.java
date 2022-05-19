@@ -195,4 +195,29 @@ public class Heroi extends Componente {
 	public char[][] getCharCaverna(){
 		return this.getCaverna().getCharCaverna();
 	}
+	
+	public boolean verificaEstadoInicial() {
+		char tipoPrimeiroComponente=this.getCaverna().getTipoPrimeiroComponente(this.getPosLinha(), this.getPosColuna());
+		Componente temFedor = this.getCaverna().getComponente('f', this.getPosLinha(), this.getPosColuna());
+		Componente temBrisa= this.getCaverna().getComponente('b', this.getPosLinha(), this.getPosColuna());
+		if(tipoPrimeiroComponente == 'W'){
+			this.setVivo(false);
+			System.out.println("Você morreu para o Wumpus... =( - má sorte");
+			return false;
+		}
+		else if(tipoPrimeiroComponente == 'B') {
+			this.setVivo(false);
+			System.out.println("Você caiu no Buraco... =( - má sorte");
+			return false;
+		}
+		if (temBrisa != null)
+			System.out.println("Você encontrou uma brisa!");
+		if (temFedor != null)
+			System.out.println("Você encontrou um fedor!");
+		return true;
+	}
 }
+
+
+
+
