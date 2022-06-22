@@ -1,4 +1,4 @@
-import controller.Builder;
+import controller.builder.Builder;
 
 public class AppBen10 {
 	public static void main(String args[]) {

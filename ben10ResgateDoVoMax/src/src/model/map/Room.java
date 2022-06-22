@@ -1,4 +1,4 @@
-package model;
+package model.map;
 
 public class Room {
 	private Cell[][] cells;

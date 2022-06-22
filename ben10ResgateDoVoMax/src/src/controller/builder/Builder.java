@@ -1,7 +1,7 @@
-package controller;
+package controller.builder;
 import java.util.ArrayList;
 
-import model.Room;
+import model.map.Room;
 
 public class Builder implements IRBuildMap, IRBuildControl{
 	private String[][] roomBuilder;
