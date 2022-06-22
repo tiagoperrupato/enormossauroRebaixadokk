@@ -11,35 +11,35 @@ public class Toolkit {
    
    private static Toolkit tk;
    
-   private BufferedReader caveStr;
+   private BufferedReader roomStr;
    
    private boolean firstBoard = true;
    
-   public static Toolkit start(String cavePath) {
+   public static Toolkit start(String roomPath) {
 	   tk = new Toolkit();
 	   System.out.println(DIRETORIO);
-	      String caveFile = (cavePath == null)
-	            ? DIRETORIO + "room.csv" : cavePath;
-	      System.out.println("files - cave: " + caveFile);
+	      String roomFile = (roomPath == null)
+	            ? DIRETORIO + "room.csv" : roomPath;
+	      System.out.println("files - room: " + roomFile);
 	      try {
-	         tk.caveStr = new BufferedReader(
-	               new FileReader(caveFile));
+	         tk.roomStr = new BufferedReader(
+	               new FileReader(roomFile));
 	      } catch(IOException erro){
 	         erro.printStackTrace();
 	      }
 	      return tk;
    }
    
-   public String[][] retrieveCave() {
+   public String[][] retrieveroom() {
       Vector<String[]> v = new Vector<String[]>();
       try {
-         String line = caveStr.readLine();
+         String line = roomStr.readLine();
          while (line != null) {
             String ln[]  = line.split(",");
             v.add(ln);
-            line = caveStr.readLine();
+            line = roomStr.readLine();
          }
-         caveStr.close();
+         roomStr.close();
       } catch (Exception erro) {
          erro.printStackTrace();
       }
@@ -49,7 +49,7 @@ public class Toolkit {
    
    public void stop() {
       try {
-         caveStr.close();
+         roomStr.close();
       } catch(Exception erro){
          erro.printStackTrace();
       }
