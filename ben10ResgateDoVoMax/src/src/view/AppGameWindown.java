@@ -12,7 +12,7 @@ public class AppGameWindown {
 				cells[i][j]=new Cell();
 			}
 		}
-		new BasicWindownGame(cells);
+		new GUI(cells);
 
 	}
 
