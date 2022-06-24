@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-
 import model.map.Cell;
 
 import java.awt.*;
@@ -16,6 +15,7 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 	
 
 	public BasicWindownGame(Cell cells[][]) {
+
 		super("Ben10 - Resgate do Vô Max");
 		setSize(720, 720);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -24,6 +24,8 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		backContent.setLayout(new BorderLayout());
 		this.arr= new JLabel[9][14];
 		this.vector=new JPanel[9];
+    
+
 
 		addGridMap(backContent, cells);
 		addControlButtons(backContent);
@@ -75,6 +77,7 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		moves.setLayout(new BorderLayout());
 		moves.setPreferredSize(new Dimension(240,150));
 
+
 		JButton forward = new JButton("Forward");
 		forward.setPreferredSize(new Dimension(80, 50));
 
@@ -90,7 +93,9 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		
 		JButton rightward = new JButton("Rightward");
 		rightward.setPreferredSize(new Dimension(80, 50));
+
 		//rightward.addActionListener(buttons);
+
 		moves.add(rightward, BorderLayout.EAST);
 		
 		JButton attack = new JButton("Attack");
@@ -119,6 +124,7 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		diamond.setPreferredSize(new Dimension(80, 55));
 		transformPanel.add(diamond);
 		
+
 		// Adiciona o actionListener com comparação de botões para detectar qual movimento foi feito
 		ActionListener buttons = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,6 +168,7 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		ImageIcon icon = new ImageIcon(getIMG(image));
 	    Image img = icon.getImage() ;  
 	    Image newimg = img.getScaledInstance( imageWidth, imageHeight, Image.SCALE_SMOOTH ) ;  
+
 	    icon = new ImageIcon(newimg);
 		return icon;
 	}

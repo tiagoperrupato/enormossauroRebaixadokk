@@ -1,61 +1,75 @@
 package controller.builder;
-import java.util.ArrayList;
+import model.map.*;
+import model.actors.*;
 
-import model.map.Room;
-
-public class Builder implements IRBuildMap, IRBuildControl{
+public class Builder {
 	private String[][] roomBuilder;
-	private IBuildMap Map;
+	private IRoom room;
 
 	
 	public Builder() {
-		this.roomBuilder=null;
+		this.roomBuilder = null;
+		this.room = null;
 	}
 	
+	
+	public void buildMap(String[][] roomBuilder) {
+		
+		int qtyRows = Integer.parseInt(roomBuilder[roomBuilder.length-1][0]);
+		int qtyColumns = Integer.parseInt(roomBuilder[roomBuilder.length-1][1]);
+		IRoom room = new Room(qtyRows, qtyColumns);
+		this.room = room;
+		room.buildCells();
+	}
+	
+	
 	public void startGame() {
-		String roomStr=null;
+		
+		String roomStr = null;
 		Toolkit tk= Toolkit.start(roomStr);
+		
 		 //monta a caverna e faz verificação dela
 		String roomBuilder[][] = tk.retrieveroom();
 		
-		buildMap(roomBuilder){
+		this.buildMap(roomBuilder);
+		this.buildActors(roomBuilder);
+	}
+		
+	
+	public void createActor(int posX, int posY, String actorType) {
+		
+		Actor comp;
+		switch (actorType) {
+		case "B":
+			comp = new Ben10(posX, posY, actorType);
+			break;
 			
+		case "NE":
+			comp = new NearEnemy(posX, posY, actorType);
+			break;
+			
+		default:
+			return;
 		}
 		
+		comp.connect(this.room);
+		comp.insert();
 	}
 	
-	private Room buildMap(String[][] roomBuilder) {
-		int qtyRows=Integer.parseInt(this.roomBuilder[this.roomBuilder.length-1][0]);
-		int qtyColumns=Integer.parseInt(this.roomBuilder[this.roomBuilder.length-1][1]);
-		Cell cells=new Cell[qtyRows][qtyColumns];
-		for(int i = 0; i<this.roomBuilder.length; i++) {
-			int rowPos=Integer.parseInt(this.roomBuilder[i][0]);
-			int columnPos=Integer.parseInt(this.roomBuilder[i][1]);
-			String actorType=this.roomBuilder[i][2]; 
-			cells[rowPos][columnPos]= buildActor(actorType, rowPos, columnPos);
-	}
-		connect(new Room(cells);
-	}
-	private Actor buildActor(String actorType, int rowPos, int columnPos) {
-		switch (actorType) {
-			case "B":
-				Ben10 ben = new Ben10(rowPos, columnPos);
-				return ben;
-				break;
-				
-			case "NE":
-				NearEnemy ne= new NearEnemy(rowPos, columnPos);
-				return ne;
-				break;
-			default:
-				return null;	
-		}		
-	}
 	
-	private 
 	
-	public void connect() {
+	public void buildActors(String[][] roomBuilder) {
 		
+		int posX, posY;
+		String actorType;
+		
+		for (int i = 0; i < roomBuilder.length; i++) {
+			posX = Integer.parseInt(roomBuilder[i][0]);
+			posY = Integer.parseInt(roomBuilder[i][1]);
+			actorType = roomBuilder[i][2];
+			this.createActor(posX, posY, actorType);
+		}		
+
 	}
 	
 	
