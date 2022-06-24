@@ -1,13 +1,16 @@
 package model.map;
+
 import model.actors.*;
 
 public class Room implements IRoom {
 	
+
 	private Cell[][] cells;
 	private int qtyRows;
 	private int qtyColumns;
 	
 	public Room(int qtyRows, int qtyColumns) {
+
 		this.qtyRows = qtyRows;
 		this.qtyColumns = qtyColumns;
 		this.cells = new Cell[qtyRows][qtyColumns];

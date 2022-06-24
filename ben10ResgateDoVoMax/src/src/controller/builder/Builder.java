@@ -69,6 +69,7 @@ public class Builder {
 			actorType = roomBuilder[i][2];
 			this.createActor(posX, posY, actorType);
 		}		
+
 	}
 	
 	
