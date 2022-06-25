@@ -1,5 +1,6 @@
 package model.actors;
 
 public interface IModelCommand {
-	public void executeCommand(char command);
+	
+	public void executeCommand(String command);	
 }

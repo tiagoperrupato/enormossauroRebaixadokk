@@ -7,14 +7,12 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 public class Toolkit {
-   public static String DIRETORIO = System.getProperty("user.dir") +
-		                            "/src/";
-   
+   public static String DIRETORIO = System.getProperty("user.dir") + "/src/";
    private static Toolkit tk;
-   
    private BufferedReader roomStr;
-   
    private boolean firstBoard = true;
+   
+   
    
    public static Toolkit start(String roomPath) {
 	   tk = new Toolkit();
@@ -51,7 +49,7 @@ public class Toolkit {
    public void stop() {
       try {
          roomStr.close();
-      } catch(Exception erro){
+      } catch(Exception erro) {
          erro.printStackTrace();
       }
    }

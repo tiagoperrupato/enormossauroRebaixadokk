@@ -1,5 +1,5 @@
 package model.actors;
 
-public interface ILaserShot {
+public interface ILaserShot extends DynamicActor {
 
 }
