@@ -63,7 +63,7 @@ public class Builder {
 	}
 	
 	
-	public void connectActorAndController(DynamicActor actor, Clock clock) {
+	public void connectActorAndClock(DynamicActor actor, Clock clock) {
 		
 		actor.connect(clock);
 		clock.connect(actor);
@@ -96,7 +96,7 @@ public class Builder {
 		this.insertActorInMap(obj);
 		
 		if ((obj instanceof DynamicActor)) {
-			this.connectActorAndController((DynamicActor) obj, this.clock);
+			this.connectActorAndClock((DynamicActor) obj, this.clock);
 			if ((obj instanceof IModelCommand))
 				this.connectHeroAndControlCommand(this.command, (IModelCommand) obj);
 		}

@@ -17,6 +17,16 @@ public class Room implements IRoom {
 	}
 	
 	
+	public int getQtyRows() {
+		return qtyRows;
+	}
+
+
+	public int getQtyColumns() {
+		return qtyColumns;
+	}
+
+
 	public void buildCells() {
 		
 		for (int i = 0; i < this.qtyRows; i++) {

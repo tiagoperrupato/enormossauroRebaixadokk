@@ -46,6 +46,11 @@ public class Actor implements IRRoom, IActor {
 	}
 	
 	
+	public IRoom getRoom() {
+		return room;
+	}
+
+
 	public void connect(IRoom room) {
 		this.room = room;
 	}
