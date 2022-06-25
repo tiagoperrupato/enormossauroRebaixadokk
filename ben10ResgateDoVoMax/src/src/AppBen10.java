@@ -16,7 +16,6 @@ public class AppBen10 {
 		builder.startGame();
 		
 		Clock clock = builder.getClock();
-		ControlCommand ctrlCommand = builder.getCommand();
 		
 	}
 
