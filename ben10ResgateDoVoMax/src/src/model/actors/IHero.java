@@ -1,5 +1,5 @@
 package model.actors;
 
-public interface IHero extends MovementStrategy, ICommand{
+public interface IHero extends MovementStrategy, IModelCommand{
 
 }
