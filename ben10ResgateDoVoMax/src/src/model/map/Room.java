@@ -27,6 +27,11 @@ public class Room implements IRoom {
 	}
 
 
+	public Cell[][] getCells() {
+		return cells;
+	}
+
+
 	public void buildCells() {
 		
 		for (int i = 0; i < this.qtyRows; i++) {

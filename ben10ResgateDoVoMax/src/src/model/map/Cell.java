@@ -13,32 +13,30 @@ public class Cell {
 	private JLabel cellLabel;
 	
 	
-	public Cell(String arrID) {
+	public Cell() {
 		
 		this.actors = new ArrayList<IActor>();
-		this.cellLabel=buildCellLabel(arrID);
+		this.cellLabel=new JLabel();
+		this.cellLabel.setPreferredSize(new Dimension(53,52));
 		
 	}
 	
-	public JLabel buildCellLabel(String arrID) {
-		
-		JLabel cellLabel=new JLabel();
-		cellLabel.setPreferredSize(new Dimension(53,52));	// pensar em um jeito de passar a referencia do tamanho do mapa
+	public void changeCellImage(String actorType) {
+
+		this.cellLabel.setPreferredSize(new Dimension(53,52));	// pensar em um jeito de passar a referencia do tamanho do mapa
 		String DIRETORIO = GUI.class.getResource(".").getPath();
 		DIRETORIO=DIRETORIO + "/images/";
-		switch(arrID) {
-			case "_":
-				cellLabel.setIcon(new ImageIcon(DIRETORIO + "floor.png"));
-				break;
+		switch(actorType) {
 			case "B10":
-				cellLabel.setIcon(new ImageIcon(DIRETORIO + "ben10.png"));
+				this.cellLabel.setIcon(new ImageIcon(DIRETORIO + "ben10.png"));
+				break;
+			case "NE":
+				this.cellLabel.setIcon(new ImageIcon(DIRETORIO + "nearenemy"));
 				break;
 			case "SW":
-				cellLabel.setIcon(new ImageIcon(DIRETORIO + "steelwall.png"));
+				this.cellLabel.setIcon(new ImageIcon(DIRETORIO + "steelwall.png"));
 				break;
 		}
-			
-		return cellLabel;
 	}
 	
 	
@@ -51,6 +49,10 @@ public class Cell {
 	public void insertActor(IActor actor) {
 		
 		this.actors.add(actor);
+		/*adicionar verificacao para caso houver mais de 
+		um ator ele discernir qual imagem deve colocar*/
+		changeCellImage(actor.getTypeActor());
+		
 	}
 	
 	
