@@ -1,8 +1,9 @@
 package view;
 
 import javax.swing.*;
-import model.map.Cell;
 
+import controller.control.IViewCommand;
+import model.map.Cell;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 	private static final long serialVersionUID = -377887641520288908L;
 	JLabel[][] arr =null;
 	JPanel[] vector=null;
-	IViewCommand commandCenter;
+	IViewCommand commandControl;
 	
 
 	public BasicWindownGame(Cell cells[][]) {
@@ -155,12 +156,12 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		back.add(controlPanel, BorderLayout.WEST);
 	}
 	
-	public void connect(IViewCommand commandCenter){
-		this.commandCenter=commandCenter
+	public void connect(IViewCommand commandControl){
+		this.commandControl=commandControl;
 	}
 	
 	public void viewAction(String button) {
-		this.commandCenter.modelAction(button);
+		this.commandControl.modelAction(button);
 	}
 	
 	// pega a imagem de um diretório, ajusta ela para o tamanho desejado e retorna o ImageIcon
@@ -180,6 +181,9 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 	    img=DIRETORIO + image;
 	    return img;
 	}
-	
+
+
+
+
 
 }

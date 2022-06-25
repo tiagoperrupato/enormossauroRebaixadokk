@@ -1,9 +1,11 @@
 package model.map;
+
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import model.actors.*;
+import view.*;
 
 public class Cell {
 	
@@ -11,20 +13,31 @@ public class Cell {
 	private JLabel cellLabel;
 	
 	
-	public Cell() {
+	public Cell(String arrID) {
 		
 		this.actors = new ArrayList<IActor>();
-		this.cellLabel=buildCellLabel();
+		this.cellLabel=buildCellLabel(arrID);
 		
 	}
 	
-	//mudar para o builder posteriormente
-	public JLabel buildCellLabel() {
+	public JLabel buildCellLabel(String arrID) {
 		
 		JLabel cellLabel=new JLabel();
 		cellLabel.setPreferredSize(new Dimension(53,52));	// pensar em um jeito de passar a referencia do tamanho do mapa
-		// pensar em um jeito de n ficar o caminho todo do seu pc, somente a partir do template do trabalho
-		cellLabel.setIcon(new ImageIcon("/home/mendes/Documents/MC322/enormossauroRebaixadokk/ben10ResgateDoVoMax/src/src/view/images/floor.png"));
+		String DIRETORIO = GUI.class.getResource(".").getPath();
+		DIRETORIO=DIRETORIO + "/images/";
+		switch(arrID) {
+			case "_":
+				cellLabel.setIcon(new ImageIcon(DIRETORIO + "floor.png"));
+				break;
+			case "B10":
+				cellLabel.setIcon(new ImageIcon(DIRETORIO + "ben10.png"));
+				break;
+			case "SW":
+				cellLabel.setIcon(new ImageIcon(DIRETORIO + "steelwall.png"));
+				break;
+		}
+			
 		return cellLabel;
 	}
 	
