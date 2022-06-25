@@ -14,10 +14,10 @@ public class ControlCommand implements IRModelCommand, IViewCommand{
 		this.hero=hero;
 	}
 	
+	
 	@Override
 	public void modelAction(String actionType) {
 		
-		hero.executeCommand(actionType);
+		this.hero.executeCommand(actionType);
 	}
-
 }

@@ -59,4 +59,56 @@ public class Hero extends Actor implements IHero {
 	
 	
 	public void update() {}
+	
+	
+	public boolean verifyMovement(String actionType) {
+		
+		boolean actionStatus = false;
+		int pos;
+		
+		switch (actionType) {
+		case "forward":
+			pos = this.getPosY();
+			if (pos > 0)
+				actionStatus = true;
+			break;
+			
+		case "left":
+			pos = this.getPosX();
+			if (pos > 0)
+				actionStatus = true;
+			break;
+		case "backward":
+			pos = this.getPosY();
+			if (pos+1 < this.getRoom().getQtyRows())
+				actionStatus = true;
+			break;
+			
+		case "right":
+			pos = this.getPosX();
+			if (pos+1 < this.getRoom().getQtyColumns())
+				actionStatus = true;
+			break;
+			
+		default:
+			return actionStatus;
+		}
+		
+		return actionStatus;
+	}
+	
+	
+	public boolean verifyHeroAction(String actionType) {
+		
+		boolean actionStatus = false;
+		String dir[] = {"forward", "left", "backward", "right"};
+		
+		for (String i: dir)
+			if (i.equals(actionType))
+				actionStatus = this.verifyMovement(actionType);
+		
+		if (true);
+		
+		return actionStatus;
+	}
 }
