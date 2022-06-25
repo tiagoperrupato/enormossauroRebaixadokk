@@ -1,13 +1,20 @@
 package controller.control;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class ControlCommand implements IGiveCommand, IRReceiveCommand, ActionListener {
-
+public class ControlCommand implements IRModelCommand, IViewCommand{
+	
+	private IModelCommand hero;
+	
+	public ControlCommand(){
+		
+	}
+	
+	public void connect(IModelCommand hero) {
+		this.hero=hero;
+	}
+	
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void modelAction(String actionType) {
+		hero.action(actionType);
 		
 	}
 
