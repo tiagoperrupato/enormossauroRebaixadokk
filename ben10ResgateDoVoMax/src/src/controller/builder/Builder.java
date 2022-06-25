@@ -1,5 +1,6 @@
 package controller.builder;
 import model.map.*;
+import view.BasicWindownGame;
 import controller.control.*;
 import model.actors.*;
 
@@ -8,6 +9,7 @@ public class Builder {
 	private IRoom room;
 	private Clock clock;
 	private ControlCommand command;
+	
 
 	public Builder() {
 		
@@ -66,7 +68,7 @@ public class Builder {
 	public void connectActorAndClock(DynamicActor actor, Clock clock) {
 		
 		actor.connect(clock);
-		clock.connect(actor);
+		//clock.connect(actor);
 	}
 	
 	
@@ -81,13 +83,18 @@ public class Builder {
 		IActor obj;
 		
 		switch (actorType) {
-		case "B":
+		case "B10":
 			obj = new Ben10(posX, posY, actorType);
 			break;
 			
 		case "NE":
 			obj = new NearEnemy(posX, posY, actorType);
 			break;
+			
+		//case "SW":
+			//obj = new SteelWall(posX, posY, actorType);
+			//break;
+			
 			
 		default:
 			return;
@@ -113,13 +120,14 @@ public class Builder {
 			posY = Integer.parseInt(roomBuilder[i][1]);
 			actorType = roomBuilder[i][2];
 			if (!actorType.equals("_"))
-				this.createActor(posX, posY, actorType);
+				this.createActor(posX-1, posY-1, actorType);
 		}		
 	}
 	
 	
-	public void buildView() {
-		// implementar a construção do View
+	public void buildView(Cell cells[][]) {
+		BasicWindownGame gui= new BasicWindownGame(cells);
+		gui.connect(this.command);
 	}
 	
 	
@@ -134,7 +142,7 @@ public class Builder {
 		this.buildController();
 		this.buildMap(roomBuilder);
 		this.buildActors(roomBuilder);
-		this.buildView();
+		this.buildView(this.room.getCells());
 	}
 	
 	

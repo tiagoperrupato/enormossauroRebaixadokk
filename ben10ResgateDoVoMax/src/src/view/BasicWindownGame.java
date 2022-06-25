@@ -25,15 +25,12 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 		backContent.setLayout(new BorderLayout());
 		this.arr= new JLabel[9][14];
 		this.vector=new JPanel[9];
-    
-
-
 		addGridMap(backContent, cells);
 		addControlButtons(backContent);
 		setVisible(true);
 		//addTextArea
 
-		this.arr[0][0].setIcon(createAndResize("ben10.png", 53 , 52));
+		//this.arr[0][0].setIcon(createAndResize("ben10.png", 53 , 52));
 	}
 	public void addGridMap(Container back, Cell cells[][]) {
 		JPanel gridMap = new JPanel();
@@ -132,8 +129,8 @@ public class BasicWindownGame extends JFrame implements IRViewCommand{
 				JButton commandType = (JButton)e.getSource();
 				if(commandType==forward) {viewAction("forward");System.out.println("foi para frente");}
 				else if(commandType==backward) {viewAction("backward");System.out.println("foi para tras");}
-				else if(commandType==leftward) {viewAction("leftward");System.out.println("foi para esquerda");}
-				else if(commandType==rightward) {viewAction("rightward");System.out.println("foi para direita");}
+				else if(commandType==leftward) {viewAction("left");System.out.println("foi para esquerda");}
+				else if(commandType==rightward) {viewAction("right");System.out.println("foi para direita");}
 				else if(commandType==attack) {viewAction("attack");System.out.println("você atacou");}
 				else if(commandType==ben) {viewAction("ben10");System.out.println("você se transformou no ben");}
 				else if(commandType==fourArms) {viewAction("fourArms");System.out.println("você se transformou no fourarms");}
