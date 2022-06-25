@@ -35,26 +35,38 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
-	public void executeCommand(String command) {
-		
-		String dir[] = {"forward", "left", "backward", "right"};
-		for(String i: dir) {
-			if (i.equals(command)) {
-				this.move(command);
-			}
-		}
-		
-		if (command.equals("f")) {
-			this.attack();
-		}
-	}
-	
-	
 	public void attack() {}
 	
 	
 	public void move(String direction) {
-		// implemenar movimento do heroi
+		switch (direction) {
+		case "forward":
+			this.remove();
+			this.setPosY(this.getPosY()-1);
+			this.insert();
+			break;
+			
+		case "left":
+			this.remove();
+			this.setPosX(this.getPosX()-1);
+			this.insert();
+			break;
+		case "backward":
+			this.remove();
+			this.setPosY(this.getPosY()+1);
+			this.insert();
+			break;
+			
+		case "right":
+			this.remove();
+			this.setPosX(this.getPosX()+1);
+			this.insert();
+			break;
+			
+		default:
+			return;
+		}
+		return;
 	}
 	
 	
@@ -98,17 +110,34 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
-	public boolean verifyHeroAction(String actionType) {
+	public boolean verifyChangeHero(String command) {
 		
-		boolean actionStatus = false;
+		
+		return false;
+	}
+	
+	
+	public void changeHero(String command) {
+		
+	}
+	
+	
+	public void executeCommand(String command) {
+		
 		String dir[] = {"forward", "left", "backward", "right"};
+		for(String i: dir)
+			if (i.equals(command))
+				if (this.verifyMovement(command))
+					this.move(command);
 		
-		for (String i: dir)
-			if (i.equals(actionType))
-				actionStatus = this.verifyMovement(actionType);
+		String changeHero[] = {"0", "1", "2", "3"};
+		for(String i: changeHero)
+			if(i.equals(command))
+				if (this.verifyChangeHero(command))
+					this.changeHero(command);
 		
-		if (true);
-		
-		return actionStatus;
+		if (command.equals("attack")) {
+			this.attack();
+		}
 	}
 }
