@@ -1,5 +1,6 @@
 package view;
 
+
 import model.map.Cell;
 
 public class AppGameWindown {

@@ -1,15 +1,18 @@
 package model.map;
 
+
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Dimension;
+
 import model.actors.Actor;
 
 public class Cell {
 	
 	private ArrayList<Actor> actors;
+
 	private JLabel cellLabel;
 	
 	
@@ -31,7 +34,7 @@ public class Cell {
 		return this.cellLabel;
 	}
 	
-	
+
 	public void insertActor(Actor actor) {
 		actors.add(actor);
 	}
