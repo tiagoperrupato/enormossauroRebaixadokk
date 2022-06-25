@@ -1,5 +1,3 @@
 package model.actors;
 
-public interface IHero extends MovementStrategy, IModelCommand{
-
-}
+public interface IHero extends DynamicActor, IModelCommand{}

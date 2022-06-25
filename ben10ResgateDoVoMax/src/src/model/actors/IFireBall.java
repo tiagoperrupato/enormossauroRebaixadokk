@@ -1,5 +1,5 @@
 package model.actors;
 
-public interface IFireBall {
+public interface IFireBall extends DynamicActor {
 
 }

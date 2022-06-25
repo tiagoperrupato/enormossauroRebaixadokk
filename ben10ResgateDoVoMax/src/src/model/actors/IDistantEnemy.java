@@ -1,5 +1,5 @@
 package model.actors;
 
-public interface IDistantEnemy {
+public interface IDistantEnemy extends DynamicActor {
 
 }

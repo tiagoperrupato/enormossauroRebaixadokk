@@ -1,61 +1,106 @@
 package controller.builder;
 import model.map.*;
+import controller.control.*;
 import model.actors.*;
 
 public class Builder {
-	private String[][] roomBuilder;
-	private IRoom room;
-
 	
+	private IRoom room;
+	private Clock clock;
+	private ControlCommand command;
+
 	public Builder() {
-		this.roomBuilder = null;
+		
 		this.room = null;
+		this.clock = null;
+		this.command = null;
 	}
 	
 	
+	public Clock getClock() {
+		return clock;
+	}
+	
+
+	public ControlCommand getCommand() {
+		return command;
+	}
+
+	
+	// cria um mapa
 	public void buildMap(String[][] roomBuilder) {
 		
 		int qtyRows = Integer.parseInt(roomBuilder[roomBuilder.length-1][0]);
 		int qtyColumns = Integer.parseInt(roomBuilder[roomBuilder.length-1][1]);
-		IRoom room = new Room(qtyRows, qtyColumns);
-		this.room = room;
-		room.buildCells();
+		this.room = new Room(qtyRows, qtyColumns);
+		this.room.buildCells();
 	}
 	
 	
-	public void startGame() {
+	public void buildClock() {
 		
-		String roomStr = null;
-		Toolkit tk= Toolkit.start(roomStr);
-		
-		 //monta a caverna e faz verificação dela
-		String roomBuilder[][] = tk.retrieveroom();
-		
-		this.buildMap(roomBuilder);
-		this.buildActors(roomBuilder);
+		this.clock = new Clock();
 	}
+	
+	
+	public void buildCommand() {
 		
+		this.command = new ControlCommand();
+	}
+	
+	
+	public void buildController() {
+		
+		this.buildClock();
+		this.buildCommand();
+	}
+	
+	
+	public void insertActorInMap(IActor actor) {
+		
+		actor.connect(this.room);
+		actor.insert();
+	}
+	
+	
+	public void connectActorAndController(DynamicActor actor, Clock clock) {
+		
+		actor.connect(clock);
+		clock.connect(actor);
+	}
+	
+	
+	public void connectHeroAndControlCommand(ControlCommand ctrlCommand, IModelCommand actor) {
+		
+		ctrlCommand.connect(actor);
+	}
+	
 	
 	public void createActor(int posX, int posY, String actorType) {
 		
-		Actor comp;
+		IActor obj;
+		
 		switch (actorType) {
 		case "B":
-			comp = new Ben10(posX, posY, actorType);
+			obj = new Ben10(posX, posY, actorType);
 			break;
 			
 		case "NE":
-			comp = new NearEnemy(posX, posY, actorType);
+			obj = new NearEnemy(posX, posY, actorType);
 			break;
 			
 		default:
 			return;
 		}
 		
-		comp.connect(this.room);
-		comp.insert();
+		this.insertActorInMap(obj);
+		
+		if ((obj instanceof DynamicActor)) {
+			this.connectActorAndController((DynamicActor) obj, this.clock);
+			if ((obj instanceof IModelCommand))
+				this.connectHeroAndControlCommand(this.command, (IModelCommand) obj);
+		}
 	}
-	
 	
 	
 	public void buildActors(String[][] roomBuilder) {
@@ -67,9 +112,29 @@ public class Builder {
 			posX = Integer.parseInt(roomBuilder[i][0]);
 			posY = Integer.parseInt(roomBuilder[i][1]);
 			actorType = roomBuilder[i][2];
-			this.createActor(posX, posY, actorType);
+			if (!actorType.equals("_"))
+				this.createActor(posX, posY, actorType);
 		}		
-
+	}
+	
+	
+	public void buildView() {
+		// implementar a construção do View
+	}
+	
+	
+	public void startGame() {
+		
+		// monta vetor com os objetos do jogo
+		String roomStr = null;
+		Toolkit tk = Toolkit.start(roomStr);
+		String roomBuilder[][] = tk.retrieveroom();
+		
+		// cria todos os componentes do jogo
+		this.buildController();
+		this.buildMap(roomBuilder);
+		this.buildActors(roomBuilder);
+		this.buildView();
 	}
 	
 	

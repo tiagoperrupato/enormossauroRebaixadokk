@@ -2,5 +2,5 @@ package model.actors;
 
 public interface MovementStrategy {
 	
-	public void move(char direction);
+	public void move(String direction);
 }

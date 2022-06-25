@@ -4,10 +4,10 @@ import model.actors.*;
 
 public class Room implements IRoom {
 	
-
 	private Cell[][] cells;
 	private int qtyRows;
 	private int qtyColumns;
+	
 	
 	public Room(int qtyRows, int qtyColumns) {
 
@@ -18,6 +18,7 @@ public class Room implements IRoom {
 	
 	
 	public void buildCells() {
+		
 		for (int i = 0; i < this.qtyRows; i++) {
 			for (int j = 0; j < this.qtyColumns; j++) {
 				cells[i][j] = new Cell();
@@ -26,8 +27,16 @@ public class Room implements IRoom {
 	}
 	
 	
-	public void insertInCell(Actor actor) {
+	public void insertInCell(IActor actor) {
+		
 		int posX = actor.getPosX(), posY = actor.getPosY();
 		this.cells[posX][posY].insertActor(actor);
+	}
+	
+	
+	public void removeInCell(IActor actor) {
+		
+		int posX = actor.getPosX(), posY = actor.getPosY();
+		this.cells[posX][posY].removeActor(actor);
 	}
 }

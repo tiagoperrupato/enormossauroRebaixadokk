@@ -1,22 +1,23 @@
 package controller.control;
-import model.actors.*;
+import model.actors.*; 
 
 public class ControlCommand implements IRModelCommand, IViewCommand{
 	
 	private IModelCommand hero;
 	
-	public ControlCommand(){
-		
-	}
+	
+	public ControlCommand() {}
+	
 	
 	public void connect(IModelCommand hero) {
+		
 		this.hero=hero;
 	}
 	
 	@Override
 	public void modelAction(String actionType) {
-		hero.action(actionType);
 		
+		hero.executeCommand(actionType);
 	}
 
 }
