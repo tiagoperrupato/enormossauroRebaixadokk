@@ -1,4 +1,5 @@
 package controller.control;
+import model.actors.*;
 
 public class ControlCommand implements IRModelCommand, IViewCommand{
 	
