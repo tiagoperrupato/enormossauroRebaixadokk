@@ -42,24 +42,24 @@ public class Hero extends Actor implements IHero {
 		switch (direction) {
 		case "forward":
 			this.remove();
-			this.setPosColumn(this.getPosColumn()-1);
+			this.setPosRow(this.getPosRow()-1);
 			this.insert();
 			break;
 			
 		case "left":
 			this.remove();
-			this.setPosRow(this.getPosRow()-1);
+			this.setPosColumn(this.getPosColumn()-1);
 			this.insert();
 			break;
 		case "backward":
 			this.remove();
-			this.setPosColumn(this.getPosColumn()+1);
+			this.setPosRow(this.getPosRow()+1);
 			this.insert();
 			break;
 			
 		case "right":
 			this.remove();
-			this.setPosRow(this.getPosRow()+1);
+			this.setPosColumn(this.getPosColumn()+1);
 			this.insert();
 			break;
 			
@@ -80,24 +80,24 @@ public class Hero extends Actor implements IHero {
 		
 		switch (actionType) {
 		case "forward":
-			pos = this.getPosColumn();
+			pos = this.getPosRow();
 			if (pos > 0)
 				actionStatus = true;
 			break;
 			
 		case "left":
-			pos = this.getPosRow();
+			pos = this.getPosColumn();
 			if (pos > 0)
 				actionStatus = true;
 			break;
 		case "backward":
-			pos = this.getPosColumn();
+			pos = this.getPosRow();
 			if (pos+1 < this.getRoom().getQtyRows())
 				actionStatus = true;
 			break;
 			
 		case "right":
-			pos = this.getPosRow();
+			pos = this.getPosColumn();
 			if (pos+1 < this.getRoom().getQtyColumns())
 				actionStatus = true;
 			break;
