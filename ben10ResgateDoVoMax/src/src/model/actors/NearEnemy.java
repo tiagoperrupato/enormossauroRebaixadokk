@@ -26,7 +26,7 @@ public class NearEnemy extends Actor implements INearEnemy{
 	
 	
 	public void update() {
-		
+		room.getCells();
 	}
 	
 	@Override

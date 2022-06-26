@@ -6,7 +6,7 @@ public class Actor implements IRRoom, IActor {
 	private int posRow;
 	private int posColumn;
 	private String typeActor;
-	private IRoom room;
+	protected IRoom room;
 	
 	
 	public Actor(int posRow, int posColumn, String typeActor) {
