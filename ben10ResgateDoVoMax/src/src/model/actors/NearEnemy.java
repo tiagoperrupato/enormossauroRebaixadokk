@@ -38,4 +38,11 @@ public class NearEnemy extends Actor implements INearEnemy{
 	public void move(String direction) {
 		
 	}
+
+
+	@Override
+	public boolean verifyMovement(String direction) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
