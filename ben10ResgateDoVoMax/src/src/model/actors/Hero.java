@@ -92,16 +92,26 @@ public class Hero extends Actor implements IHero {
 		boolean found = false;
 		
 		for (String blocker: blockers)
-			for (IActor actor: cellActors) {
-				System.out.println(actor.getTypeActor());
+			for (IActor actor: cellActors)
 				if (actor.getTypeActor().equals(blocker)) {
 					System.out.println("Oi");
 					found = true;
 					return found;
 				}
-			}
 		
 		return found;
+	}
+	
+	
+	public void searchEnemies(String[] enemies, ArrayList<IActor> cellActors) {
+		
+		for (String enemy: enemies)
+			for (IActor actor: cellActors)
+				if (actor.getTypeActor().equals(enemy)) {
+					System.out.println(Hero.getLife());
+					Hero.setLife(Hero.getLife()-1);
+					System.out.println(Hero.getLife());
+				}
 	}
 	
 	
@@ -110,6 +120,7 @@ public class Hero extends Actor implements IHero {
 		boolean actionStatus = true;
 		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
 		String blockers[] = {"BX", "SW", "IW"};
+		String enemies[] = {"NE", "DE"};
 		ArrayList<IActor> cellActors;
 		
 		switch (actionType) {
@@ -121,6 +132,8 @@ public class Hero extends Actor implements IHero {
 			cellActors = this.getRoom().getCells()[posRow-1][posColumn].getActors();
 			if (this.searchBlockers(blockers, cellActors))
 				actionStatus = false;
+			// verifica se tem inimigo para tirar vida
+			this.searchEnemies(enemies, cellActors);
 			break;
 			
 		case "left":	
@@ -131,6 +144,8 @@ public class Hero extends Actor implements IHero {
 			cellActors = this.getRoom().getCells()[posRow][posColumn-1].getActors();
 			if (this.searchBlockers(blockers, cellActors))
 				actionStatus = false;
+			// verifica se tem inimigo para tirar vida
+			this.searchEnemies(enemies, cellActors);
 			break;
 			
 		case "backward":
@@ -141,6 +156,8 @@ public class Hero extends Actor implements IHero {
 			cellActors = this.getRoom().getCells()[posRow+1][posColumn].getActors();
 			if (this.searchBlockers(blockers, cellActors))
 				actionStatus = false;
+			// verifica se tem inimigo para tirar vida
+			this.searchEnemies(enemies, cellActors);
 			break;
 			
 		case "right":
@@ -151,6 +168,8 @@ public class Hero extends Actor implements IHero {
 			cellActors = this.getRoom().getCells()[posRow][posColumn+1].getActors();
 			if (this.searchBlockers(blockers, cellActors))
 				actionStatus = false;
+			// verifica se tem inimigo para tirar vida
+			this.searchEnemies(enemies, cellActors);
 			break;
 			
 		default:
