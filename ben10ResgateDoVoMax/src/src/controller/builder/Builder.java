@@ -68,7 +68,7 @@ public class Builder {
 	public void connectActorAndClock(DynamicActor actor, Clock clock) {
 		
 		actor.connect(clock);
-		//clock.connect(actor);
+		clock.connect(actor);
 	}
 	
 	
@@ -78,14 +78,39 @@ public class Builder {
 	}
 	
 	
+	public void createHeros(int posRow, int posColumn) {
+		
+		//instancia todos os herois
+		Hero ben10 = new Ben10(posRow, posColumn, "B10");
+		Hero fourArms = new FourArms(posRow, posColumn, "FA");
+		Hero flames = new Flames(posRow, posColumn, "FL");
+		Hero diamond = new Diamond(posRow, posColumn, "DI");
+		
+		//coloca eles em um vetor para cada um ter acesso aos outros herois
+		Hero heros[] = {ben10, fourArms, flames, diamond};
+		ben10.setHeros(heros);
+		fourArms.setHeros(heros);
+		flames.setHeros(heros);
+		diamond.setHeros(heros);
+		
+		// coloca o ben10 no mapa
+		this.insertActorInMap((IActor) ben10);
+		
+		//conecta herois com o clock e o ben10 com o command pois eh o heroi inicial
+		for (Hero i: heros)
+			this.connectActorAndClock((DynamicActor) i, this.clock);
+		this.connectHeroAndControlCommand(this.command, (IModelCommand) ben10);
+	}
+	
+	
 	public void createActor(int posRow, int posColumn, String actorType) {
 		
 		IActor obj;
 		
 		switch (actorType) {
 		case "B10":
-			obj = new Ben10(posRow, posColumn, actorType);
-			break;
+			this.createHeros(posRow, posColumn);
+			return;
 			
 		case "NE":
 			obj = new NearEnemy(posRow, posColumn, actorType);
@@ -102,11 +127,8 @@ public class Builder {
 		
 		this.insertActorInMap(obj);
 		
-		if ((obj instanceof DynamicActor)) {
+		if ((obj instanceof DynamicActor))
 			this.connectActorAndClock((DynamicActor) obj, this.clock);
-			if ((obj instanceof IModelCommand))
-				this.connectHeroAndControlCommand(this.command, (IModelCommand) obj);
-		}
 	}
 	
 	

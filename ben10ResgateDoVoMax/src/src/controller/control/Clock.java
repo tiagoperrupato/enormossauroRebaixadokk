@@ -7,8 +7,14 @@ public class Clock implements Subject, RObserver {
 	private ArrayList<Observer> observers;
 	
 	
-	public void register(Observer obj) {
+	public Clock() {
 		
+		this.observers = new ArrayList<Observer>();
+	}
+	
+	
+	public void register(Observer obj) {
+
 		observers.add(obj);
 	}
 	

@@ -18,6 +18,8 @@ public class ControlCommand implements IRModelCommand, IViewCommand{
 	@Override
 	public void modelAction(String actionType) {
 		
-		this.hero.executeCommand(actionType);
+		IModelCommand hero = this.hero.executeCommand(actionType);
+		if (hero != null)
+			this.connect(hero);
 	}
 }
