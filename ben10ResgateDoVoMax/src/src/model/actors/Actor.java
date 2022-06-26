@@ -1,7 +1,7 @@
 package model.actors;
 import model.map.IRoom;
 
-public class Actor implements IRRoom, IActor {
+public class Actor implements IActor {
 	
 	private int posRow;
 	private int posColumn;
