@@ -27,11 +27,9 @@ public class Cell {
 		
 	}
 	
-	
 	public ArrayList<IActor> getActors() {
 		return actors;
 	}
-
 
 	public ImageIcon resizeImage(String path) {
 		Image image = new ImageIcon(path).getImage();
