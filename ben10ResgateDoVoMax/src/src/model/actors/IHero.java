@@ -10,4 +10,6 @@ public interface IHero extends DynamicActor, IModelCommand{
 	public Hero changeHero(String command);
 	public boolean searchBlockers(String[] blockers, ArrayList<IActor> cellActors);
 	public void searchEnemies(String[] enemies, ArrayList<IActor> cellActors);
+	public void searchLavaPool(String lavaPool, ArrayList<IActor> cellActors);
+	public void searchBlackHole(String blackHole, ArrayList<IActor> cellActors);
 }

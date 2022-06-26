@@ -119,6 +119,26 @@ public class Builder {
 		case "NE":
 			obj = new NearEnemy(posRow, posColumn, actorType);
 			break;
+		
+		case "DE":
+			obj = new DistantEnemy(posRow, posColumn, actorType);
+			break;
+			
+		case "LP":
+			obj = new LavaPool(posRow, posColumn, actorType);
+			break;
+			
+		case "BH":
+			obj = new BlackHole(posRow, posColumn, actorType);
+			break;
+			
+		case "BX":
+			obj = new WoodBox(posRow, posColumn, actorType);
+			break;
+			
+		case "IW":
+			obj = new IceWall(posRow, posColumn, actorType);
+			break;
 			
 		case "SW":
 			obj = new SteelWall(posRow, posColumn, actorType);
