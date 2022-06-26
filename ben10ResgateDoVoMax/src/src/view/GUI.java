@@ -133,7 +133,7 @@ public class GUI extends JFrame implements IRViewCommand{
 				else if(commandType==rightward) {viewAction("right");System.out.println("foi para direita");}
 				else if(commandType==attack) {viewAction("attack");System.out.println("você atacou");}
 				else if(commandType==ben) {viewAction("ben10");System.out.println("você se transformou no ben");}
-				else if(commandType==fourArms) {viewAction("fourArms");System.out.println("você se transformou no fourarms");}
+				else if(commandType==fourArms) {viewAction("fourarms");System.out.println("você se transformou no fourarms");}
 				else if(commandType==flames) {viewAction("flames");System.out.println("você se transformou no flames");}
 				else if(commandType==diamond) {viewAction("diamond");System.out.println("você se transformou no diamond");}
 				}
