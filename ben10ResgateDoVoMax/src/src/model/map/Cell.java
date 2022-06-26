@@ -3,6 +3,8 @@ package model.map;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 
@@ -22,6 +24,7 @@ public class Cell {
 		this.cellLabel=new JLabel();
 		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));
 		
+		
 	}
 	
 	public ImageIcon resizeImage(String path) {
@@ -39,8 +42,38 @@ public class Cell {
 			case "B10":
 				this.cellLabel.setIcon(resizeImage(DIRETORIO + "ben10.png"));
 				break;
+			case "FA":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "fourarms.png"));
+				break;
+			case "FL":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "flames.png"));
+				break;
+			case "DI":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "diamond.png"));
+				break;
 			case "NE":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "nearenemy"));
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "nearenemy.png"));
+				break;
+			case "DE":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "distantenemy.png"));
+				break;
+			case "LP":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "lavapool.png"));
+				break;
+			case "BH":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "blackhole.png"));
+				break;
+			case "BX":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "box.png"));
+				break;
+			case "IW":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "icewall.png"));
+				break;
+			case "FB":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "fireball.png"));
+				break;
+			case "LS":
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "lasershot.png"));
 				break;
 			case "SW":
 				this.cellLabel.setIcon(resizeImage(DIRETORIO + "steelwall.png"));
