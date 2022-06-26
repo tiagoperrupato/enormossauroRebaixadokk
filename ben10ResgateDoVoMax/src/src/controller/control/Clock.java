@@ -1,24 +1,26 @@
 package controller.control;
 import java.util.ArrayList;
-import model.actors.Observer;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Clock implements Subject, ActionListener {
+import model.actors.Observer;
+
+
+public class Clock implements Subject {
 	private ArrayList<Observer> observers;
 	private Timer timer;
-	private int rate;
+	private long rate;
 	
 	public Clock(int rate) {
-		this.timer=new Timer(rate, this);
-		
-		
+		this.observers = new ArrayList<Observer>();
+		this.rate=rate;
+		this.timer=new Timer();
 	}
 	
-	public Clock() {
-		
-		this.observers = new ArrayList<Observer>();
+	public void start() {
+		this.timer.scheduleAtFixedRate(new TimerTask() {
+		public void run() { System.out.println("clock");/*notifyObservers();*/}
+		}, this.rate, this.rate);
 	}
 	
 	
