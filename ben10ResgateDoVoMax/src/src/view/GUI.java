@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.*;
 
-import org.w3c.dom.Text;
-
 import controller.control.IViewCommand;
 import model.map.Cell;
 import java.awt.*;
@@ -12,6 +10,9 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame implements IRViewCommand{
 	private static final long serialVersionUID = -377887641520288908L;
+	int WEIGHT_BUTTON = 80;
+	int HEIGHT_CONTROL_BUTTON = 50;
+	int HEIGHT_TRANSFORM_BUTTON = 55;
 	JLabel[][] arr =null;
 	JPanel[] vector=null;
 	IViewCommand commandControl;
@@ -31,9 +32,7 @@ public class GUI extends JFrame implements IRViewCommand{
 		addControlButtons(backContent);
 		addTextArea(backContent);
 		setVisible(true);
-		//addTextArea
-
-		//this.arr[0][0].setIcon(createAndResize("ben10.png", 53 , 52));
+		
 	}
 	private void addTextArea(Container backContent) {
 		JTextArea textArea= new JTextArea("teste");
@@ -86,27 +85,27 @@ public class GUI extends JFrame implements IRViewCommand{
 
 
 		JButton forward = new JButton("Forward");
-		forward.setPreferredSize(new Dimension(80, 50));
+		forward.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_CONTROL_BUTTON));
 
 		moves.add(forward, BorderLayout.NORTH);
 		
 		JButton backward = new JButton("Backward");
-		backward.setPreferredSize(new Dimension(80, 50));
+		backward.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_CONTROL_BUTTON));
 		moves.add(backward, BorderLayout.SOUTH);
 		
 		JButton leftward = new JButton("Leftward");
-		leftward.setPreferredSize(new Dimension(80, 50));
+		leftward.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_CONTROL_BUTTON));
 		moves.add(leftward, BorderLayout.WEST);
 		
 		JButton rightward = new JButton("Rightward");
-		rightward.setPreferredSize(new Dimension(80, 50));
+		rightward.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_CONTROL_BUTTON));
 
 		//rightward.addActionListener(buttons);
 
 		moves.add(rightward, BorderLayout.EAST);
 		
 		JButton attack = new JButton("Attack");
-		attack.setPreferredSize(new Dimension(80, 50));
+		attack.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_CONTROL_BUTTON));
 		moves.add(attack, BorderLayout.CENTER);
 		
 		controlPanel.add(moves, BorderLayout.NORTH);
@@ -115,20 +114,20 @@ public class GUI extends JFrame implements IRViewCommand{
 		transformPanel.setLayout(new GridLayout(1,4));
 		transformPanel.setPreferredSize(new Dimension(240,55));
 		
-		JButton ben = new JButton(createAndResize("ben10.png", 80, 55));
-		ben.setPreferredSize(new Dimension(80, 55));
+		JButton ben = new JButton(createAndResize("ben10.png", WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
+		ben.setPreferredSize(new Dimension(WEIGHT_BUTTON, 55));
 		transformPanel.add(ben);
 		
-		JButton fourArms = new JButton(createAndResize("fourarms.png", 80, 55));
-		fourArms.setPreferredSize(new Dimension(80, 55));
+		JButton fourArms = new JButton(createAndResize("fourarms.png", WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
+		fourArms.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
 		transformPanel.add(fourArms);
 		
-		JButton flames = new JButton(createAndResize("flames.png", 80, 55));
-		flames.setPreferredSize(new Dimension(80, 55));
+		JButton flames = new JButton(createAndResize("flames.png", WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
+		flames.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
 		transformPanel.add(flames);
 		
-		JButton diamond = new JButton(createAndResize("diamond.png", 80, 55));
-		diamond.setPreferredSize(new Dimension(80, 55));
+		JButton diamond = new JButton(createAndResize("diamond.png", WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
+		diamond.setPreferredSize(new Dimension(WEIGHT_BUTTON, HEIGHT_TRANSFORM_BUTTON));
 		transformPanel.add(diamond);
 		
 
