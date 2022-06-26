@@ -43,7 +43,7 @@ public class Cell {
 				this.cellLabel.setIcon(resizeImage(DIRETORIO + "ben10.png"));
 				break;
 			case "FA":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "fourarms.png"));
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "fourArms.png"));
 				break;
 			case "FL":
 				this.cellLabel.setIcon(resizeImage(DIRETORIO + "flames.png"));
