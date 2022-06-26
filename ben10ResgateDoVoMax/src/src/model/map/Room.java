@@ -44,14 +44,14 @@ public class Room implements IRoom {
 	
 	public void insertInCell(IActor actor) {
 		
-		int posX = actor.getPosX(), posY = actor.getPosY();
-		this.cells[posX][posY].insertActor(actor);
+		int posRow = actor.getPosRow(), posColumn = actor.getPosColumn();
+		this.cells[posRow][posColumn].insertActor(actor);
 	}
 	
 	
 	public void removeInCell(IActor actor) {
 		
-		int posX = actor.getPosX(), posY = actor.getPosY();
-		this.cells[posX][posY].removeActor(actor);
+		int posRow = actor.getPosRow(), posColumn = actor.getPosColumn();
+		this.cells[posRow][posColumn].removeActor(actor);
 	}
 }

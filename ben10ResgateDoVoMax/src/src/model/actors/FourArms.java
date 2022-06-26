@@ -2,8 +2,8 @@ package model.actors;
 
 public class FourArms extends Hero {
 	
-	public FourArms(int posX, int posY, String typeActor) {
-		super(posX, posY, typeActor);
+	public FourArms(int posRow, int posColumn, String typeActor) {
+		super(posRow, posColumn, typeActor);
 	}
 	
 	public void attack() {

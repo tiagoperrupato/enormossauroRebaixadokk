@@ -7,8 +7,8 @@ public class Hero extends Actor implements IHero {
 	private Subject clock;
 	
 	
-	public Hero(int posX, int posY, String typeActor) {
-		super(posX, posY, typeActor);
+	public Hero(int posRow, int posColumn, String typeActor) {
+		super(posRow, posColumn, typeActor);
 	}
 
 
@@ -42,24 +42,24 @@ public class Hero extends Actor implements IHero {
 		switch (direction) {
 		case "forward":
 			this.remove();
-			this.setPosY(this.getPosY()-1);
+			this.setPosColumn(this.getPosColumn()-1);
 			this.insert();
 			break;
 			
 		case "left":
 			this.remove();
-			this.setPosX(this.getPosX()-1);
+			this.setPosRow(this.getPosRow()-1);
 			this.insert();
 			break;
 		case "backward":
 			this.remove();
-			this.setPosY(this.getPosY()+1);
+			this.setPosColumn(this.getPosColumn()+1);
 			this.insert();
 			break;
 			
 		case "right":
 			this.remove();
-			this.setPosX(this.getPosX()+1);
+			this.setPosRow(this.getPosRow()+1);
 			this.insert();
 			break;
 			
@@ -80,24 +80,24 @@ public class Hero extends Actor implements IHero {
 		
 		switch (actionType) {
 		case "forward":
-			pos = this.getPosY();
+			pos = this.getPosColumn();
 			if (pos > 0)
 				actionStatus = true;
 			break;
 			
 		case "left":
-			pos = this.getPosX();
+			pos = this.getPosRow();
 			if (pos > 0)
 				actionStatus = true;
 			break;
 		case "backward":
-			pos = this.getPosY();
+			pos = this.getPosColumn();
 			if (pos+1 < this.getRoom().getQtyRows())
 				actionStatus = true;
 			break;
 			
 		case "right":
-			pos = this.getPosX();
+			pos = this.getPosRow();
 			if (pos+1 < this.getRoom().getQtyColumns())
 				actionStatus = true;
 			break;

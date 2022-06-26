@@ -78,21 +78,21 @@ public class Builder {
 	}
 	
 	
-	public void createActor(int posX, int posY, String actorType) {
+	public void createActor(int posRow, int posColumn, String actorType) {
 		
 		IActor obj;
 		
 		switch (actorType) {
 		case "B10":
-			obj = new Ben10(posX, posY, actorType);
+			obj = new Ben10(posRow, posColumn, actorType);
 			break;
 			
 		case "NE":
-			obj = new NearEnemy(posX, posY, actorType);
+			obj = new NearEnemy(posRow, posColumn, actorType);
 			break;
 			
 		//case "SW":
-			//obj = new SteelWall(posX, posY, actorType);
+			//obj = new SteelWall(posRow, posColumn, actorType);
 			//break;
 			
 			
@@ -112,15 +112,15 @@ public class Builder {
 	
 	public void buildActors(String[][] roomBuilder) {
 		
-		int posX, posY;
+		int posRow, posColumn;
 		String actorType;
 		
 		for (int i = 0; i < roomBuilder.length; i++) {
-			posX = Integer.parseInt(roomBuilder[i][0]);
-			posY = Integer.parseInt(roomBuilder[i][1]);
+			posRow = Integer.parseInt(roomBuilder[i][0]);
+			posColumn = Integer.parseInt(roomBuilder[i][1]);
 			actorType = roomBuilder[i][2];
 			if (!actorType.equals("_"))
-				this.createActor(posX-1, posY-1, actorType);
+				this.createActor(posRow-1, posColumn-1, actorType);
 		}		
 	}
 	

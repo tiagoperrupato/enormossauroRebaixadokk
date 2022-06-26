@@ -11,7 +11,7 @@ public class ControlCommand implements IRModelCommand, IViewCommand{
 	
 	public void connect(IModelCommand hero) {
 		
-		this.hero=hero;
+		this.hero = hero;
 	}
 	
 	

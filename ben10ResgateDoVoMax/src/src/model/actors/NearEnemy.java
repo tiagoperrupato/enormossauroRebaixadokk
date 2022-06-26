@@ -7,9 +7,9 @@ public class NearEnemy extends Actor implements INearEnemy{
 	private Subject clock;
 	
 	
-	public NearEnemy(int posX, int posY, String typeActor) {
+	public NearEnemy(int posRow, int posColumn, String typeActor) {
 		
-		super(posX, posY, typeActor);
+		super(posRow, posColumn, typeActor);
 	}
 	
 	

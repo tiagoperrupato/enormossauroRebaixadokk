@@ -3,36 +3,36 @@ import model.map.IRoom;
 
 public class Actor implements IRRoom, IActor {
 	
-	private int posX;
-	private int posY;
+	private int posRow;
+	private int posColumn;
 	private String typeActor;
 	private IRoom room;
 	
 	
-	public Actor(int posX, int posY, String typeActor) {
-		this.posX = posX;
-		this.posY = posY;
+	public Actor(int posRow, int posColumn, String typeActor) {
+		this.posRow = posRow;
+		this.posColumn = posColumn;
 		this.typeActor = typeActor;
 	}
 
 	
-	public int getPosX() {
-		return posX;
+	public int getPosRow() {
+		return posRow;
 	}
 
 	
-	public void setPosX(int posX) {
-		this.posX = posX;
+	public void setPosRow(int posRow) {
+		this.posRow = posRow;
 	}
 
 	
-	public int getPosY() {
-		return posY;
+	public int getPosColumn() {
+		return posColumn;
 	}
 
 	
-	public void setPosY(int posY) {
-		this.posY = posY;
+	public void setPosColumn(int posColumn) {
+		this.posColumn = posColumn;
 	}
 
 	
