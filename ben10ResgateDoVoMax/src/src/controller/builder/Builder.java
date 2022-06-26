@@ -124,10 +124,9 @@ public class Builder {
 			obj = new NearEnemy(posRow, posColumn, actorType);
 			break;
 			
-		//case "SW":
-			//obj = new SteelWall(posRow, posColumn, actorType);
-			//break;
-			
+		case "SW":
+			obj = new SteelWall(posRow, posColumn, actorType);
+			break;
 			
 		default:
 			return;
