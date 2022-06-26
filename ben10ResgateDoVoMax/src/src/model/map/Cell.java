@@ -27,6 +27,10 @@ public class Cell {
 		
 	}
 	
+	public ArrayList<IActor> getActors() {
+		return actors;
+	}
+
 	public ImageIcon resizeImage(String path) {
 		Image image = new ImageIcon(path).getImage();
 		Image resizedImage =image.getScaledInstance(IMAGE_WEIGHT, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
