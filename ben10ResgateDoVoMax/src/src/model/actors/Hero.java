@@ -81,7 +81,9 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
-	public void update() {}
+	public void update() {
+		
+	}
 	
 	
 	public boolean verifyMovement(String actionType) {

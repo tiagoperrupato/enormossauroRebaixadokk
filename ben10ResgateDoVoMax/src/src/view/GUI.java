@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 
+import org.w3c.dom.Text;
+
 import controller.control.IViewCommand;
 import model.map.Cell;
 import java.awt.*;
@@ -27,10 +29,17 @@ public class GUI extends JFrame implements IRViewCommand{
 		this.vector=new JPanel[9];
 		addGridMap(backContent, cells);
 		addControlButtons(backContent);
+		addTextArea(backContent);
 		setVisible(true);
 		//addTextArea
 
 		//this.arr[0][0].setIcon(createAndResize("ben10.png", 53 , 52));
+	}
+	private void addTextArea(Container backContent) {
+		JTextArea textArea= new JTextArea("teste");
+		textArea.setPreferredSize(new Dimension(480, 240));
+		backContent.add(textArea);
+		
 	}
 	public void addGridMap(Container back, Cell cells[][]) {
 		JPanel gridMap = new JPanel();
