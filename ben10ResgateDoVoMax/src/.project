@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/view/images/steelwall.png</name>
-			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Interno/testeInterfacaGUI/src/viewBen10/images/stellwall.png</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
