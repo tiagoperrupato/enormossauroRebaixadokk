@@ -1,11 +1,20 @@
 package controller.control;
 import java.util.ArrayList;
 import model.actors.Observer;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Clock implements Subject, RObserver {
-	
+public class Clock implements Subject, ActionListener {
 	private ArrayList<Observer> observers;
+	private Timer timer;
+	private int rate;
 	
+	public Clock(int rate) {
+		this.timer=new Timer(rate, this);
+		
+		
+	}
 	
 	public void register(Observer obj) {
 		
