@@ -2,5 +2,5 @@ package model.actors;
 
 public interface IModelCommand {
 	
-	public void executeCommand(String command);
+	public Hero executeCommand(String command);
 }

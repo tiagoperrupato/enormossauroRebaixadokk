@@ -16,8 +16,14 @@ public class Clock implements Subject, ActionListener {
 		
 	}
 	
-	public void register(Observer obj) {
+	public Clock() {
 		
+		this.observers = new ArrayList<Observer>();
+	}
+	
+	
+	public void register(Observer obj) {
+
 		observers.add(obj);
 	}
 	

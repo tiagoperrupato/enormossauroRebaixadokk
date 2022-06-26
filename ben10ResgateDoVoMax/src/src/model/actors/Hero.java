@@ -5,6 +5,7 @@ public class Hero extends Actor implements IHero {
 	
 	private static int life = 10;
 	private Subject clock;
+	private Hero heros[];
 	
 	
 	public Hero(int posRow, int posColumn, String typeActor) {
@@ -16,10 +17,20 @@ public class Hero extends Actor implements IHero {
 		
 		return life;
 	}
-
+	
 	
 	public static void setLife(int life) {
 		Hero.life = life;
+	}
+	
+	
+	public Hero[] getHeros() {
+		return heros;
+	}
+
+
+	public void setHeros(Hero[] heros) {
+		this.heros = heros;
 	}
 	
 	
@@ -117,12 +128,25 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
-	public void changeHero(String command) {
+	public Hero changeHero(String command) {
 		
+		this.remove();
+		for (int i = 0; i < this.getHeros().length; i++) {
+			Hero hero = this.getHeros()[i];
+			if (hero.getTypeActor().equals(command)) {
+				hero.setPosRow(this.getPosRow());
+				hero.setPosColumn(this.getPosColumn());
+				hero.connect(this.getRoom());
+				hero.insert();
+				return hero;
+			}
+		}
+		
+		return null;
 	}
 	
 	
-	public void executeCommand(String command) {
+	public Hero executeCommand(String command) {
 		
 		String dir[] = {"forward", "left", "backward", "right"};
 		for(String i: dir)
@@ -130,14 +154,16 @@ public class Hero extends Actor implements IHero {
 				if (this.verifyMovement(command))
 					this.move(command);
 		
-		String changeHero[] = {"0", "1", "2", "3"};
+		String changeHero[] = {"B10", "FA", "FL", "DI"};
 		for(String i: changeHero)
 			if(i.equals(command))
 				if (this.verifyChangeHero(command))
-					this.changeHero(command);
+					return this.changeHero(command);
 		
 		if (command.equals("attack")) {
 			this.attack();
 		}
+		
+		return this;
 	}
 }
