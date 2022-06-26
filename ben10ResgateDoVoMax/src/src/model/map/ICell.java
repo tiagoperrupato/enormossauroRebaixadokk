@@ -6,7 +6,6 @@ import model.actors.IActor;
 
 public interface ICell {
 	
-	public JLabel buildCellLabel();
 	public JLabel getLabel();
 	public ArrayList<IActor> getActors();
 	public void insertActor(IActor actor);

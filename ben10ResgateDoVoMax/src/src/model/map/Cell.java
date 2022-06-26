@@ -11,7 +11,7 @@ import java.awt.Image;
 import model.actors.*;
 import view.*;
 
-public class Cell {
+public class Cell implements ICell {
 	
 	private ArrayList<IActor> actors;
 	private JLabel cellLabel;
