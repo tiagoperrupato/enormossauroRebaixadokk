@@ -119,7 +119,7 @@ public class GUI extends JFrame implements IRViewCommand{
 		ben.setPreferredSize(new Dimension(80, 55));
 		transformPanel.add(ben);
 		
-		JButton fourArms = new JButton(createAndResize("fourArms.png", 80, 55));
+		JButton fourArms = new JButton(createAndResize("fourarms.png", 80, 55));
 		fourArms.setPreferredSize(new Dimension(80, 55));
 		transformPanel.add(fourArms);
 		
