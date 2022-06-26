@@ -45,6 +45,8 @@ public class Cell {
 			case "SW":
 				this.cellLabel.setIcon(resizeImage(DIRETORIO + "steelwall.png"));
 				break;
+			case "_":
+				this.cellLabel.setIcon(null);
 		}
 	}
 	
@@ -69,10 +71,19 @@ public class Cell {
 		
 		String typeActor = actor.getTypeActor();
 		int acc = 0;
+		if (actors==null) {System.out.println("aaaaa");}
 		for (IActor i: actors) {		// procura o ator a ser removido
-			if (i.getTypeActor().equals(typeActor))
+			if (i.getTypeActor().equals(typeActor)) {
 				this.actors.remove(acc);
+				if(actors.isEmpty()) {
+					changeCellImage("_");
+				}else {
+					changeCellImage(actors.get(0).getTypeActor());
+				}
+				break;
+			}
 			acc++;
+			
 		}
 	}
 }
