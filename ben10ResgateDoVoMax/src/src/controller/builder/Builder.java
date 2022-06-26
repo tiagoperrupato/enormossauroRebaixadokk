@@ -12,7 +12,6 @@ public class Builder {
 	private IRoom room;
 	private Clock clock;
 	private ControlCommand command;
-	private ArrayList<DynamicActor> observers;
 	
 
 	public Builder() {
@@ -20,7 +19,6 @@ public class Builder {
 		this.room = null;
 		this.clock = null;
 		this.command = null;
-		this.observers = new ArrayList<DynamicActor>();
 	}
 	
 	
@@ -47,8 +45,6 @@ public class Builder {
 	public void buildClock() {
 		
 		this.clock = new Clock(2000);
-		for (DynamicActor i:this.observers)
-			clock.register(i);
 		clock.start();
 	}
 	

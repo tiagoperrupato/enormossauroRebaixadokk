@@ -19,7 +19,7 @@ public class Clock implements Subject {
 	
 	public void start() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
-		public void run() { System.out.println("clock");/*notifyObservers();*/}
+		public void run() { System.out.println("clock");notifyObservers();}
 		}, this.rate, this.rate);
 	}
 	

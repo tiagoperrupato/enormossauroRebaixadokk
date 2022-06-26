@@ -7,6 +7,6 @@ public class Ben10 extends Hero {
 	}
 	
 	public void update(){
-		System.out.println("Ben10 - clock");
+		this.executeCommand("right");
 	}
 }
