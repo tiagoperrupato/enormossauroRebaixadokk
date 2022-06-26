@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Dimension;
+import java.awt.Image;
+
 import model.actors.*;
 import view.*;
 
@@ -11,30 +13,37 @@ public class Cell {
 	
 	private ArrayList<IActor> actors;
 	private JLabel cellLabel;
-	
+	private final int IMAGE_WEIGHT = 53;
+	private final int IMAGE_HEIGHT = 52;
 	
 	public Cell() {
 		
 		this.actors = new ArrayList<IActor>();
 		this.cellLabel=new JLabel();
-		this.cellLabel.setPreferredSize(new Dimension(53,52));
+		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));
 		
+	}
+	
+	public ImageIcon resizeImage(String path) {
+		Image image = new ImageIcon(path).getImage();
+		Image resizedImage =image.getScaledInstance(IMAGE_WEIGHT, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
+		return new ImageIcon(resizedImage);
 	}
 	
 	public void changeCellImage(String actorType) {
 
-		this.cellLabel.setPreferredSize(new Dimension(53,52));	// pensar em um jeito de passar a referencia do tamanho do mapa
+		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));	// pensar em um jeito de passar a referencia do tamanho do mapa
 		String DIRETORIO = GUI.class.getResource(".").getPath();
 		DIRETORIO=DIRETORIO + "/images/";
 		switch(actorType) {
 			case "B10":
-				this.cellLabel.setIcon(new ImageIcon(DIRETORIO + "ben10.png"));
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "ben10.png"));
 				break;
 			case "NE":
-				this.cellLabel.setIcon(new ImageIcon(DIRETORIO + "nearenemy"));
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "nearenemy"));
 				break;
 			case "SW":
-				this.cellLabel.setIcon(new ImageIcon(DIRETORIO + "steelwall.png"));
+				this.cellLabel.setIcon(resizeImage(DIRETORIO + "steelwall.png"));
 				break;
 		}
 	}

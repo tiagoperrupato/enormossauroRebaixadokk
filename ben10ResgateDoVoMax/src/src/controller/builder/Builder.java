@@ -1,6 +1,6 @@
 package controller.builder;
 import model.map.*;
-import view.BasicWindownGame;
+import view.GUI;
 import controller.control.*;
 import model.actors.*;
 
@@ -126,7 +126,7 @@ public class Builder {
 	
 	
 	public void buildView(Cell cells[][]) {
-		BasicWindownGame gui= new BasicWindownGame(cells);
+		GUI gui= new GUI(cells);
 		gui.connect(this.command);
 	}
 	
