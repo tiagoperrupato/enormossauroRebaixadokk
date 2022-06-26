@@ -122,11 +122,11 @@ public class Hero extends Actor implements IHero {
 		return actionStatus;
 	}
 	
-	
+	//
 	public boolean verifyChangeHero(String command) {
 		
 		
-		return false;
+		return true;
 	}
 	
 	
