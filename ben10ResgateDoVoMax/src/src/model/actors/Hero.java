@@ -1,4 +1,6 @@
 package model.actors;
+import java.util.ArrayList;
+
 import controller.control.Subject;
 
 public class Hero extends Actor implements IHero {
@@ -82,47 +84,84 @@ public class Hero extends Actor implements IHero {
 	
 	
 	public void update() {
+		// diminuir stamina;
+	}
+	
+	
+	public boolean searchBlockers(String[] blockers, ArrayList<IActor> cellActors) {
+		boolean found = false;
 		
+		for (String blocker: blockers)
+			for (IActor actor: cellActors) {
+				System.out.println(actor.getTypeActor());
+				if (actor.getTypeActor().equals(blocker)) {
+					System.out.println("Oi");
+					found = true;
+					return found;
+				}
+			}
+		
+		return found;
 	}
 	
 	
 	public boolean verifyMovement(String actionType) {
 		
-		boolean actionStatus = false;
-		int pos;
+		boolean actionStatus = true;
+		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
+		String blockers[] = {"BX", "SW", "IW"};
+		ArrayList<IActor> cellActors;
 		
 		switch (actionType) {
 		case "forward":
-			pos = this.getPosRow();
-			if (pos > 0)
-				actionStatus = true;
+			// verifica se vai sair do mapa
+			if (posRow <= 0)
+				actionStatus = false;
+			// verifica se algum actor impede ele de entrar na celula
+			cellActors = this.getRoom().getCells()[posRow-1][posColumn].getActors();
+			if (this.searchBlockers(blockers, cellActors))
+				actionStatus = false;
 			break;
 			
-		case "left":
-			pos = this.getPosColumn();
-			if (pos > 0)
-				actionStatus = true;
+		case "left":	
+			// verifica se vai sair do mapa
+			if (posColumn <= 0)
+				actionStatus = false;
+			// verifica se algum actor impede ele de entrar na celula
+			cellActors = this.getRoom().getCells()[posRow][posColumn-1].getActors();
+			if (this.searchBlockers(blockers, cellActors))
+				actionStatus = false;
 			break;
+			
 		case "backward":
-			pos = this.getPosRow();
-			if (pos+1 < this.getRoom().getQtyRows())
-				actionStatus = true;
+			// verifica se vai sair do mapa
+			if (posRow+1 >= this.getRoom().getQtyRows())
+				actionStatus = false;
+			// verifica se algum actor impede ele de entrar na celula
+			cellActors = this.getRoom().getCells()[posRow+1][posColumn].getActors();
+			if (this.searchBlockers(blockers, cellActors))
+				actionStatus = false;
 			break;
 			
 		case "right":
-			pos = this.getPosColumn();
-			if (pos+1 < this.getRoom().getQtyColumns())
-				actionStatus = true;
+			// verifica se vai sair do mapa
+			if (posColumn+1 >= this.getRoom().getQtyColumns())
+				actionStatus = false;
+			// verifica se algum actor impede ele de entrar na celula
+			cellActors = this.getRoom().getCells()[posRow][posColumn+1].getActors();
+			if (this.searchBlockers(blockers, cellActors))
+				actionStatus = false;
 			break;
 			
 		default:
+			actionStatus = false;
 			return actionStatus;
 		}
-		
+
 		return actionStatus;
 	}
 	
-	//
+	
 	public boolean verifyChangeHero(String command) {
 		
 		
