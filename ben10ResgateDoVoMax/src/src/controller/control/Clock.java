@@ -17,6 +17,7 @@ public class Clock implements Subject {
 		this.timer=new Timer();
 	}
 	
+
 	public void start() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
 		public void run() { System.out.println("clock");notifyObservers();}
@@ -29,10 +30,19 @@ public class Clock implements Subject {
 		observers.add(obj);
 	}
 	
-	// caso precise remover algum observer, precisamos arrumar um jeito de identificar cada um
+	// procura o objeto que precisa ser desconectado do clock e remove ele do ArrayList
 	public void remove(Observer obj) {
 		
-		observers.remove(0);
+		int acc = 0;
+		for (Observer observer: this.observers) {
+			if ((observer.getTypeActor().equals(obj.getTypeActor())) && 
+				!(observer.isAlive())) 
+			{
+			this.observers.remove(acc);
+			return;
+			}
+			acc++;
+		}
 	}
 	
 	

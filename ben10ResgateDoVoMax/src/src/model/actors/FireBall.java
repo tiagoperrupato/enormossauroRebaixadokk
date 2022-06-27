@@ -19,6 +19,12 @@ public class FireBall extends Actor implements DynamicActor {
 		
 	}
 
+	
+	public Subject getSubject() {
+		return this.clock;
+	}
+	
+	
 	@Override
 	public void setSubject(Subject obj) {
 		
@@ -43,6 +49,13 @@ public class FireBall extends Actor implements DynamicActor {
 	}
 	
 	
+	public void disconnectToClock(Observer target) {
+		
+		target.getSubject().remove(target);
+		target.setSubject(null);
+	}
+	
+	
 	public void searchTargets(String[] targets, ArrayList<IActor> cellActors) {
 		
 		for (String target: targets)
@@ -50,6 +63,14 @@ public class FireBall extends Actor implements DynamicActor {
 				if (actor.getTypeActor().equals(target)) {
 					actor.remove();
 					this.remove();
+					actor.setAlive(false);
+					this.setAlive(false);
+					
+					if (actor instanceof Observer)
+						this.disconnectToClock((Observer)actor);
+					
+					this.disconnectToClock(this);
+						
 					return;
 				}
 	}

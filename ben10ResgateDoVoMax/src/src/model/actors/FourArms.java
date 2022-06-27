@@ -12,13 +12,20 @@ public class FourArms extends Hero {
 	public IActor searchTarget(ArrayList<IActor> cellActors) {
 		
 		String targets[] = {"BX", "NE", "DE"};
-		
+
 		for (String typeTarget: targets)
 			for (IActor target: cellActors)
 				if (target.getTypeActor().equals(typeTarget))
 					return target;
 		
 		return null;	
+	}
+	
+	
+	public void disconnectToClock(Observer target) {
+		
+		target.getSubject().remove(target);
+		target.setSubject(null);
 	}
 	
 	
@@ -36,8 +43,12 @@ public class FourArms extends Hero {
 				// procura um alvo na celula escolhida
 				target = this.searchTarget(cellActors);
 				// se encontrar um alvo, remove ele da celula
-				if (target != null)
+				if (target != null) {
 					target.remove();
+					target.setAlive(false);
+					if (target instanceof Observer)
+					this.disconnectToClock((Observer)target);
+				}
 			}
 			break;
 			
@@ -47,8 +58,13 @@ public class FourArms extends Hero {
 				// procura um alvo na celula escolhida
 				target = this.searchTarget(cellActors);
 				// se encontrar um alvo, remove ele da celula
-				if (target != null)
+				if (target != null) {
 					target.remove();
+					target.setAlive(false);
+					if (target instanceof Observer)
+					this.disconnectToClock((Observer)target);
+				}
+				
 			}
 			break;
 			
@@ -58,8 +74,12 @@ public class FourArms extends Hero {
 				// procura um alvo na celula escolhida
 				target = this.searchTarget(cellActors);
 				// se encontrar um alvo, remove ele da celula
-				if (target != null)
+				if (target != null) {
 					target.remove();
+					target.setAlive(false);
+					if (target instanceof Observer)
+					this.disconnectToClock((Observer)target);
+				}
 			}
 			break;
 			
@@ -69,8 +89,12 @@ public class FourArms extends Hero {
 				// procura um alvo na celula escolhida
 				target = this.searchTarget(cellActors);
 				// se encontrar um alvo, remove ele da celula
-				if (target != null)
+				if (target != null) {
 					target.remove();
+					target.setAlive(false);
+					if (target instanceof Observer)
+					this.disconnectToClock((Observer)target);
+				}
 			}
 			break;
 			
