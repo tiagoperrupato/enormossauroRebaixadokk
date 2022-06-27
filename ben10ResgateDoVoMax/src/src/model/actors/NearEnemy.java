@@ -23,10 +23,19 @@ public class NearEnemy extends Actor implements INearEnemy{
 	}
 	
 	
+	public Subject getSubject() {
+		return this.clock;
+	}
+	
+	
 	public void setSubject(Subject subj) {
 		
 		this.connect(subj);
 	}
+	
+	// ele somente tira vida
+	public void disconnectToClock(Observer target) {}
+	
 	
 	public Hero searchHero() {
 		int iEnemy = this.getPosRow();
@@ -36,7 +45,7 @@ public class NearEnemy extends Actor implements INearEnemy{
 		
 		int iMin, iMax, jMin, jMax;
 		
-		// define os limetes da iteração
+		// define os limites da iteração
 		iMin = Math.max(0, iEnemy - VISION);
 		iMax = Math.min(iLength, jEnemy + VISION+1);
 		jMin = Math.max(0, jEnemy - VISION);

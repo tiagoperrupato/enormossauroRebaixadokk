@@ -81,13 +81,20 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		
 	}
 	
+	
+	public Subject getSubject() {
+		return this.clock;
+	}
+	
+	
 	@Override
 	public void setSubject(Subject subj) {
 		this.connect(subj);
 		
 	}
 
-
+	@Override
+	public void disconnectToClock(Observer target) {}
 
 	@Override
 	public void attack() {
@@ -135,5 +142,4 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		}
 		return false;
 	}
-
 }

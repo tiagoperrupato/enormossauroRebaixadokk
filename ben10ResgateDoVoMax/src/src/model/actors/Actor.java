@@ -7,15 +7,27 @@ public class Actor implements IActor {
 	private int posColumn;
 	private String typeActor;
 	protected IRoom room;
+	private boolean alive;
 	
 	
 	public Actor(int posRow, int posColumn, String typeActor) {
 		this.posRow = posRow;
 		this.posColumn = posColumn;
 		this.typeActor = typeActor;
+		this.alive = true;
+	}
+	
+	
+	public boolean isAlive() {
+		return alive;
 	}
 
-	
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+
 	public int getPosRow() {
 		return posRow;
 	}
