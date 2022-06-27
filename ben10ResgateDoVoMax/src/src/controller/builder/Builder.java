@@ -44,7 +44,7 @@ public class Builder {
 	
 	public void buildClock() {
 		
-		this.clock = new Clock(2000);
+		this.clock = new Clock(1000);
 		clock.start();
 	}
 	

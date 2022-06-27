@@ -12,4 +12,8 @@ public interface IHero extends DynamicActor, IModelCommand{
 	public void searchEnemies(String[] enemies, ArrayList<IActor> cellActors);
 	public void searchLavaPool(String lavaPool, ArrayList<IActor> cellActors);
 	public void searchBlackHole(String blackHole, ArrayList<IActor> cellActors);
+	public String getTypeActor();
+	public int getLifeNotStatic();
+	public void setLifeNotStatic(int life);
+
 }
