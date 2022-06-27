@@ -135,15 +135,15 @@ public class GUI extends JFrame implements IRViewCommand{
 		ActionListener buttons = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JButton commandType = (JButton)e.getSource();
-				if(commandType==forward) {viewAction("forward");System.out.println("foi para frente");}
-				else if(commandType==backward) {viewAction("backward");System.out.println("foi para tras");}
-				else if(commandType==leftward) {viewAction("left");System.out.println("foi para esquerda");}
-				else if(commandType==rightward) {viewAction("right");System.out.println("foi para direita");}
-				else if(commandType==attack) {viewAction("attack");System.out.println("você atacou");}
-				else if(commandType==ben) {viewAction("B10");System.out.println("você se transformou no ben");}
-				else if(commandType==fourArms) {viewAction("FA");System.out.println("você se transformou no fourarms");}
-				else if(commandType==flames) {viewAction("FL");System.out.println("você se transformou no flames");}
-				else if(commandType==diamond) {viewAction("DI");System.out.println("você se transformou no diamond");}
+				if(commandType==forward) {viewAction("forward");}
+				else if(commandType==backward) {viewAction("backward");}
+				else if(commandType==leftward) {viewAction("left");}
+				else if(commandType==rightward) {viewAction("right");}
+				else if(commandType==attack) {viewAction("attack");}
+				else if(commandType==ben) {viewAction("B10");}
+				else if(commandType==fourArms) {viewAction("FA");}
+				else if(commandType==flames) {viewAction("FL");}
+				else if(commandType==diamond) {viewAction("DI");}
 				}
 		};
 		

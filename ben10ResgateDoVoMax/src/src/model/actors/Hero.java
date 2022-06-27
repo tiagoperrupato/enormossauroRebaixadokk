@@ -16,13 +16,17 @@ public class Hero extends Actor implements IHero {
 		super(posRow, posColumn, typeActor);
 	}
 
-
+	public int getLifeNotStatic() {
+		return getLife();
+	}
 	public static int getLife() {
 		
 		return life;
 	}
 	
-	
+	public void setLifeNotStatic(int life) {
+		setLife(life);
+	}
 	public static void setLife(int life) {
 		Hero.life = life;
 	}
