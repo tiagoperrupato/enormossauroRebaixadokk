@@ -1,6 +1,7 @@
 package model.actors;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.control.Subject;
 
@@ -76,39 +77,61 @@ public class NearEnemy extends Actor implements INearEnemy{
 			if ((rowDist == 1 || rowDist == -1) && columnDist == 0
 					|| (columnDist == 1 || columnDist == -1) && rowDist == 0){
 				attack();
-				System.out.println("teste atque");
 			}
-			else if(rowDist!=0) {
-				if(rowDist>0) {
-					if(verifyMovement("forward")) {
-						move("forward");
+			//deixa o movimento mais aleatorio
+			Random randomMove = new Random();
+			switch(randomMove.nextInt(2)) {
+				//da preferencia aos movimentos do entre as linhas
+				case 0:
+					if(rowDist>0) {
+						if(verifyMovement("forward")) {
+							move("forward");
+						}
+					}
+					else if (rowDist<0) {
+						if(verifyMovement("backward")) {
+						move("backward");
+						}	
+					}
+
+					else if(columnDist>0) {
+						if(verifyMovement("left")) {
+							move("left");
+						}
+					}
+					else if (columnDist<0){
+						if(verifyMovement("right")) {
+						move("right");
+						}	
+					}
+					break;
+					
+				case 1:
+						if(columnDist>0) {
+							if(verifyMovement("left")) {
+								move("left");
+							}
+						}
+						else if (columnDist<0){
+							if(verifyMovement("right")) {
+							move("right");
+							}	
+						}
+					
+						else if(rowDist>0) {
+						if(verifyMovement("forward")) {
+							move("forward");
+						}
+						}
+						else if (rowDist<0) {
+							if(verifyMovement("backward")) {
+							move("backward");
+							}	
+						}				
+					break;
 					}
 				}
-				else if (rowDist<0) {
-					if(verifyMovement("backward")) {
-					move("backward");
-					}	
-				}
 			}
-			
-			else if(columnDist!=0) {
-				if(columnDist>0) {
-					if(verifyMovement("left")) {
-						move("left");
-					}
-				}
-				else if (columnDist<0){
-					if(verifyMovement("right")) {
-					move("right");
-					}	
-				}
-				
-			}
-		}
-		
-	}
-	
-	
 	
 	@Override
 	public void attack() {
@@ -157,28 +180,23 @@ public class NearEnemy extends Actor implements INearEnemy{
 	public void move(String direction) {
 		switch (direction) {
 		case "forward":
-			System.out.println("x");
 			this.remove();
-			
 			this.setPosRow(this.getPosRow()-1);
 			this.insert();
 			break;
 			
 		case "left":
-			System.out.println("x");
 			this.remove();
 			this.setPosColumn(this.getPosColumn()-1);
 			this.insert();
 			break;
 		case "backward":
-			System.out.println("x");
 			this.remove();
 			this.setPosRow(this.getPosRow()+1);
 			this.insert();
 			break;
 			
 		case "right":
-			System.out.println("x");
 			this.remove();
 			this.setPosColumn(this.getPosColumn()+1);
 			this.insert();
@@ -192,7 +210,25 @@ public class NearEnemy extends Actor implements INearEnemy{
 
 	@Override
 	public boolean verifyMovement(String direction) {
-		// TODO Auto-generated method stub
-		return true;
+		ArrayList<IActor> cellActors = null;
+		switch (direction) {
+		case "forward":
+			cellActors=this.getRoom().getCells()[this.getPosRow()-1][this.getPosColumn()].getActors();
+			break;
+		case "backward":
+			cellActors=this.getRoom().getCells()[this.getPosRow()+1][this.getPosColumn()].getActors();
+			break;
+		case "left":
+			cellActors=this.getRoom().getCells()[this.getPosRow()][this.getPosColumn()-1].getActors();
+			break;
+		case "right":
+			cellActors=this.getRoom().getCells()[this.getPosRow()][this.getPosColumn()+1].getActors();
+			break;
+		}
+		//for(IActor obj:cellActors) {
+		if (cellActors.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 }
