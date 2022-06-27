@@ -16,11 +16,50 @@ public class Flames extends Hero {
 		
 		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
 		
-		if (posColumn+1 >= 0 && posColumn+1 < this.getRoom().getQtyColumns()) {
-			FireBall fireBall = new FireBall(posRow, posColumn+1, "FB");
-			fireBall.connect(this.getRoom());
-			fireBall.insert();
-			fireBall.attack();
+		// verifica se celula alvo de ataque esta dentro do mapa
+		switch(this.getAim()) {
+		case "forward":
+			if (posRow-1 >= 0) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow-1, posColumn, "FB");
+				fireBall.connect(this.getRoom());
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		case "left":
+			if (posColumn-1 >= 0) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow, posColumn-1, "FB");
+				fireBall.connect(this.getRoom());
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		case "backward":
+			if (posRow+1 < this.getRoom().getQtyRows()) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow+1, posColumn, "FB");
+				fireBall.connect(this.getRoom());
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		case "right":
+			if (posColumn+1 < this.getRoom().getQtyColumns()) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow, posColumn+1, "FB");
+				fireBall.connect(this.getRoom());
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		default:
+			break;
 		}
 	}
 }
