@@ -91,7 +91,7 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 
 	@Override
 	public void attack() {
-		
+		System.out.println("Dist enemy ataca");
 	}
 
 	@Override
