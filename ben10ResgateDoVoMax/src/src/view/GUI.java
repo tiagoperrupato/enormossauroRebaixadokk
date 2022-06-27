@@ -10,9 +10,12 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame implements IRViewCommand{
 	private static final long serialVersionUID = -377887641520288908L;
-	int WEIGHT_BUTTON = 80;
-	int HEIGHT_CONTROL_BUTTON = 50;
-	int HEIGHT_TRANSFORM_BUTTON = 55;
+	private static final int WEIGHT_BUTTON = 80;
+	private static final int HEIGHT_CONTROL_BUTTON = 50;
+	private static final int HEIGHT_TRANSFORM_BUTTON = 55;
+	private static final int ROW_QTY = 9;
+	private static final int HEIGHT_STATUS_BAR = 20;
+	private static final int HEIGHT_STATUS_TEXT_BAR = 25;	
 	JLabel[][] arr =null;
 	JPanel[] vector=null;
 	IViewCommand commandControl;
@@ -26,23 +29,78 @@ public class GUI extends JFrame implements IRViewCommand{
 		
 		Container backContent=getContentPane();
 		backContent.setLayout(new BorderLayout());
-		this.arr= new JLabel[9][14];
-		this.vector=new JPanel[9];
+		this.vector=new JPanel[ROW_QTY];
 		addGridMap(backContent, cells);
 		addControlButtons(backContent);
-		addTextArea(backContent);
+		addDataAndTextArea(backContent);
 		setVisible(true);
 		
 	}
-	private void addTextArea(Container backContent) {
-		JTextArea textArea= new JTextArea("teste");
-		textArea.setPreferredSize(new Dimension(480, 240));
-		backContent.add(textArea);
+	
+	private void addDataAndTextArea(Container backContent){
+		JPanel dataAndText = new JPanel();
+		dataAndText.setLayout(new BorderLayout());
+		dataAndText.setPreferredSize(new Dimension(480,240));
+		addDataArea(dataAndText);
+		addTextArea(dataAndText);
+		backContent.add(dataAndText, BorderLayout.EAST);
+	}
+	
+	private void addDataArea(JPanel back) {
+		JPanel data = new JPanel();
+		data.setLayout(new GridLayout(4,1));
+		data.setPreferredSize(new Dimension(120,240));
+		addLifeAndStamina(data);
+		
+		back.add(data, BorderLayout.WEST);
 		
 	}
-	public void addGridMap(Container back, Cell cells[][]) {
+	
+	private void addLifeAndStamina(JPanel data){
+		JPanel lifeBar = makeBar(data.getWidth(), "lifetext.png", "lifebar.png");
+		data.add(lifeBar);
+		
+		JPanel fourArmsBar = makeBar(data.getWidth(), "fourarmstext.png", "fourarmsstamina.png");
+		data.add(fourArmsBar);
+		
+		JPanel flamesBar = makeBar(data.getWidth(), "flamestext.png", "flamesstamina.png");
+		data.add(flamesBar);
+		
+		JPanel diamondBar = makeBar(data.getWidth(), "diamondtext.png", "diamondstamina.png");
+		data.add(diamondBar);
+		
+	}
+	public JPanel makeBar(int width, String text, String bar) {
+		JPanel panelStatus = new JPanel();
+		panelStatus.setLayout(new BorderLayout());
+		panelStatus.setPreferredSize(new Dimension(width, HEIGHT_STATUS_BAR+HEIGHT_STATUS_TEXT_BAR));
+		
+		JLabel textLabel = new JLabel();
+		textLabel.setPreferredSize(new Dimension(width, HEIGHT_STATUS_BAR));
+		ImageIcon textIcon = new ImageIcon (getIMG(text));
+		textLabel.setIcon(textIcon);
+		panelStatus.add(textLabel, BorderLayout.NORTH);
+		
+		JLabel barLabel = new JLabel();
+		barLabel.setPreferredSize(new Dimension(width, HEIGHT_STATUS_BAR));
+		ImageIcon barIcon = new ImageIcon (getIMG(bar));
+		barLabel.setIcon(barIcon);
+		panelStatus.add(barLabel, BorderLayout.SOUTH);
+		
+		return panelStatus;
+	}
+	
+	private void addTextArea(JPanel data) {
+		JTextArea textArea= new JTextArea("teste");
+		textArea.setPreferredSize(new Dimension(360, 240));
+		data.add(textArea, BorderLayout.EAST);
+		
+	}
+	
+	
+	private void addGridMap(Container back, Cell cells[][]) {
 		JPanel gridMap = new JPanel();
-		gridMap.setLayout(new GridLayout(9,1,0, 0));
+		gridMap.setLayout(new GridLayout(ROW_QTY,1,0, 0));
 		makeGrid(gridMap, cells);
 		gridMap.setPreferredSize(new Dimension(720, 480));
 		back.add(gridMap, BorderLayout.NORTH);	
@@ -59,11 +117,10 @@ public class GUI extends JFrame implements IRViewCommand{
 	//busca a label dentro da celula
 	  public void makeGrid(JPanel gridMap, Cell cells[][]) { 
 		  for(int i=0; i<9; i++) { 
-			  this.vector[i] = new JPanel(new GridLayout(1,9));
+			  this.vector[i] = new JPanel(new GridLayout(1,ROW_QTY));
 			  this.vector[i].setPreferredSize(new Dimension(720, 52));	  
 			  for(int j=0; j<14; j++) {
 				  this.vector[i].add(cells[i][j].getLabel());
-				  this.arr[i][j]=cells[i][j].getLabel();
 			  }
 			  gridMap.add(this.vector[i]);
 	  
