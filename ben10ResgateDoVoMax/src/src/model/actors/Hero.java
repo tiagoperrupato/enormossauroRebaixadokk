@@ -11,6 +11,7 @@ public class Hero extends Actor implements IHero {
 	
 	
 	public Hero(int posRow, int posColumn, String typeActor) {
+		
 		super(posRow, posColumn, typeActor);
 	}
 
