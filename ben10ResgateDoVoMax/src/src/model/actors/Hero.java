@@ -8,11 +8,13 @@ public class Hero extends Actor implements IHero {
 	private static int life = 10;
 	private Subject clock;
 	private Hero heros[];
+	private String aim;
 	
 	
 	public Hero(int posRow, int posColumn, String typeActor) {
 		
 		super(posRow, posColumn, typeActor);
+		this.aim = "right";
 	}
 
 	public int getLifeNotStatic() {
@@ -31,6 +33,16 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
+	public String getAim() {
+		return aim;
+	}
+
+
+	public void setAim(String aim) {
+		this.aim = aim;
+	}
+
+
 	public Hero[] getHeros() {
 		return heros;
 	}
@@ -289,10 +301,11 @@ public class Hero extends Actor implements IHero {
 		// verifica se o comando foi de movimentacao
 		String dir[] = {"forward", "left", "backward", "right"};
 		for(String i: dir)
-			if (i.equals(command))
+			if (i.equals(command)) {
+				this.aim = command;		// troca mira
 				if (this.verifyMovement(command))
 					this.move(command);
-		
+			}
 		// verifica se o comando foi de mudar de Personagem
 		String changeHero[] = {"B10", "FA", "FL", "DI"};
 		for(String i: changeHero)
