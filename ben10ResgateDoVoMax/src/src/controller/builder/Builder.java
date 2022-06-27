@@ -12,6 +12,7 @@ public class Builder {
 	private IRoom room;
 	private Clock clock;
 	private ControlCommand command;
+	private Hero heros[];
 	
 
 	public Builder() {
@@ -19,6 +20,7 @@ public class Builder {
 		this.room = null;
 		this.clock = null;
 		this.command = null;
+		this.heros=null;
 	}
 	
 	
@@ -92,6 +94,7 @@ public class Builder {
 		
 		//coloca eles em um vetor para cada um ter acesso aos outros herois
 		Hero heros[] = {ben10, fourArms, flames, diamond};
+		this.heros=heros;
 		ben10.setHeros(heros);
 		fourArms.setHeros(heros);
 		flames.setHeros(heros);
@@ -171,7 +174,7 @@ public class Builder {
 	
 	
 	public void buildView(Cell cells[][]) {
-		GUI gui= new GUI(cells);
+		GUI gui= new GUI(cells, this.heros );
 		gui.connect(this.command);
 	}
 	

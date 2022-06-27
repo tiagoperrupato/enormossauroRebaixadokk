@@ -1,4 +1,5 @@
 package model.actors;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import controller.control.Subject;
@@ -7,16 +8,25 @@ public class Hero extends Actor implements IHero {
 	
 	private static int life = 10;
 	private Subject clock;
-	private Hero heros[];
+	private static Hero heros[];
 	private String aim;
+	private JLabelBar barLabel = null; 
+	private static final int BAR_WEIGHT=120, BAR_HEIGHT=20;
+	
 	
 	
 	public Hero(int posRow, int posColumn, String typeActor) {
 		
 		super(posRow, posColumn, typeActor);
-		this.aim = "right";
+		this.aim = "right";		
+		this.barLabel=new JLabelBar(typeActor, BAR_WEIGHT, BAR_HEIGHT);
+		this.barLabel.setPreferredSize(new Dimension(BAR_WEIGHT,BAR_HEIGHT));
 	}
-
+	
+	public JLabelBar getLabel() {
+		return this.barLabel;
+	}
+	
 	public int getLifeNotStatic() {
 		return getLife();
 	}
@@ -30,8 +40,8 @@ public class Hero extends Actor implements IHero {
 	}
 	public static void setLife(int life) {
 		Hero.life = life;
+		heros[0].getLabel().resizeImage(life*12 + 1,BAR_HEIGHT);
 	}
-	
 	
 	public String getAim() {
 		return aim;
