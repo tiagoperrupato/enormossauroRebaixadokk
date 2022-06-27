@@ -3,7 +3,9 @@ package view;
 import javax.swing.*;
 
 import controller.control.IViewCommand;
+import model.actors.Hero;
 import model.map.Cell;
+import model.actors.JLabelBar;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +23,7 @@ public class GUI extends JFrame implements IRViewCommand{
 	IViewCommand commandControl;
 	
 
-	public GUI(Cell cells[][]) {
+	public GUI(Cell cells[][], Hero heros[]) {
 
 		super("Ben10 - Resgate do Vô Max");
 		setSize(720, 720);
@@ -32,45 +34,45 @@ public class GUI extends JFrame implements IRViewCommand{
 		this.vector=new JPanel[ROW_QTY];
 		addGridMap(backContent, cells);
 		addControlButtons(backContent);
-		addDataAndTextArea(backContent);
+		addDataAndTextArea(backContent, heros);
 		setVisible(true);
 		
 	}
 	
-	private void addDataAndTextArea(Container backContent){
+	private void addDataAndTextArea(Container backContent, Hero heros[]){
 		JPanel dataAndText = new JPanel();
 		dataAndText.setLayout(new BorderLayout());
 		dataAndText.setPreferredSize(new Dimension(480,240));
-		addDataArea(dataAndText);
+		addDataArea(dataAndText, heros);
 		addTextArea(dataAndText);
 		backContent.add(dataAndText, BorderLayout.EAST);
 	}
 	
-	private void addDataArea(JPanel back) {
+	private void addDataArea(JPanel back, Hero heros[]) {
 		JPanel data = new JPanel();
 		data.setLayout(new GridLayout(4,1));
 		data.setPreferredSize(new Dimension(120,240));
-		addLifeAndStamina(data);
+		addLifeAndStamina(data, heros);
 		
 		back.add(data, BorderLayout.WEST);
 		
 	}
 	
-	private void addLifeAndStamina(JPanel data){
-		JPanel lifeBar = makeBar(data.getWidth(), "lifetext.png", "lifebar.png");
+	private void addLifeAndStamina(JPanel data, Hero heros[]){
+		JPanel lifeBar = makeBar(data.getWidth(), "lifetext.png", heros);
 		data.add(lifeBar);
 		
-		JPanel fourArmsBar = makeBar(data.getWidth(), "fourarmstext.png", "fourarmsstamina.png");
+		JPanel fourArmsBar = makeBar(data.getWidth(), "fourarmstext.png", heros);
 		data.add(fourArmsBar);
 		
-		JPanel flamesBar = makeBar(data.getWidth(), "flamestext.png", "flamesstamina.png");
+		JPanel flamesBar = makeBar(data.getWidth(), "flamestext.png", heros);
 		data.add(flamesBar);
 		
-		JPanel diamondBar = makeBar(data.getWidth(), "diamondtext.png", "diamondstamina.png");
+		JPanel diamondBar = makeBar(data.getWidth(), "diamondtext.png", heros);
 		data.add(diamondBar);
 		
 	}
-	public JPanel makeBar(int width, String text, String bar) {
+	public JPanel makeBar(int width, String text, Hero heros[]) {
 		JPanel panelStatus = new JPanel();
 		panelStatus.setLayout(new BorderLayout());
 		panelStatus.setPreferredSize(new Dimension(width, HEIGHT_STATUS_BAR+HEIGHT_STATUS_TEXT_BAR));
@@ -81,12 +83,22 @@ public class GUI extends JFrame implements IRViewCommand{
 		textLabel.setIcon(textIcon);
 		panelStatus.add(textLabel, BorderLayout.NORTH);
 		
-		JLabel barLabel = new JLabel();
-		barLabel.setPreferredSize(new Dimension(width, HEIGHT_STATUS_BAR));
-		ImageIcon barIcon = new ImageIcon (getIMG(bar));
-		barLabel.setIcon(barIcon);
+		JLabelBar barLabel=null;
+		switch(text) {
+		case "lifetext.png":
+			barLabel=heros[0].getLabel();
+			break;
+		case "fourarmstext.png":
+			barLabel=heros[1].getLabel();
+			break;
+		case "flamestext.png":
+			barLabel=heros[2].getLabel();
+			break;
+		case "diamondtext.png":
+			barLabel=heros[3].getLabel();
+			break;
+		}
 		panelStatus.add(barLabel, BorderLayout.SOUTH);
-		
 		return panelStatus;
 	}
 	
@@ -129,7 +141,7 @@ public class GUI extends JFrame implements IRViewCommand{
 	
 	/*cria a label de controles e divide ela em duas partes
 	 * uma parte para movimentação do personagem e outra para
-	 * transformação em outros aliens
+	 * transformação em outros heros
 	 */
 	public void addControlButtons(Container back) {
 		JPanel controlPanel = new JPanel();

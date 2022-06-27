@@ -2,6 +2,8 @@ package model.actors;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 public interface IHero extends DynamicActor, IModelCommand{
 	
 	public Hero[] getHeros();
@@ -17,5 +19,7 @@ public interface IHero extends DynamicActor, IModelCommand{
 	public String getTypeActor();
 	public int getLifeNotStatic();
 	public void setLifeNotStatic(int life);
+	public JLabel getLabel();
+	
 
 }
