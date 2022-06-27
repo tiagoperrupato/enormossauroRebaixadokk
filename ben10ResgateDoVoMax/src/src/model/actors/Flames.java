@@ -23,6 +23,7 @@ public class Flames extends Hero {
 				// cria bola de fogo
 				FireBall fireBall = new FireBall(posRow-1, posColumn, "FB");
 				fireBall.connect(this.getRoom());
+				fireBall.connect(this.getSubject());
 				fireBall.insert();
 				fireBall.attack();
 			}
@@ -33,6 +34,7 @@ public class Flames extends Hero {
 				// cria bola de fogo
 				FireBall fireBall = new FireBall(posRow, posColumn-1, "FB");
 				fireBall.connect(this.getRoom());
+				fireBall.connect(this.getSubject());
 				fireBall.insert();
 				fireBall.attack();
 			}
@@ -43,6 +45,7 @@ public class Flames extends Hero {
 				// cria bola de fogo
 				FireBall fireBall = new FireBall(posRow+1, posColumn, "FB");
 				fireBall.connect(this.getRoom());
+				fireBall.connect(this.getSubject());
 				fireBall.insert();
 				fireBall.attack();
 			}
@@ -53,6 +56,7 @@ public class Flames extends Hero {
 				// cria bola de fogo
 				FireBall fireBall = new FireBall(posRow, posColumn+1, "FB");
 				fireBall.connect(this.getRoom());
+				fireBall.connect(this.getSubject());
 				fireBall.insert();
 				fireBall.attack();
 			}

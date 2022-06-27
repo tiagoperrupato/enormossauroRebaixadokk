@@ -69,10 +69,20 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
+	public Subject getSubject() {
+		return this.clock;
+	}
+	
+	
 	public void setSubject(Subject subj) {
 		
 		this.connect(subj);
 	}
+	
+	
+	// cada heroi depende do seu ataque para fazer esse disconnect
+	public void disconnectToClock(Observer target) {}
+	
 	
 	// implementacao vazia de ataque, pois cada alien tem a sua
 	public void attack() {}

@@ -10,6 +10,8 @@ public interface IActor extends IRRoom {
 	public void setPosColumn(int posY);
 	public String getTypeActor();
 	public void setTypeActor(String typeActor);
+	public boolean isAlive();
+	public void setAlive(boolean alive);
 	public IRoom getRoom();
 	public void insert();
 	public void remove();
