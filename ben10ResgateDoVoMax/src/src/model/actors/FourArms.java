@@ -28,21 +28,54 @@ public class FourArms extends Hero {
 		
 		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
 		
-		// seleciona as quatro celulas adjacentes
-		for (int i=-1; i < 2; i++)
-			for (int j=-1; j < 2; j++)
-				if ((i==0 || j==0) && !(i==0 && j==0)) {
-					// verifica se a celula adjacente esta dentro da sala
-					if ((posRow+i >= 0 && posRow+i < this.getRoom().getQtyRows()) &&
-						(posColumn+j >= 0 && posColumn+j < this.getRoom().getQtyColumns()))
-					{
-					cellActors = this.getRoom().getCells()[posRow+i][posColumn+j].getActors();
-					// procura um alvo na celula escolhida
-					target = this.searchTarget(cellActors);
-					// se encontrar um alvo, remove ele da celula
-					if (target != null)
-						target.remove();
-					}
-				}
+		// verifica se celula alvo de ataque esta dentro do mapa
+		switch(this.getAim()) {
+		case "forward":
+			if (posRow-1 >= 0) {
+				cellActors = this.getRoom().getCells()[posRow-1][posColumn].getActors();
+				// procura um alvo na celula escolhida
+				target = this.searchTarget(cellActors);
+				// se encontrar um alvo, remove ele da celula
+				if (target != null)
+					target.remove();
+			}
+			break;
+			
+		case "left":
+			if (posColumn-1 >= 0) {
+				cellActors = this.getRoom().getCells()[posRow][posColumn-1].getActors();
+				// procura um alvo na celula escolhida
+				target = this.searchTarget(cellActors);
+				// se encontrar um alvo, remove ele da celula
+				if (target != null)
+					target.remove();
+			}
+			break;
+			
+		case "backward":
+			if (posRow+1 < this.getRoom().getQtyRows()) {
+				cellActors = this.getRoom().getCells()[posRow+1][posColumn].getActors();
+				// procura um alvo na celula escolhida
+				target = this.searchTarget(cellActors);
+				// se encontrar um alvo, remove ele da celula
+				if (target != null)
+					target.remove();
+			}
+			break;
+			
+		case "right":
+			if (posColumn+1 < this.getRoom().getQtyColumns()) {
+				cellActors = this.getRoom().getCells()[posRow][posColumn+1].getActors();
+				// procura um alvo na celula escolhida
+				target = this.searchTarget(cellActors);
+				// se encontrar um alvo, remove ele da celula
+				if (target != null)
+					target.remove();
+			}
+			break;
+			
+		default:
+			break;
+		}
 	}
 }
