@@ -1,5 +1,7 @@
 package controller.control;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,7 +56,15 @@ public class Clock implements Subject {
 	
 	public void notifyObservers() {
 		
-		for (Observer obj: observers)
-			obj.update();
+		for (int i = 0; i < observers.size(); i++) {
+			if (observers.get(i).isAlive())
+				observers.get(i).update();
+		}
+		
+		for (Observer i: observers)
+			if (!i.isAlive()) {
+				this.remove(i);
+				break;
+			}
 	}
 }
