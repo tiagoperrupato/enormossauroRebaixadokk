@@ -147,12 +147,13 @@ public class Hero extends Actor implements IHero {
 	public int getStamina() {
 		return this.stamina;
 	}
-
+	
+	
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
 		this.getLabel().resizeImage(stamina*12 + 1,BAR_HEIGHT);
 		if(stamina==0) {
-			this.changeHero("B10");
+			this.getSubject().updateControlCommand(this.changeHero("B10"));
 		}
 	}
 
