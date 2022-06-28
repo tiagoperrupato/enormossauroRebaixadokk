@@ -49,9 +49,8 @@ public class FireBall extends Actor implements DynamicActor {
 				if (actor.getTypeActor().equals(obstacle)) {
 					this.remove();
 					this.setAlive(false);
-					//this.disconnectToClock(this);
 					foundObstacles = true;
-					return true;
+					return foundObstacles;
 				}
 		
 		return foundObstacles;
@@ -74,12 +73,6 @@ public class FireBall extends Actor implements DynamicActor {
 					this.remove();
 					actor.setAlive(false);
 					this.setAlive(false);
-					
-					/*if (actor instanceof Observer)
-						this.disconnectToClock((Observer)actor);
-					
-					this.disconnectToClock(this);*/
-						
 					return;
 				}
 	}
@@ -129,9 +122,8 @@ public class FireBall extends Actor implements DynamicActor {
 		return;
 	}
 
-	@Override
+	
 	public boolean verifyMovement(String direction) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

@@ -8,10 +8,12 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 	
 	private static final int VISION = 6;
 	private Subject clock;
+	private String aim;
 	
 	public DistantEnemy(int posRow, int posColumn, String typeActor) {
 		
 		super(posRow, posColumn, typeActor);
+		this.aim = "left";
 	}
 
 	public Hero searchHero() {
@@ -59,6 +61,10 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 			int rowDist=this.getPosRow() - hero.getPosRow();
 			// caso esteja na mesma linha ele atira
 			if (rowDist == 0) {
+				if (this.getPosColumn() >= hero.getPosColumn())
+					this.aim = "left";
+				else
+					this.aim = "right";
 				attack();
 			}
 			else if(rowDist>0) {
@@ -98,7 +104,81 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 
 	@Override
 	public void attack() {
-		System.out.println("Dist enemy ataca");
+		
+		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
+		
+		if (this.aim.equals("left")) {
+			LaserShot laserShot = new LaserShot(posRow, posColumn-1, "LS", "left");
+			laserShot.connect(this.getRoom());
+			laserShot.setSubject(this.getSubject());
+			this.getSubject().register(laserShot);
+			laserShot.insert();
+			laserShot.attack();
+		}
+		else if (this.aim.equals("right")) {
+			LaserShot laserShot = new LaserShot(posRow, posColumn+1, "LS", "left");
+			laserShot.connect(this.getRoom());
+			laserShot.setSubject(this.getSubject());
+			this.getSubject().register(laserShot);
+			laserShot.insert();
+			laserShot.attack();
+		}
+		
+		
+		
+		
+		/*switch(this.getAim()) {
+		case "forward":
+			if (posRow-1 >= 0) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow-1, posColumn, "FB", "forward");
+				fireBall.connect(this.getRoom());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		case "left":
+			if (posColumn-1 >= 0) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow, posColumn-1, "FB", "left");
+				fireBall.connect(this.getRoom());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		case "backward":
+			if (posRow+1 < this.getRoom().getQtyRows()) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow+1, posColumn, "FB", "backward");
+				fireBall.connect(this.getRoom());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		case "right":
+			if (posColumn+1 < this.getRoom().getQtyColumns()) {
+				// cria bola de fogo
+				FireBall fireBall = new FireBall(posRow, posColumn+1, "FB", "right");
+				fireBall.connect(this.getRoom());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
+				fireBall.insert();
+				fireBall.attack();
+			}
+			break;
+			
+		default:
+			break;
+		}*/
 	}
 
 	@Override
