@@ -11,5 +11,5 @@ public interface Subject {
 	public void notifyObservers();
 	public void updateControlCommand(IModelCommand hero);
 	public ArrayList<Observer> getObservers();
-	//public void stop();
+	public void stop();
 }

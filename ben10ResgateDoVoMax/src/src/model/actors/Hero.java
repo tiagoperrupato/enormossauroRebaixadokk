@@ -171,13 +171,7 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	public void endGame() {
-		for(Hero obj: heros) {
-			clock.remove(obj);
-		}
-		for(Hero obj: heros) {
-			obj=null;
-		}
-		//clock.stop();
+		clock.stop();
 		this.getSubject().updateControlCommand(null);
 		this.remove();
 	}
@@ -401,7 +395,6 @@ public class Hero extends Actor implements IHero {
 		this.setTransformed(false);
 		for (int i = 0; i < this.getHeros().length; i++) {
 			Hero hero = this.getHeros()[i];
-			
 			if (hero.getTypeActor().equals(command)) {
 				hero.setPosRow(this.getPosRow());
 				hero.setPosColumn(this.getPosColumn());
@@ -449,7 +442,7 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	public void setWin(boolean win) {
-		this.win = win;
+		Hero.win = win;
 	}
 
 	private static boolean getWin() {
