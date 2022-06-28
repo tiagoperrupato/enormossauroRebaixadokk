@@ -7,8 +7,10 @@ import controller.control.Subject;
 public class Hero extends Actor implements IHero {
 	
 	private static int life = 10;
+	private int stamina = 10;
 	private Subject clock;
 	private static Hero heros[];
+	private boolean isTransformed=false;
 	private String aim;
 	private JLabelBar barLabel = null; 
 	private static final int BAR_WEIGHT=120, BAR_HEIGHT=20;
@@ -23,6 +25,14 @@ public class Hero extends Actor implements IHero {
 		this.barLabel.setPreferredSize(new Dimension(BAR_WEIGHT,BAR_HEIGHT));
 	}
 	
+	public boolean isTransformed() {
+		return isTransformed;
+	}
+
+	public void setTransformed(boolean isTransformed) {
+		this.isTransformed = isTransformed;
+	}
+
 	public JLabelBar getLabel() {
 		return this.barLabel;
 	}
@@ -59,7 +69,7 @@ public class Hero extends Actor implements IHero {
 
 
 	public void setHeros(Hero[] heros) {
-		this.heros = heros;
+		Hero.heros = heros;
 	}
 	
 	
@@ -121,9 +131,29 @@ public class Hero extends Actor implements IHero {
 	
 	
 	public void update() {
-		// diminuir stamina;
+		//comeca em 1 para não atualizar a barra de vida do ben10
+		//for(int i =1; i<this.getHeros().length;i++) {
+		if(this.getTypeActor() != "B10") {
+			Hero hero=this;
+			if((hero.isTransformed) && (hero.getStamina() > 0)) {
+				hero.setStamina(hero.getStamina() - 1);				
+			}
+			else if(!(hero.isTransformed) && (hero.getStamina() < 10)){
+				hero.setStamina(hero.getStamina() + 1);
+			}
+		}
 	}
 	
+	public int getStamina() {
+		return this.stamina;
+	}
+
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
+		this.getLabel().resizeImage(stamina*12 + 1,BAR_HEIGHT);
+		
+	}
+
 	/*procura por atores que bloqueiam a passagem do personagem por uma selula
 	 * retorna verdadeiro ou falso
 	 */
@@ -298,12 +328,14 @@ public class Hero extends Actor implements IHero {
 	public Hero changeHero(String command) {
 		
 		this.remove();
+		this.setTransformed(false);
 		for (int i = 0; i < this.getHeros().length; i++) {
 			Hero hero = this.getHeros()[i];
 			
 			if (hero.getTypeActor().equals(command)) {
 				hero.setPosRow(this.getPosRow());
 				hero.setPosColumn(this.getPosColumn());
+				hero.setTransformed(true);
 				hero.connect(this.getRoom());
 				hero.insert();
 				return hero;

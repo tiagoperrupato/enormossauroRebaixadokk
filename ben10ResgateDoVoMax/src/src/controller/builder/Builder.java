@@ -13,6 +13,7 @@ public class Builder {
 	private Clock clock;
 	private ControlCommand command;
 	private Hero heros[];
+	private static final int CLOCK_RATE = 1000;
 	
 
 	public Builder() {
@@ -46,7 +47,7 @@ public class Builder {
 	
 	public void buildClock() {
 		
-		this.clock = new Clock(1000);
+		this.clock = new Clock(CLOCK_RATE);
 		clock.start();
 	}
 	
