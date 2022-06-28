@@ -39,8 +39,9 @@ public class Cell implements ICell {
 	public void changeCellImage(String actorType) {
 
 		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));	// pensar em um jeito de passar a referencia do tamanho do mapa
-		String DIRETORIO = GUI.class.getResource(".").getPath();
-		DIRETORIO=DIRETORIO + "/images/";
+		//String DIRETORIO = GUI.class.getResource(".").getPath();
+		//DIRETORIO=DIRETORIO + "/images/";
+		String DIRETORIO = System.getProperty("user.dir") + "/src/view/images/";
 		switch(actorType) {
 			case "B10":
 				this.cellLabel.setIcon(resizeImage(DIRETORIO + "ben10.png"));

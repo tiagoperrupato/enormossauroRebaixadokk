@@ -163,7 +163,7 @@ public class Builder {
 		this.connectHeroAndControlCommand(this.command, (IModelCommand) ben10);
 	}
 	
-	
+	//funcao que instancia os atores de acordo com a sua String de entrada
 	public void createActor(int posRow, int posColumn, String actorType) {
 		
 		IActor obj;
@@ -226,7 +226,7 @@ public class Builder {
 		}		
 	}
 	
-	
+	//constroi a interface gráfica
 	public void buildView(Cell cells[][]) {
 		GUI gui= new GUI(cells, this.heros );
 		gui.connect(this.command);
