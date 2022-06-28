@@ -61,7 +61,9 @@ public class Hero extends Actor implements IHero {
 		
 		return life;
 	}
-	
+	/* toda vez que set a vida do heroi, é feito uma verificação para caso ele tenha morrido
+
+	 */
 	public void setLifeNotStatic(int life) {
 		
 		setLife(life);
@@ -72,9 +74,7 @@ public class Hero extends Actor implements IHero {
 		}
 	}
 	
-	/* toda vez que set a vida do heroi, é feito uma verificação para caso ele tenha morrido
-	 * caso esteja vivo, é diminuido a sua vida
-	 */
+	//ao perder vida a barra de vida dele é diminuida
 	public static void setLife(int life) {
 		Hero.life = life;
 		heros[0].getLabel().resizeImage(life*12 + 1,BAR_HEIGHT);

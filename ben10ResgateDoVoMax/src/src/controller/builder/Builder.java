@@ -87,7 +87,7 @@ public class Builder {
 	}
 	
 	
-	// cria um mapa
+	// cria um mapa limitando o tamanho da quantidade de celuas segundo oarquivo csv
 	public void buildMap(String[][] roomBuilder) {
 		
 		int qtyRows = Integer.parseInt(roomBuilder[roomBuilder.length-1][0]);
@@ -96,7 +96,7 @@ public class Builder {
 		this.room.buildCells();
 	}
 	
-	
+	//cria o clock a ser utilizado para atualizar o jogo
 	public void buildClock() {
 		
 		this.clock = new Clock(CLOCK_RATE);
@@ -204,7 +204,6 @@ public class Builder {
 		default:
 			return;
 		}
-		
 		this.insertActorInMap(obj);
 		
 		if ((obj instanceof DynamicActor))
