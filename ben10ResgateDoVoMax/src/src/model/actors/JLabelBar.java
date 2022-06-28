@@ -19,8 +19,7 @@ public class JLabelBar extends JLabel {
 		}
 	
 	private ImageIcon searchImage (String typeActor) {
-		String DIRETORIO = GUI.class.getResource(".").getPath();
-		DIRETORIO=DIRETORIO + "/images/";
+		String DIRETORIO = System.getProperty("user.dir") + "/src/view/images/";
 		
 		ImageIcon image = null;
 		

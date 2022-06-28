@@ -262,8 +262,7 @@ public class GUI extends JFrame implements IRViewCommand{
 	
 	public String getIMG(String image) {
 		String img;
-	    String DIRETORIO =
-		         GUI.class.getResource(".").getPath() + "images/";
+		String DIRETORIO = System.getProperty("user.dir") + "/src/view/images/";
 	    img=DIRETORIO + image;
 	    return img;
 	}

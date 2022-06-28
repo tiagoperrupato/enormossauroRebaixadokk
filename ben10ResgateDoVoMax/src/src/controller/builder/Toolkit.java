@@ -27,6 +27,7 @@ public class Toolkit {
 	      return tk;
    }
    
+   // le o CSV e entrega uma matriz comm linha, coluna e ActorString
    public String[][] retrieveroom() {
       Vector<String[]> v = new Vector<String[]>();
       try {
