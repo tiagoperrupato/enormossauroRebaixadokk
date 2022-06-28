@@ -5,6 +5,7 @@ import view.GUI;
 import java.util.ArrayList;
 
 import controller.control.*;
+import exception.*;
 import model.actors.*;
 
 public class Builder {
@@ -33,7 +34,58 @@ public class Builder {
 	public ControlCommand getCommand() {
 		return command;
 	}
-
+	
+	
+	public static void verifyCreation(IRoom room) throws InvalidMap {
+		 
+		int hero = 0;
+		int qtyActorsCell;
+		String typeActor;
+		
+		for(int i=0; i < room.getQtyRows(); i++)
+			for(int j=0; j < room.getQtyColumns(); j++) {
+				
+				// verifica sala por sala se há mais de um ator
+				if(room.getCells()[i][j].getActors().size() > 1) {
+					throw new ConcurrentActorsInCell();
+				}
+				
+				// faz a contagem do numero de herois
+				qtyActorsCell = room.getCells()[i][j].getActors().size();
+				for(int k=0; k < qtyActorsCell; k++) {
+					typeActor = room.getCells()[i][j].getActors().get(k).getTypeActor();
+					if (typeActor.equals("B10"))
+						hero++;
+				}
+			}
+		
+		if (hero > 1)
+			throw new MorePlayers();
+		else if(hero == 0)
+			throw new NoPlayer();
+	}
+	
+	
+	public boolean searchExceptions() throws InvalidMap {
+		// verifica se a construcao do mapa foi correta, tratamento de exceptions
+		try {
+			verifyCreation(this.room);
+		} catch (NoPlayer e) {
+			System.err.println("Erro de Construção de Mapa: Não foi inserido o Heroi. " +
+								"Edite o arquivo de entrada e tente executar o jogo novamente");
+			return true;
+		} catch (MorePlayers e) {
+			System.err.println("Erro de Construção de Mapa: Foi inserido mais de um Heroi. " +
+					"Edite o arquivo de entrada e tente executar o jogo novamente");
+			return true;
+		} catch (ConcurrentActorsInCell e) {
+			System.err.println("Erro de Construção de Mapa: Existe mais de um ator numa celula. " +
+					"Edite o arquivo de entrada e tente executar o jogo novamente");
+			return true;
+		}
+		return false;
+	}
+	
 	
 	// cria um mapa
 	public void buildMap(String[][] roomBuilder) {
@@ -181,7 +233,7 @@ public class Builder {
 	}
 	
 	
-	public void startGame() {
+	public void startGame() throws InvalidMap {
 		
 		// monta vetor com os objetos do jogo
 		String roomStr = null;
@@ -192,24 +244,13 @@ public class Builder {
 		this.buildController();
 		this.buildMap(roomBuilder);
 		this.buildActors(roomBuilder);
+		
+		// verifica se a construcao do mapa foi correta, tratamento de exceptions
+		if (this.searchExceptions()) {
+			this.clock.stop();
+			return;
+		}
+		
 		this.buildView(this.room.getCells());
 	}
-	
-	
-/*
-		 * private String[][] getRoomArr(String[][] room){ int
-		 * qtyRows=Integer.parseInt(this.roomBuilder[this.roomBuilder.length-1][0]); int
-		 * qtyColumns=Integer.parseInt(this.roomBuilder[this.roomBuilder.length-1][1]);
-		 * String roomArr[][]=new String[qtyRows][qtyColumns]; for(int i = 0;
-		 * i<this.roomBuilder.length; i++) { int
-		 * rowPos=Integer.parseInt(this.roomBuilder[i][0]); int
-		 * columnPos=Integer.parseInt(this.roomBuilder[i][1]); char
-		 * charComp=this.roomBuilder[i][2].charAt(0);
-		 * 
-		 * for(int i=0; i<room.length; i++) { for(int j=2; j<room[i].length; j=j+3) {
-		 * 
-		 * System.out.print(room[i][j]); } System.out.println("");
-		 * 
-		 * } return roomArr; }
-		 */
 }
