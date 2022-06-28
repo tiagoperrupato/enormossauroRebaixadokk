@@ -5,6 +5,7 @@ import java.util.ListIterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import model.actors.IModelCommand;
 import model.actors.Observer;
 
 
@@ -12,6 +13,7 @@ public class Clock implements Subject {
 	private ArrayList<Observer> observers;
 	private Timer timer;
 	private long rate;
+	private ControlCommand controlCommand;
 	
 	public Clock(int rate) {
 		this.observers = new ArrayList<Observer>();
@@ -19,6 +21,22 @@ public class Clock implements Subject {
 		this.timer=new Timer();
 	}
 	
+	
+	public void updateControlCommand(IModelCommand hero) {
+		this.getControlCommand().connect(hero);
+	}
+	
+	
+	
+	public ControlCommand getControlCommand() {
+		return controlCommand;
+	}
+
+
+	public void setControlCommand(ControlCommand controlCommand) {
+		this.controlCommand = controlCommand;
+	}
+
 
 	public void start() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
