@@ -20,6 +20,8 @@ public interface IHero extends DynamicActor, IModelCommand{
 	public int getLifeNotStatic();
 	public void setLifeNotStatic(int life);
 	public JLabel getLabel();
+	public boolean isTransformed();
+	public void setTransformed(boolean isTransformed);
 	
 
 }
