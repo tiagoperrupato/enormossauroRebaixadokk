@@ -62,17 +62,17 @@ public class Actor implements IActor {
 		return room;
 	}
 
-
+	// se conecta com a sala de jogo
 	public void connect(IRoom room) {
 		this.room = room;
 	}
 	
-	
+	// se insere em uma celula
 	public void insert() {
 		this.room.insertInCell(this);
 	}
 	
-	
+	// se remove de uma celula
 	public void remove() {
 		this.room.removeInCell(this);
 	}

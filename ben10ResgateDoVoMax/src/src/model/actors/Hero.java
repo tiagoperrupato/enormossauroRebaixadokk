@@ -61,9 +61,8 @@ public class Hero extends Actor implements IHero {
 		
 		return life;
 	}
-	/* toda vez que set a vida do heroi, é feito uma verificação para caso ele tenha morrido
-
-	 */
+	
+	//toda vez que set a vida do heroi, é feito uma verificação para caso ele tenha morrido
 	public void setLifeNotStatic(int life) {
 		
 		setLife(life);
@@ -103,12 +102,12 @@ public class Hero extends Actor implements IHero {
 	
 	public void connect(Subject subj) {
 		
-		this.clock = subj;
+		Hero.clock = subj;
 	}
 	
 	
 	public Subject getSubject() {
-		return this.clock;
+		return Hero.clock;
 	}
 	
 	
@@ -197,7 +196,7 @@ public class Hero extends Actor implements IHero {
 		return this.stamina;
 	}
 	
-	
+	// arruma a stamina do heroi e caso chegue em zero, força a mudança para o Ben10
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
 		this.getLabel().resizeImage(stamina*12 + 1,BAR_HEIGHT);
@@ -383,12 +382,6 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	
-	public boolean verifyChangeHero(String command) {
-		
-		
-		return true;
-	}
-	
 	/* troca de personagem a depender do comando
 	 * retorna esse personagem novo
 	 */
@@ -432,9 +425,8 @@ public class Hero extends Actor implements IHero {
 		String changeHero[] = {"B10", "FA", "FL", "DI"};
 		for(String i: changeHero)
 			if(i.equals(command))
-				if (this.verifyChangeHero(command))
-					//retorna o novo personagem selecionado
-					return this.changeHero(command);
+				//retorna o novo personagem selecionado
+				return this.changeHero(command);
 		
 		// verifica se o comando foi de atacar
 		if (command.equals("attack")) {

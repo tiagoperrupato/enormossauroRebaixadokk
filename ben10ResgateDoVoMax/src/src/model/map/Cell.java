@@ -36,6 +36,7 @@ public class Cell implements ICell {
 		return new ImageIcon(resizedImage);
 	}
 	
+	// muda a imagem que é apresentada na interface grafica, pela dinamica do jogo
 	public void changeCellImage(String actorType) {
 
 		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));	// pensar em um jeito de passar a referencia do tamanho do mapa
@@ -91,7 +92,7 @@ public class Cell implements ICell {
 		return this.cellLabel;
 	}
 	
-
+	// insere um ator na celula
 	public void insertActor(IActor actor) {
 		
 		this.actors.add(actor);
@@ -101,7 +102,7 @@ public class Cell implements ICell {
 		
 	}
 	
-	
+	// remove um ator da celula
 	public void removeActor(IActor actor) {
 		
 		String typeActor = actor.getTypeActor();

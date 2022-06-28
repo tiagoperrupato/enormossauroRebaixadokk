@@ -1,7 +1,6 @@
 package controller.control;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,7 +20,7 @@ public class Clock implements Subject {
 		this.timer=new Timer();
 	}
 	
-	
+	// atualiza o ponteiro do ControlCommand 
 	public void updateControlCommand(IModelCommand hero) {
 		this.getControlCommand().connect(hero);
 	}
@@ -35,19 +34,20 @@ public class Clock implements Subject {
 		this.controlCommand = controlCommand;
 	}
 	
-	
+	// encerra o Clock
 	public void stop() {
 		this.timer.cancel();
 		this.timer.purge();
 	}
 
+	// inicia o Clock
 	public void start() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
 		public void run() {notifyObservers();}
 		}, this.rate, this.rate);
 	}
 	
-	
+	// registra um observer no seu arraylist
 	public void register(Observer obj) {
 
 		observers.add(obj);
@@ -74,7 +74,7 @@ public class Clock implements Subject {
 		this.register(obj);
 	}
 	
-	
+	// notifica todos os observadores de uma atualização do clock
 	public void notifyObservers() {
 		
 		for (int i = 0; i < observers.size(); i++) {
@@ -89,7 +89,7 @@ public class Clock implements Subject {
 			}
 	}
 
-	@Override
+	
 	public ArrayList<Observer> getObservers() {
 		return this.observers;
 	}

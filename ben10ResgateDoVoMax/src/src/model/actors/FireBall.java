@@ -15,7 +15,7 @@ public class FireBall extends Actor implements DynamicActor {
 		this.direction = direction;
 	}
 
-	@Override
+	// se atualiza com o clock, se movendo pelo mapa e atacando se encontrar um alvo
 	public void update() {
 		this.move(this.direction);
 		this.attack();
@@ -27,19 +27,19 @@ public class FireBall extends Actor implements DynamicActor {
 	}
 	
 	
-	@Override
+	
 	public void setSubject(Subject obj) {
 		
 		this.connect(obj);
 	}
 
-	@Override
+	
 	public void connect(Subject subj) {
 		
 		this.clock = subj;
 	}
 
-	
+	// procura por obstaculos que dissipam a bola de fogo
 	public boolean searchObstacles(String[] obstacles, ArrayList<IActor> cellActors) {
 		
 		boolean foundObstacles = false;
@@ -56,14 +56,17 @@ public class FireBall extends Actor implements DynamicActor {
 		return foundObstacles;
 	}
 	
-	
+	// desconecta um alvo do clock
 	public void disconnectToClock(Observer target) {
 		
 		target.getSubject().remove(target);
 		target.setSubject(null);
 	}
 	
-	
+	/*procura por alvos para serem atacados
+	 * tira vida do jogador
+	 * remove parede de gelo
+	 */
 	public void searchTargets(String[] targets, ArrayList<IActor> cellActors) {
 		
 		for (String target: targets)
@@ -77,7 +80,9 @@ public class FireBall extends Actor implements DynamicActor {
 				}
 	}
 	
-	
+	/* implementa estrategia de ataque
+	 * procura por obstaculos e alvos
+	 */
 	public void attack() {
 		
 		ArrayList<IActor> cellActors = this.getRoom().getCells()[this.getPosRow()][this.getPosColumn()].getActors();
@@ -89,7 +94,7 @@ public class FireBall extends Actor implements DynamicActor {
 		}
 	}
 
-	@Override
+	// implementa a movimentacao pelo mapa, sempre seguindo a direção de mira
 	public void move(String direction) {
 		switch (direction) {
 		case "forward":
@@ -122,7 +127,7 @@ public class FireBall extends Actor implements DynamicActor {
 		return;
 	}
 
-	
+	// não precisa verificar movimentação
 	public boolean verifyMovement(String direction) {
 		return false;
 	}
