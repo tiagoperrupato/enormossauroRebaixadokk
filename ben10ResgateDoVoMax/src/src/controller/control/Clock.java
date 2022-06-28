@@ -25,9 +25,7 @@ public class Clock implements Subject {
 	public void updateControlCommand(IModelCommand hero) {
 		this.getControlCommand().connect(hero);
 	}
-	
-	
-	
+
 	public ControlCommand getControlCommand() {
 		return controlCommand;
 	}
