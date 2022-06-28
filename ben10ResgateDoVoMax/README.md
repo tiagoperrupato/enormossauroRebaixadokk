@@ -3,10 +3,10 @@
 # Descrição Resumida do Jogo
 
 > Ben10 - O Resgate do Vô Max é um jogo SinglePlayer com interface gráfica, no qual o usuário controla
-> o personagem do Ben10 e precisa atravessar um mapa com inimigos e obstáculos para encontrar no fim
-> encontrar o seu Vô Max, que foi capturado pelo exército do Vilgax - maior inimigo do Ben.
+> o personagem do Ben10 e precisa atravessar um mapa com inimigos e obstáculos para encontrar, no fim,
+> o seu Vô Max, o qual foi capturado pelo exército do Vilgax - maior inimigo do Ben.
 > Nesse mapa, o Ben pode se transformar em 3 aliens com diferentes habilidades para conseguir vencer as
-> dificuldades que encontrará no jogo, como inimigos, barreiras, lavas, etc.
+> dificuldades que encontrará, como inimigos, barreiras, lavas, entre outros.
 
 # Equipe
 * João Vitor Mendes - 237881
@@ -14,15 +14,15 @@
 
 # Arquivo Executável do Jogo
 
-> Coloque aqui um link para download do arquivo `jar` ou equivalente para execução do seu jogo.
+[Arquivo de Execução](src)
 
 # Slides do Projeto
 
 ## Slides da Prévia
-> Coloque um link para os slides da prévia do projeto.
+[Apresentação Prévia](https://docs.google.com/presentation/d/1v5TwfmChBDbcDMfF0BYvcyM1QLm0bJLEDFVNppqKK94/edit#slide=id.gf44d104c1d_0_0)
 
 ## Slides da Apresentação Final
-> Coloque um link para os slides da apresentação final do projeto.
+[Apresentação Final](https://docs.google.com/presentation/d/1fnlEZBUQYlsOXYLzwsBtNStBU6_5quMfQ67F_xklCNU/edit#slide=id.g12ef4f3d213_3_5)
 
 # Diagramas
 
