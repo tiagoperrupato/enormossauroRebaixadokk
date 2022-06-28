@@ -27,7 +27,10 @@ public class GUI extends JFrame implements IRViewCommand{
 		super("Ben10 - Resgate do Vô Max");
 		setSize(720, 720);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		/*
+		 * A interface é montada com a combinação de diversos layouts como
+		 * BorderLayout e gridlayout
+		 */
 		Container backContent=getContentPane();
 		backContent.setLayout(new BorderLayout());
 		this.vector=new JPanel[ROW_QTY];
@@ -37,7 +40,7 @@ public class GUI extends JFrame implements IRViewCommand{
 		setVisible(true);
 		
 	}
-	
+	//adiciona display que vai mostrar as barras e label de texto
 	private void addDataAndDisplayArea(Container backContent, Hero heros[]){
 		JPanel dataAndDisplay= new JPanel();
 		dataAndDisplay.setLayout(new BorderLayout());
@@ -57,7 +60,7 @@ public class GUI extends JFrame implements IRViewCommand{
 		back.add(data, BorderLayout.WEST);
 		
 	}
-	
+	//adiciona barras de vida e estamina do heroi
 	private void addLifeAndStamina(JPanel data, Hero heros[]){
 		JPanel lifeBar = makeBar(data.getWidth(), "lifetext.png", heros);
 		data.add(lifeBar);

@@ -11,7 +11,7 @@ public class Builder {
 	private Clock clock;
 	private ControlCommand command;
 	private Hero heros[];
-	private static final int CLOCK_RATE = 1000;
+	private static final int CLOCK_RATE = 5000;
 	
 
 	public Builder() {
