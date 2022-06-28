@@ -156,15 +156,18 @@ public class Hero extends Actor implements IHero {
 		if(this.getPosRow()==4 && this.getPosColumn()==12) {
 			int acc=0;
 			for(Observer obj:clock.getObservers()) {
-				if(obj.getTypeActor() == "NE" || obj.getTypeActor() == "DE" )
+				if(obj.getTypeActor().equals("NE")  || obj.getTypeActor().equals("DE"))
 					acc++;
 			}
 			if(acc==0) {
-				
+				setWin(true);
+				endGame();
+				this.setText("<html> Parabéns Ben, seu avô ficará muito orgulhoso quando salvarmos ele <html>");
 			}
-			setWin(true);
-			endGame();
-			this.setText("<html> Parabéns Ben, seu avô ficará muito orgulhoso quando salvarmos ele <html>");
+
+			else {
+				this.setText("<html> Sua missão ainda não acabou, derrote todos os inimigos para salvar seu avô<html>");
+			}
 		}
 		
 		return;
@@ -421,6 +424,7 @@ public class Hero extends Actor implements IHero {
 				if (this.verifyMovement(command))
 					this.move(command);
 				else if(this.getLifeNotStatic()==0 || Hero.getWin()==true){
+					System.out.println(Hero.getWin());
 					return null;
 				}
 			}
