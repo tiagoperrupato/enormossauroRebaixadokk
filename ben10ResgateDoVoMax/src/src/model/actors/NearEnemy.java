@@ -75,7 +75,7 @@ public class NearEnemy extends Actor implements INearEnemy{
 		return null;		
 	}
 	
-	
+	// define sua estrategia de movimentação e ataque a cada clock
 	public void update() {
 		Hero hero = searchHero();
 		if(hero!=null){

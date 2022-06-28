@@ -1,9 +1,6 @@
 package controller.builder;
 import model.map.*;
 import view.GUI;
-
-import java.util.ArrayList;
-
 import controller.control.*;
 import exception.*;
 import model.actors.*;
@@ -35,7 +32,7 @@ public class Builder {
 		return command;
 	}
 	
-	
+	// faz as analises de Exceptions
 	public static void verifyCreation(IRoom room) throws InvalidMap {
 		 
 		int hero = 0;
@@ -59,13 +56,15 @@ public class Builder {
 				}
 			}
 		
+		// caso tenha mais de um jogador
 		if (hero > 1)
 			throw new MorePlayers();
+		// caso não tenha jogador
 		else if(hero == 0)
 			throw new NoPlayer();
 	}
 	
-	
+	// trata as exceptions
 	public boolean searchExceptions() throws InvalidMap {
 		// verifica se a construcao do mapa foi correta, tratamento de exceptions
 		try {
@@ -104,20 +103,20 @@ public class Builder {
 		clock.start();
 	}
 	
-	
+	// cria o ControlCommand
 	public void buildCommand() {
 		
 		this.command = new ControlCommand();
 	}
 	
-	
+	// cria o todo o componente do Controller
 	public void buildController() {
 		
 		this.buildCommand();
 		this.buildClock();
 	}
 	
-	
+	// insere ator em uma sala
 	public void insertActorInMap(IActor actor) {
 		
 		actor.connect(this.room);
@@ -137,7 +136,7 @@ public class Builder {
 		ctrlCommand.connect(actor);
 	}
 	
-	
+	// cria todos os herois
 	public void createHeros(int posRow, int posColumn) {
 		
 		//instancia todos os herois
@@ -210,7 +209,7 @@ public class Builder {
 			this.connectActorAndClock((DynamicActor) obj, this.clock);
 	}
 	
-	
+	// função geral que cria todos os atores do jogo
 	public void buildActors(String[][] roomBuilder) {
 		
 		int posRow, posColumn;

@@ -15,7 +15,6 @@ public class LaserShot extends Actor implements DynamicActor {
 		this.direction = direction;
 	}
 
-	@Override
 	public void update() {
 		
 		this.move(this.direction);
@@ -28,19 +27,18 @@ public class LaserShot extends Actor implements DynamicActor {
 	}
 	
 	
-	@Override
 	public void setSubject(Subject obj) {
 		
 		this.connect(obj);
 	}
 
-	@Override
+	
 	public void connect(Subject subj) {
 		
 		this.clock = subj;
 	}
 
-	
+	// procura por obstaculos que destroem o laser
 	public boolean searchObstacles(String[] obstacles, ArrayList<IActor> cellActors) {
 		
 		boolean foundObstacles = false;
@@ -57,20 +55,20 @@ public class LaserShot extends Actor implements DynamicActor {
 		return foundObstacles;
 	}
 	
-	
+	// disconecta um alvo do clock
 	public void disconnectToClock(Observer target) {
 		
 		target.getSubject().remove(target);
 		target.setSubject(null);
 	}
 	
-	
+	// tira vida do heroi
 	public void damageHero(IHero hero) {
 		
 		hero.setLifeNotStatic(hero.getLifeNotStatic()-1);
 	}
 	
-	
+	// procura alvos para atacar
 	public void searchTargets(String[] targets, ArrayList<IActor> cellActors) {
 		
 		for (String target: targets)
@@ -83,7 +81,7 @@ public class LaserShot extends Actor implements DynamicActor {
 				}
 	}
 	
-	
+	// procura por obstaculos e alvos
 	public void attack() {
 		
 		ArrayList<IActor> cellActors = this.getRoom().getCells()[this.getPosRow()][this.getPosColumn()].getActors();
@@ -94,7 +92,7 @@ public class LaserShot extends Actor implements DynamicActor {
 			this.searchTargets(targets, cellActors);
 	}
 
-	@Override
+	
 	public void move(String direction) {
 		switch (direction) {
 		case "forward":
@@ -128,9 +126,8 @@ public class LaserShot extends Actor implements DynamicActor {
 		
 	}
 
-	@Override
+	// não precisa verificar a movimentação
 	public boolean verifyMovement(String direction) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

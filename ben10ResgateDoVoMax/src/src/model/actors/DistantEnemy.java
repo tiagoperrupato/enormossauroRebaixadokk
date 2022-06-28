@@ -16,6 +16,7 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		this.aim = "left";
 	}
 
+	// procura pelo heroi no seu campo de visão
 	public Hero searchHero() {
 		int iEnemy = this.getPosRow();
 		int jEnemy = this.getPosColumn();
@@ -24,37 +25,37 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		
 		int iMin, iMax, jMin, jMax;
 		
-		// define os limetes da iteração
+		// define os limites da iteração
 		iMin = Math.max(0, iEnemy - VISION);
 		iMax = Math.min(iLength, jEnemy + VISION+1);
 		jMin = Math.max(0, jEnemy - VISION);
 		jMax = Math.min(jLength, jEnemy + VISION+1);
 		
-		for(int i = iMin; i < iMax; i++) {
+		for(int i = iMin; i < iMax; i++)
 			for(int j = jMin; j < jMax; j++) {
 				if (i == iEnemy && j == jEnemy) {
 					continue;
 				}
 				//verifica se o arraylist não esta vazio
-				if(!(room.getCells()[i][j].getActors().isEmpty())) {
+				if(!(room.getCells()[i][j].getActors().isEmpty()))
 					//varre toda arraylist em busca do ben10
-					for(IActor obj: room.getCells()[i][j].getActors()) {
+					for(IActor obj: room.getCells()[i][j].getActors())
 						//se for o ben 10 ou algum dos aliens ele retorna a funcao
 						if(obj.getTypeActor().equals("B10") || 
 								obj.getTypeActor().equals("FA")	|| 
 								obj.getTypeActor().equals("FL") || 
 								obj.getTypeActor().equals("DI")) {
-							return (Hero) obj;
-							
+							return (Hero) obj;	
 						}
-					}
-				}
 			}
-		}
+		
 		return null;		
 	}
 	
-	@Override
+	/* faz o update a partir do clock
+	 * podendo ser atacar o jogador
+	 * ou se mover para uma posição mais vantajosa para atacar o jogador
+	 */
 	public void update() {
 		Hero hero = searchHero();
 		if(hero!=null){	
@@ -67,6 +68,9 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 					this.aim = "right";
 				attack();
 			}
+			/*se não estiver na mesma linha ele se movimenta para cima ou para baixo
+			 * a depender da posição do jogador
+			 */
 			else if(rowDist>0) {
 				if(verifyMovement("forward")) {
 					move("forward");
@@ -81,7 +85,7 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		
 	}
 
-	@Override
+	
 	public void connect(Subject subj) {
 		this.clock = subj;
 		
@@ -93,16 +97,15 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 	}
 	
 	
-	@Override
 	public void setSubject(Subject subj) {
 		this.connect(subj);
 		
 	}
 
-	@Override
+	// desconecta um alvo do clock
 	public void disconnectToClock(Observer target) {}
 
-	@Override
+	// estrategia de ataque onde cria o laser para atacar o jogador
 	public void attack() {
 		
 		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
@@ -125,7 +128,7 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		}
 	}
 
-	@Override
+	// se movimenta para outra celula
 	public void move(String direction) {
 		switch (direction) {
 		case "forward":
@@ -143,7 +146,7 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 		}		
 	}
 
-	@Override
+	// verifica se a direção escolhida possui um ator impedindo sua entrada na celula
 	public boolean verifyMovement(String direction) {
 		ArrayList<IActor> cellActors = null;
 		switch (direction) {

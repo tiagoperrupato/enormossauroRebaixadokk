@@ -31,7 +31,7 @@ public class Room implements IRoom {
 		return cells;
 	}
 
-
+	// cria as celulas da sala
 	public void buildCells() {
 		
 		for (int i = 0; i < this.qtyRows; i++) {
@@ -41,14 +41,14 @@ public class Room implements IRoom {
 		}
 	}
 	
-	
+	// adiciona um ator em uma celula 
 	public void insertInCell(IActor actor) {
 		
 		int posRow = actor.getPosRow(), posColumn = actor.getPosColumn();
 		this.cells[posRow][posColumn].insertActor(actor);
 	}
 	
-	
+	// remove um ator de uma celula
 	public void removeInCell(IActor actor) {
 		
 		int posRow = actor.getPosRow(), posColumn = actor.getPosColumn();

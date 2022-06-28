@@ -8,7 +8,7 @@ public class FourArms extends Hero {
 		super(posRow, posColumn, typeActor);
 	}
 	
-	
+	// procura por alvos, caixa e inimigos
 	public IActor searchTarget(ArrayList<IActor> cellActors) {
 		
 		String targets[] = {"BX", "NE", "DE"};
@@ -21,14 +21,14 @@ public class FourArms extends Hero {
 		return null;	
 	}
 	
-	
+	// desconecta um alvo do clock
 	public void disconnectToClock(Observer target) {
 		
 		target.getSubject().remove(target);
 		target.setSubject(null);
 	}
 	
-	
+	// implementa seu ataque, destroi alvos e inimigos na celula adjacente a sua mira
 	public void attack() {
 		ArrayList<IActor> cellActors;
 		IActor target;

@@ -15,7 +15,7 @@ public class ControlCommand implements IRModelCommand, IViewCommand{
 	}
 	
 	
-	@Override
+	// chama a função de executar comando do heroi e atualiza seu ponteiro para o heroi ativo
 	public void modelAction(String actionType) {
 		
 		if(hero != null) {

@@ -11,7 +11,7 @@ public class Toolkit {
 
    
    
-   
+   // encontra o arquivo .CSV
    public static Toolkit start(String roomPath) {
 	   tk = new Toolkit();
 	      String roomFile = (roomPath == null)
@@ -42,7 +42,7 @@ public class Toolkit {
       return (String[][])v.toArray(new String[v.size()][]);
    }
 
-   
+   // encerra o ToolKit
    public void stop() {
       try {
          roomStr.close();

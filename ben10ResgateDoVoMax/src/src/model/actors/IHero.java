@@ -10,7 +10,6 @@ public interface IHero extends DynamicActor, IModelCommand{
 	public void setHeros(Hero[] heros);
 	public String getAim();
 	public void setAim(String aim);
-	public boolean verifyChangeHero(String command);
 	public Hero changeHero(String command);
 	public boolean searchBlockers(String[] blockers, ArrayList<IActor> cellActors);
 	public boolean searchEnemies(String[] enemies, ArrayList<IActor> cellActors);

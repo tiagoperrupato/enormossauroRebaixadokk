@@ -12,7 +12,7 @@ public class Flames extends Hero {
 	public boolean searchLavaPool(String lavaPool, ArrayList<IActor> cellActors) {
 		return true;}
 	
-	
+	// implementa seu ataque, criando uma bola de fogo que anda na direção da mira
 	public void attack() {
 		
 		int posRow = this.getPosRow(), posColumn = this.getPosColumn();
