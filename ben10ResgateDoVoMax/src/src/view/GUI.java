@@ -116,10 +116,7 @@ public class GUI extends JFrame implements IRViewCommand{
 		help.setPreferredSize(new Dimension(360, 20));
 		displayArea.add(help, BorderLayout.SOUTH);
 		
-		JLabel text = new JLabel("<html> A tropa do Vilgax capturou seu avô Max, "
-				+ "derrote todos os inimigos e chegue ao outro lado da sala para salvá-lo. "
-				+ "Caso precise de ajuda precione o botão HELP <html>");
-		text.setPreferredSize(new Dimension(260, 220));
+		JLabel text = Hero.getTextLabel();
 		displayArea.add(text, BorderLayout.EAST);
 		
 		data.add(displayArea, BorderLayout.EAST);

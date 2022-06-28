@@ -40,7 +40,7 @@ public class Clock implements Subject {
 
 	public void start() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
-		public void run() { System.out.println("clock");notifyObservers();}
+		public void run() {notifyObservers();}
 		}, this.rate, this.rate);
 	}
 	
@@ -84,5 +84,10 @@ public class Clock implements Subject {
 				this.remove(i);
 				break;
 			}
+	}
+
+	@Override
+	public ArrayList<Observer> getObservers() {
+		return this.observers;
 	}
 }

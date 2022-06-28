@@ -1,16 +1,14 @@
 package controller.builder;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Vector;
 
 public class Toolkit {
    public static String DIRETORIO = System.getProperty("user.dir") + "/src/";
    private static Toolkit tk;
    private BufferedReader roomStr;
-   private boolean firstBoard = true;
+
    
    
    

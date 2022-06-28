@@ -13,9 +13,9 @@ public interface IHero extends DynamicActor, IModelCommand{
 	public boolean verifyChangeHero(String command);
 	public Hero changeHero(String command);
 	public boolean searchBlockers(String[] blockers, ArrayList<IActor> cellActors);
-	public void searchEnemies(String[] enemies, ArrayList<IActor> cellActors);
-	public void searchLavaPool(String lavaPool, ArrayList<IActor> cellActors);
-	public void searchBlackHole(String blackHole, ArrayList<IActor> cellActors);
+	public boolean searchEnemies(String[] enemies, ArrayList<IActor> cellActors);
+	public boolean searchLavaPool(String lavaPool, ArrayList<IActor> cellActors);
+	public boolean searchBlackHole(String blackHole, ArrayList<IActor> cellActors);
 	public String getTypeActor();
 	public int getLifeNotStatic();
 	public void setLifeNotStatic(int life);
