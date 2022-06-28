@@ -48,6 +48,7 @@ public class Builder {
 	public void buildClock() {
 		
 		this.clock = new Clock(CLOCK_RATE);
+		this.clock.setControlCommand(this.command);
 		clock.start();
 	}
 	
@@ -60,8 +61,8 @@ public class Builder {
 	
 	public void buildController() {
 		
-		this.buildClock();
 		this.buildCommand();
+		this.buildClock();
 	}
 	
 	
