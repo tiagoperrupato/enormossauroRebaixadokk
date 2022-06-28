@@ -34,18 +34,19 @@ public class GUI extends JFrame implements IRViewCommand{
 		this.vector=new JPanel[ROW_QTY];
 		addGridMap(backContent, cells);
 		addControlButtons(backContent);
-		addDataAndTextArea(backContent, heros);
+		addDataAndDisplayArea(backContent, heros);
 		setVisible(true);
 		
 	}
 	
-	private void addDataAndTextArea(Container backContent, Hero heros[]){
-		JPanel dataAndText = new JPanel();
-		dataAndText.setLayout(new BorderLayout());
-		dataAndText.setPreferredSize(new Dimension(480,240));
-		addDataArea(dataAndText, heros);
-		addTextArea(dataAndText);
-		backContent.add(dataAndText, BorderLayout.EAST);
+	private void addDataAndDisplayArea(Container backContent, Hero heros[]){
+		JPanel dataAndDisplay= new JPanel();
+		dataAndDisplay.setLayout(new BorderLayout());
+		dataAndDisplay.setPreferredSize(new Dimension(480,240));
+		addDataArea(dataAndDisplay, heros);
+		addDisplayArea(dataAndDisplay);
+		//addTextArea(dataAndDisplay);
+		backContent.add(dataAndDisplay, BorderLayout.EAST);
 	}
 	
 	private void addDataArea(JPanel back, Hero heros[]) {
@@ -102,13 +103,28 @@ public class GUI extends JFrame implements IRViewCommand{
 		return panelStatus;
 	}
 	
-	private void addTextArea(JPanel data) {
-		JTextArea textArea= new JTextArea("teste");
-		textArea.setPreferredSize(new Dimension(360, 240));
-		data.add(textArea, BorderLayout.EAST);
+	public void addDisplayArea(JPanel data){
+		JPanel displayArea = new JPanel();
+		displayArea.setLayout(new BorderLayout());
 		
-	}
-	
+		JLabel azmuth = new JLabel(createAndResize("azmuth.png", 100, 120));
+		//azmuth.setPreferredSize(new Dimension(azmuth.getWidth(), azmuth.getHeight()));
+		azmuth.setPreferredSize(new Dimension(100,120));
+		displayArea.add(azmuth, BorderLayout.WEST);
+		
+		JButton help = new JButton("HELP");
+		help.setPreferredSize(new Dimension(360, 20));
+		displayArea.add(help, BorderLayout.SOUTH);
+		
+		JLabel text = new JLabel("<html> A tropa do Vilgax capturou seu avô Max, "
+				+ "derrote todos os inimigos e chegue ao outro lado da sala para salvá-lo. "
+				+ "Caso precise de ajuda precione o botão HELP <html>");
+		text.setPreferredSize(new Dimension(260, 220));
+		displayArea.add(text, BorderLayout.EAST);
+		
+		data.add(displayArea, BorderLayout.EAST);
+		
+	}	
 	
 	private void addGridMap(Container back, Cell cells[][]) {
 		JPanel gridMap = new JPanel();
