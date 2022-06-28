@@ -28,4 +28,4 @@
 
 ## Diagrama Geral da Arquitetura do Jogo
 
-![Components Architecture](assets/Ben10ComponentsArchitecture.png)
+![Components Architecture](assets/Ben10ComponentsArchitecture1.png)
