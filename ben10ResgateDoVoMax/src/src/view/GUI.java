@@ -18,7 +18,6 @@ public class GUI extends JFrame implements IRViewCommand{
 	private static final int ROW_QTY = 9;
 	private static final int HEIGHT_STATUS_BAR = 20;
 	private static final int HEIGHT_STATUS_TEXT_BAR = 25;	
-	JLabel[][] arr =null;
 	JPanel[] vector=null;
 	IViewCommand commandControl;
 	
@@ -130,15 +129,7 @@ public class GUI extends JFrame implements IRViewCommand{
 		gridMap.setPreferredSize(new Dimension(720, 480));
 		back.add(gridMap, BorderLayout.NORTH);	
 	}
-	/*
-	 * public void makeGrid(JPanel gridMap) { for(int i=0; i<9; i++) {
-	 * this.vector[i] = new JPanel(new GridLayout(1,9));
-	 * this.vector[i].setPreferredSize(new Dimension(720, 52)); for (int j=0; j<14;
-	 * j++) { //this.arr[i][j]=new JButton(i+""+j); this.arr[i][j]=new
-	 * JLabel(createAndResize("floor.png", 53 , 52));
-	 * this.arr[i][j].setPreferredSize(new Dimension(53,52));
-	 * this.vector[i].add(arr[i][j]); } gridMap.add(vector[i]); } }
-	 */
+	
 	//busca a label dentro da celula
 	  public void makeGrid(JPanel gridMap, Cell cells[][]) { 
 		  for(int i=0; i<9; i++) { 

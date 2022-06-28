@@ -123,62 +123,6 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 			laserShot.insert();
 			laserShot.attack();
 		}
-		
-		
-		
-		
-		/*switch(this.getAim()) {
-		case "forward":
-			if (posRow-1 >= 0) {
-				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow-1, posColumn, "FB", "forward");
-				fireBall.connect(this.getRoom());
-				fireBall.setSubject(this.getSubject());
-				this.getSubject().register(fireBall);
-				fireBall.insert();
-				fireBall.attack();
-			}
-			break;
-			
-		case "left":
-			if (posColumn-1 >= 0) {
-				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow, posColumn-1, "FB", "left");
-				fireBall.connect(this.getRoom());
-				fireBall.setSubject(this.getSubject());
-				this.getSubject().register(fireBall);
-				fireBall.insert();
-				fireBall.attack();
-			}
-			break;
-			
-		case "backward":
-			if (posRow+1 < this.getRoom().getQtyRows()) {
-				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow+1, posColumn, "FB", "backward");
-				fireBall.connect(this.getRoom());
-				fireBall.setSubject(this.getSubject());
-				this.getSubject().register(fireBall);
-				fireBall.insert();
-				fireBall.attack();
-			}
-			break;
-			
-		case "right":
-			if (posColumn+1 < this.getRoom().getQtyColumns()) {
-				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow, posColumn+1, "FB", "right");
-				fireBall.connect(this.getRoom());
-				fireBall.setSubject(this.getSubject());
-				this.getSubject().register(fireBall);
-				fireBall.insert();
-				fireBall.attack();
-			}
-			break;
-			
-		default:
-			break;
-		}*/
 	}
 
 	@Override
@@ -216,7 +160,6 @@ public class DistantEnemy extends Actor implements IDistantEnemy {
 			cellActors=this.getRoom().getCells()[this.getPosRow()][this.getPosColumn()+1].getActors();
 			break;
 		}
-		//for(IActor obj:cellActors) {
 		if (cellActors.isEmpty()) {
 			return true;
 		}

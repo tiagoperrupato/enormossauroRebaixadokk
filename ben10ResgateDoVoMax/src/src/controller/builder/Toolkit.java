@@ -14,10 +14,8 @@ public class Toolkit {
    
    public static Toolkit start(String roomPath) {
 	   tk = new Toolkit();
-	   System.out.println(DIRETORIO);
 	      String roomFile = (roomPath == null)
 	            ? DIRETORIO + "room.csv" : roomPath;
-	      System.out.println("files - room: " + roomFile);
 	      try {
 	         tk.roomStr = new BufferedReader(
 	               new FileReader(roomFile));
