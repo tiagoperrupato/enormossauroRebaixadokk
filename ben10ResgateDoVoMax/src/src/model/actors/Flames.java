@@ -9,7 +9,8 @@ public class Flames extends Hero {
 	}
 	
 	// não implementa nada nessa pois eh imune a lava
-	public void searchLavaPool(String lavaPool, ArrayList<IActor> cellActors) {}
+	public boolean searchLavaPool(String lavaPool, ArrayList<IActor> cellActors) {
+		return true;}
 	
 	
 	public void attack() {

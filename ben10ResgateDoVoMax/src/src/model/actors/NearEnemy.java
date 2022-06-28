@@ -158,7 +158,6 @@ public class NearEnemy extends Actor implements INearEnemy{
 					if (target != null) {
 						if(target.getTypeActor() !=  "DI") {
 							alien.setLifeNotStatic(alien.getLifeNotStatic()-1);
-							System.out.println(alien.getLifeNotStatic());
 						}
 						else {//adicionar algo para o diamante
 						}

@@ -2,18 +2,23 @@ package model.actors;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 import controller.control.Subject;
 
 public class Hero extends Actor implements IHero {
 	
 	private static int life = 10;
 	private int stamina = 10;
-	private Subject clock;
+	private static boolean win = false;
+	private static Subject clock;
 	private static Hero heros[];
 	private boolean isTransformed=false;
 	private String aim;
 	private JLabelBar barLabel = null; 
+	private static JLabel textLabel = null;
 	private static final int BAR_WEIGHT=120, BAR_HEIGHT=20;
+	private static final int TEXT_WEIGHT=260, TEXT_HEIGHT=220;
 	
 	
 	
@@ -23,8 +28,20 @@ public class Hero extends Actor implements IHero {
 		this.aim = "right";		
 		this.barLabel=new JLabelBar(typeActor, BAR_WEIGHT, BAR_HEIGHT);
 		this.barLabel.setPreferredSize(new Dimension(BAR_WEIGHT,BAR_HEIGHT));
+		Hero.textLabel = new JLabel ("<html> A tropa do Vilgax capturou seu avô Max, "
+				+ "derrote todos os inimigos e chegue ao outro lado da sala para salvá-lo. "
+				+ "Caso precise de ajuda precione o botão HELP <html>");
+		Hero.textLabel.setPreferredSize(new Dimension(TEXT_WEIGHT, TEXT_HEIGHT));
 	}
 	
+	public static JLabel getTextLabel() {
+		return textLabel;
+	}
+	// escreve novo texto para a Label apresentada na interface gŕafica
+	public void setText(String newText) {
+		Hero.getTextLabel().setText(newText);
+	}
+
 	public boolean isTransformed() {
 		return isTransformed;
 	}
@@ -46,11 +63,22 @@ public class Hero extends Actor implements IHero {
 	}
 	
 	public void setLifeNotStatic(int life) {
+		
 		setLife(life);
+		if(life==0) {
+			endGame();
+			this.setText("<html>Infelizmente você fracassou =(. Não desista de sua jornada Ben Tennyson. "
+					+ "Reinicie o jogo e tente novamente<html>");
+		}
 	}
+	
+	/* toda vez que set a vida do heroi, é feito uma verificação para caso ele tenha morrido
+	 * caso esteja vivo, é diminuido a sua vida
+	 */
 	public static void setLife(int life) {
 		Hero.life = life;
 		heros[0].getLabel().resizeImage(life*12 + 1,BAR_HEIGHT);
+
 	}
 	
 	public String getAim() {
@@ -123,12 +151,36 @@ public class Hero extends Actor implements IHero {
 			this.insert();
 			break;
 			
-		default:
-			return;
 		}
+		//caso o heroi vá parar na casa final é feita uma verificação para acabar o jogo
+		if(this.getPosRow()==4 && this.getPosColumn()==12) {
+			int acc=0;
+			for(Observer obj:clock.getObservers()) {
+				if(obj.getTypeActor() == "NE" || obj.getTypeActor() == "DE" )
+					acc++;
+			}
+			if(acc==0) {
+				
+			}
+			setWin(true);
+			endGame();
+			this.setText("<html> Parabéns Ben, seu avô ficará muito orgulhoso quando salvarmos ele <html>");
+		}
+		
 		return;
 	}
 	
+	public void endGame() {
+		for(Hero obj: heros) {
+			clock.remove(obj);
+		}
+		for(Hero obj: heros) {
+			obj=null;
+		}
+		//clock.stop();
+		this.getSubject().updateControlCommand(null);
+		this.remove();
+	}
 	
 	public void update() {
 		//comeca em 1 para não atualizar a barra de vida do ben10
@@ -166,7 +218,6 @@ public class Hero extends Actor implements IHero {
 		for (String blocker: blockers)
 			for (IActor actor: cellActors)
 				if (actor.getTypeActor().equals(blocker)) {
-					System.out.println("Oi");
 					found = true;
 					return found;
 				}
@@ -177,41 +228,45 @@ public class Hero extends Actor implements IHero {
 	/* porcura inimigos na sala que o personagem for entrar
 	 * tira vida do heroi caso tenha
 	 */
-	public void searchEnemies(String[] enemies, ArrayList<IActor> cellActors) {
+	public boolean searchEnemies(String[] enemies, ArrayList<IActor> cellActors) {
 		
 		for (String enemy: enemies)
 			for (IActor actor: cellActors)
 				if (actor.getTypeActor().equals(enemy)) {
-					System.out.println(Hero.getLife());
-					Hero.setLife(Hero.getLife()-1);
-					System.out.println(Hero.getLife());
+					this.setLifeNotStatic(this.getLifeNotStatic()-1);
+					if(this.getLifeNotStatic()==0) {
+						return false;
+					}
 				}
+		return true;
 	}
 	
 	/* porcura por poça de lava na celula que o personagem for entrar
 	 * tira vida do heroi a nao ser que ele seja imune
 	 */
-	public void searchLavaPool(String lavaPool, ArrayList<IActor> cellActors) {
+	public boolean searchLavaPool(String lavaPool, ArrayList<IActor> cellActors) {
 		
 		for (IActor actor: cellActors)
 			if (actor.getTypeActor().equals(lavaPool)) {
-				System.out.println(Hero.getLife());
-				Hero.setLife(Hero.getLife()-1);
-				System.out.println(Hero.getLife());
+				this.setLifeNotStatic(this.getLifeNotStatic()-1);
+				if(this.getLifeNotStatic()==0) {
+					return false;
+				}
 			}
+		return true;
 	}
 	
 	/* procura por um buraco negro na celula que o personagem for entrar
 	 * tira toda a vida do heroi
 	 */
-	public void searchBlackHole(String blackHole, ArrayList<IActor> cellActors) {
+	public boolean searchBlackHole(String blackHole, ArrayList<IActor> cellActors) {
 		
 		for (IActor actor: cellActors)
 			if (actor.getTypeActor().equals(blackHole)) {
-				System.out.println(Hero.getLife());
-				Hero.setLife(0);
-				System.out.println(Hero.getLife());
+				this.setLifeNotStatic(0);
+				return false;
 			}
+		return true;
 	}
 	
 	/* verifica se o personagem pode fazer a movimentacao pedida
@@ -238,13 +293,16 @@ public class Hero extends Actor implements IHero {
 				actionStatus = false;
 			
 			// verifica se tem inimigo para tirar vida
-			this.searchEnemies(enemies, cellActors);
-			
+			if(!this.searchEnemies(enemies, cellActors))
+				actionStatus = false;
+
 			// verifica se tem lavaPool
-			this.searchLavaPool("LP", cellActors);
-			
+			if(!this.searchLavaPool("LP", cellActors))
+				actionStatus = false;
+
 			// verifica se tem BlackHole
-			this.searchBlackHole("BH", cellActors);
+			if(!this.searchBlackHole("BH", cellActors))
+				actionStatus = false;
 			break;
 			
 		case "left":	
@@ -259,13 +317,16 @@ public class Hero extends Actor implements IHero {
 				actionStatus = false;
 			
 			// verifica se tem inimigo para tirar vida
-			this.searchEnemies(enemies, cellActors);
+			if(!this.searchEnemies(enemies, cellActors))
+				actionStatus = false;
 			
 			// verifica se tem lavaPool
-			this.searchLavaPool("LP", cellActors);
+			if(!this.searchLavaPool("LP", cellActors))
+				actionStatus = false;
 			
 			// verifica se tem BlackHole
-			this.searchBlackHole("BH", cellActors);
+			if(!this.searchBlackHole("BH", cellActors))
+				actionStatus = false;
 			break;
 			
 		case "backward":
@@ -280,13 +341,16 @@ public class Hero extends Actor implements IHero {
 				actionStatus = false;
 			
 			// verifica se tem inimigo para tirar vida
-			this.searchEnemies(enemies, cellActors);
-			
+			if(!this.searchEnemies(enemies, cellActors))
+				actionStatus = false;
+
 			// verifica se tem lavaPool
-			this.searchLavaPool("LP", cellActors);
-			
+			if(!this.searchLavaPool("LP", cellActors))
+				actionStatus = false;
+
 			// verifica se tem BlackHole
-			this.searchBlackHole("BH", cellActors);
+			if(!this.searchBlackHole("BH", cellActors))
+				actionStatus = false;
 			break;
 			
 		case "right":
@@ -301,13 +365,16 @@ public class Hero extends Actor implements IHero {
 				actionStatus = false;
 			
 			// verifica se tem inimigo para tirar vida
-			this.searchEnemies(enemies, cellActors);
-			
+			if(!this.searchEnemies(enemies, cellActors))
+				actionStatus = false;
+
 			// verifica se tem lavaPool
-			this.searchLavaPool("LP", cellActors);
-			
+			if(!this.searchLavaPool("LP", cellActors))
+				actionStatus = false;
+
 			// verifica se tem BlackHole
-			this.searchBlackHole("BH", cellActors);
+			if(!this.searchBlackHole("BH", cellActors))
+				actionStatus = false;
 			break;
 			
 		default:
@@ -360,6 +427,9 @@ public class Hero extends Actor implements IHero {
 				this.aim = command;		// troca mira
 				if (this.verifyMovement(command))
 					this.move(command);
+				else if(this.getLifeNotStatic()==0 || Hero.getWin()==true){
+					return null;
+				}
 			}
 		// verifica se o comando foi de mudar de Personagem
 		String changeHero[] = {"B10", "FA", "FL", "DI"};
@@ -376,5 +446,13 @@ public class Hero extends Actor implements IHero {
 		
 		// retorna o personagem atual
 		return this;
+	}
+	
+	public void setWin(boolean win) {
+		this.win = win;
+	}
+
+	private static boolean getWin() {
+		return Hero.win;
 	}
 }
