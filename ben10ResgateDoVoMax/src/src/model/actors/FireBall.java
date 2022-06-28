@@ -7,16 +7,18 @@ import controller.control.Subject;
 public class FireBall extends Actor implements DynamicActor {
 	
 	private Subject clock;
+	private String direction;
 	
-	public FireBall(int posRow, int posColumn, String typeActor) {
+	public FireBall(int posRow, int posColumn, String typeActor, String direction) {
 		
 		super(posRow, posColumn, typeActor);
+		this.direction = direction;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		this.move(this.direction);
+		this.attack();
 	}
 
 	
@@ -38,14 +40,20 @@ public class FireBall extends Actor implements DynamicActor {
 	}
 
 	
-	public void searchObstacles(String[] obstacles, ArrayList<IActor> cellActors) {
+	public boolean searchObstacles(String[] obstacles, ArrayList<IActor> cellActors) {
+		
+		boolean foundObstacles = false;
 		
 		for (String obstacle: obstacles)
 			for (IActor actor: cellActors)
 				if (actor.getTypeActor().equals(obstacle)) {
 					this.remove();
-					return;
+					this.setAlive(false);
+					foundObstacles = true;
+					return foundObstacles;
 				}
+		
+		return foundObstacles;
 	}
 	
 	
@@ -65,12 +73,6 @@ public class FireBall extends Actor implements DynamicActor {
 					this.remove();
 					actor.setAlive(false);
 					this.setAlive(false);
-					
-					if (actor instanceof Observer)
-						this.disconnectToClock((Observer)actor);
-					
-					this.disconnectToClock(this);
-						
 					return;
 				}
 	}
@@ -80,21 +82,48 @@ public class FireBall extends Actor implements DynamicActor {
 		
 		ArrayList<IActor> cellActors = this.getRoom().getCells()[this.getPosRow()][this.getPosColumn()].getActors();
 		String obstacles[] = {"SW", "BX"};
-		String targets[] = {"NE", "DE", "IW"};
+		String targets[] = {"NE", "DE", "IW", "LS"};
 		
-		this.searchObstacles(obstacles, cellActors);
-		this.searchTargets(targets, cellActors);
+		if (!(this.searchObstacles(obstacles, cellActors))) {
+			this.searchTargets(targets, cellActors);
+		}
 	}
 
 	@Override
 	public void move(String direction) {
-		// TODO Auto-generated method stub
-		
+		switch (direction) {
+		case "forward":
+			this.remove();
+			this.setPosRow(this.getPosRow()-1);
+			this.insert();
+			break;
+			
+		case "left":
+			this.remove();
+			this.setPosColumn(this.getPosColumn()-1);
+			this.insert();
+			break;
+			
+		case "backward":
+			this.remove();
+			this.setPosRow(this.getPosRow()+1);
+			this.insert();
+			break;
+			
+		case "right":
+			this.remove();
+			this.setPosColumn(this.getPosColumn()+1);
+			this.insert();
+			break;
+			
+		default:
+			return;
+		}
+		return;
 	}
 
-	@Override
+	
 	public boolean verifyMovement(String direction) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

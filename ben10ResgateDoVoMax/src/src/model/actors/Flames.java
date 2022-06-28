@@ -21,9 +21,10 @@ public class Flames extends Hero {
 		case "forward":
 			if (posRow-1 >= 0) {
 				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow-1, posColumn, "FB");
+				FireBall fireBall = new FireBall(posRow-1, posColumn, "FB", "forward");
 				fireBall.connect(this.getRoom());
-				fireBall.connect(this.getSubject());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
 				fireBall.insert();
 				fireBall.attack();
 			}
@@ -32,9 +33,10 @@ public class Flames extends Hero {
 		case "left":
 			if (posColumn-1 >= 0) {
 				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow, posColumn-1, "FB");
+				FireBall fireBall = new FireBall(posRow, posColumn-1, "FB", "left");
 				fireBall.connect(this.getRoom());
-				fireBall.connect(this.getSubject());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
 				fireBall.insert();
 				fireBall.attack();
 			}
@@ -43,9 +45,10 @@ public class Flames extends Hero {
 		case "backward":
 			if (posRow+1 < this.getRoom().getQtyRows()) {
 				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow+1, posColumn, "FB");
+				FireBall fireBall = new FireBall(posRow+1, posColumn, "FB", "backward");
 				fireBall.connect(this.getRoom());
-				fireBall.connect(this.getSubject());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
 				fireBall.insert();
 				fireBall.attack();
 			}
@@ -54,9 +57,10 @@ public class Flames extends Hero {
 		case "right":
 			if (posColumn+1 < this.getRoom().getQtyColumns()) {
 				// cria bola de fogo
-				FireBall fireBall = new FireBall(posRow, posColumn+1, "FB");
+				FireBall fireBall = new FireBall(posRow, posColumn+1, "FB", "right");
 				fireBall.connect(this.getRoom());
-				fireBall.connect(this.getSubject());
+				fireBall.setSubject(this.getSubject());
+				this.getSubject().register(fireBall);
 				fireBall.insert();
 				fireBall.attack();
 			}

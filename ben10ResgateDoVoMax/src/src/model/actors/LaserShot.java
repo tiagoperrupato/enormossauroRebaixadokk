@@ -7,16 +7,19 @@ import controller.control.Subject;
 public class LaserShot extends Actor implements DynamicActor {
 	
 	private Subject clock;
+	private String direction;
 
-	public LaserShot(int posRow, int posColumn, String typeActor) {
+	public LaserShot(int posRow, int posColumn, String typeActor, String direction) {
 		
 		super(posRow, posColumn, typeActor);
+		this.direction = direction;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
+		this.move(this.direction);
+		this.attack();
 	}
 
 	
@@ -38,14 +41,20 @@ public class LaserShot extends Actor implements DynamicActor {
 	}
 
 	
-	public void searchObstacles(String[] obstacles, ArrayList<IActor> cellActors) {
+	public boolean searchObstacles(String[] obstacles, ArrayList<IActor> cellActors) {
 		
+		boolean foundObstacles = false;
+
 		for (String obstacle: obstacles)
 			for (IActor actor: cellActors)
 				if (actor.getTypeActor().equals(obstacle)) {
+					this.setAlive(false);
 					this.remove();
-					return;
+					foundObstacles = true;
+					return foundObstacles;
 				}
+		
+		return foundObstacles;
 	}
 	
 	
@@ -68,11 +77,8 @@ public class LaserShot extends Actor implements DynamicActor {
 			for (IActor actor: cellActors)
 				if (actor.getTypeActor().equals(target)) {
 					this.damageHero((IHero) actor);
-					
 					this.remove();
 					this.setAlive(false);
-					this.disconnectToClock(this);
-						
 					return;
 				}
 	}
@@ -84,13 +90,41 @@ public class LaserShot extends Actor implements DynamicActor {
 		String obstacles[] = {"SW", "BX", "IW"};
 		String targets[] = {"B10", "FA", "FL"};
 		
-		this.searchObstacles(obstacles, cellActors);
-		this.searchTargets(targets, cellActors);
+		if(!this.searchObstacles(obstacles, cellActors));
+			this.searchTargets(targets, cellActors);
 	}
 
 	@Override
 	public void move(String direction) {
-		// TODO Auto-generated method stub
+		switch (direction) {
+		case "forward":
+			this.remove();
+			this.setPosRow(this.getPosRow()-1);
+			this.insert();
+			break;
+			
+		case "left":
+			this.remove();
+			this.setPosColumn(this.getPosColumn()-1);
+			this.insert();
+			break;
+			
+		case "backward":
+			this.remove();
+			this.setPosRow(this.getPosRow()+1);
+			this.insert();
+			break;
+			
+		case "right":
+			this.remove();
+			this.setPosColumn(this.getPosColumn()+1);
+			this.insert();
+			break;
+			
+		default:
+			return;
+		}
+		return;
 		
 	}
 
