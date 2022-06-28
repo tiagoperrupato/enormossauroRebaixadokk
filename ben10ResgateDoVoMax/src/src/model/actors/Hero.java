@@ -151,7 +151,9 @@ public class Hero extends Actor implements IHero {
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
 		this.getLabel().resizeImage(stamina*12 + 1,BAR_HEIGHT);
-		
+		if(stamina==0) {
+			this.changeHero("B10");
+		}
 	}
 
 	/*procura por atores que bloqueiam a passagem do personagem por uma selula
