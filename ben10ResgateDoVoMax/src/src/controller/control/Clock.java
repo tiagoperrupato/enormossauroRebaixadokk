@@ -36,7 +36,12 @@ public class Clock implements Subject {
 	public void setControlCommand(ControlCommand controlCommand) {
 		this.controlCommand = controlCommand;
 	}
-
+	
+	
+	public void stop() {
+		this.timer.cancel();
+		this.timer.purge();
+	}
 
 	public void start() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
