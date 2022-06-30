@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Toolkit {
-   public static String DIRETORIO = System.getProperty("user.dir") + "/src/";
+   //public static String DIRETORIO = System.getProperty("user.dir") + "/src/controller/builder/room.csv";
+	public static String DIRETORIO = Toolkit.class.getResource("./room.csv").getPath();
    private static Toolkit tk;
    private BufferedReader roomStr;
 
@@ -15,10 +16,11 @@ public class Toolkit {
    public static Toolkit start(String roomPath) {
 	   tk = new Toolkit();
 	      String roomFile = (roomPath == null)
-	            ? DIRETORIO + "room.csv" : roomPath;
+	            ? DIRETORIO : roomPath;
 	      try {
 	         tk.roomStr = new BufferedReader(
 	               new FileReader(roomFile));
+	         
 	      } catch(IOException erro){
 	         erro.printStackTrace();
 	      }
