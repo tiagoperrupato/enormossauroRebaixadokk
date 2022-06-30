@@ -31,7 +31,7 @@ public class Cell implements ICell {
 	}
 
 	public ImageIcon resizeImage(String path) {
-		Image image = new ImageIcon(path).getImage();
+		Image image = new ImageIcon(GUI.class.getResource("images/"+ path) ).getImage();
 		Image resizedImage =image.getScaledInstance(IMAGE_WEIGHT, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
 		return new ImageIcon(resizedImage);
 	}
@@ -40,46 +40,46 @@ public class Cell implements ICell {
 	public void changeCellImage(String actorType) {
 
 		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));	// pensar em um jeito de passar a referencia do tamanho do mapa
-		String DIRETORIO = System.getProperty("user.dir") + "/src/view/images/";
+
 		switch(actorType) {
 			case "B10":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "ben10.png"));
+				this.cellLabel.setIcon(resizeImage( "ben10.png"));
 				break;
 			case "FA":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "fourarms.png"));
+				this.cellLabel.setIcon(resizeImage( "fourarms.png"));
 				break;
 			case "FL":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "flames.png"));
+				this.cellLabel.setIcon(resizeImage( "flames.png"));
 				break;
 			case "DI":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "diamond.png"));
+				this.cellLabel.setIcon(resizeImage( "diamond.png"));
 				break;
 			case "NE":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "nearenemy.png"));
+				this.cellLabel.setIcon(resizeImage( "nearenemy.png"));
 				break;
 			case "DE":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "distantenemy.png"));
+				this.cellLabel.setIcon(resizeImage( "distantenemy.png"));
 				break;
 			case "LP":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "lavapool.png"));
+				this.cellLabel.setIcon(resizeImage( "lavapool.png"));
 				break;
 			case "BH":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "blackhole.png"));
+				this.cellLabel.setIcon(resizeImage( "blackhole.png"));
 				break;
 			case "BX":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "box.png"));
+				this.cellLabel.setIcon(resizeImage( "box.png"));
 				break;
 			case "IW":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "icewall.png"));
+				this.cellLabel.setIcon(resizeImage( "icewall.png"));
 				break;
 			case "FB":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "fireball.png"));
+				this.cellLabel.setIcon(resizeImage( "fireball.png"));
 				break;
 			case "LS":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "lasershot.png"));
+				this.cellLabel.setIcon(resizeImage( "lasershot.png"));
 				break;
 			case "SW":
-				this.cellLabel.setIcon(resizeImage(DIRETORIO + "steelwall.png"));
+				this.cellLabel.setIcon(resizeImage( "steelwall.png"));
 				break;
 			case "_":
 				this.cellLabel.setIcon(null);

@@ -19,22 +19,20 @@ public class JLabelBar extends JLabel {
 		}
 	
 	private ImageIcon searchImage (String typeActor) {
-		String DIRETORIO = System.getProperty("user.dir") + "/src/view/images/";
-		
 		ImageIcon image = null;
 		
 		switch(typeActor) {
 		case "B10":
-			image = new ImageIcon(DIRETORIO + "lifebar.png");
+			image = new ImageIcon(GUI.class.getResource("images/lifebar.png"));
 			break;
 		case "FA":
-			image = new ImageIcon(DIRETORIO + "fourarmsstamina.png");
+			image = new ImageIcon(GUI.class.getResource("images/fourarmsstamina.png"));
 			break;
 		case "FL":
-			image = new ImageIcon(DIRETORIO + "flamesstamina.png");
+			image = new ImageIcon(GUI.class.getResource("images/flamesstamina.png"));
 			break;
 		case "DI":
-			image = new ImageIcon(DIRETORIO + "diamondstamina.png");
+			image = new ImageIcon(GUI.class.getResource("images/diamondstamina.png"));
 			break;
 		}
 		return image;

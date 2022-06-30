@@ -247,7 +247,7 @@ public class GUI extends JFrame implements IRViewCommand{
 	
 	// pega a imagem de um diretório, ajusta ela para o tamanho desejado e retorna o ImageIcon
 	public ImageIcon createAndResize(String image, int imageWidth, int imageHeight) {
-		ImageIcon icon = new ImageIcon(getIMG(image));
+		ImageIcon icon = new ImageIcon(GUI.class.getResource("images/"+image));
 	    Image img = icon.getImage() ;  
 	    Image newimg = img.getScaledInstance( imageWidth, imageHeight, Image.SCALE_SMOOTH ) ;  
 
@@ -256,7 +256,7 @@ public class GUI extends JFrame implements IRViewCommand{
 	
 	public String getIMG(String image) {
 		String img;
-		String DIRETORIO = System.getProperty("user.dir") + "/src/view/images/";
+		String DIRETORIO = GUI.class.getResource("images/").getPath();
 	    img=DIRETORIO + image;
 	    return img;
 	}
