@@ -234,8 +234,7 @@ public class Builder {
 	public void startGame() throws InvalidMap {
 		
 		// monta vetor com os objetos do jogo
-		String roomStr = null;
-		Toolkit tk = Toolkit.start(roomStr);
+		Toolkit tk = Toolkit.start();
 		String roomBuilder[][] = tk.retrieveroom();
 		
 		// cria todos os componentes do jogo
