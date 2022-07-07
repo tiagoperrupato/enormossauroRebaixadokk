@@ -31,7 +31,7 @@ public class Cell implements ICell {
 	}
 
 	public ImageIcon resizeImage(String path) {
-		Image image = new ImageIcon(GUI.class.getResource("images/"+ path) ).getImage();
+		Image image = new ImageIcon(GUI.class.getResource("images/"+ path)).getImage();
 		Image resizedImage =image.getScaledInstance(IMAGE_WEIGHT, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
 		return new ImageIcon(resizedImage);
 	}

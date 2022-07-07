@@ -9,6 +9,7 @@ import model.actors.JLabelBar;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class GUI extends JFrame implements IRViewCommand{
 	private static final long serialVersionUID = -377887641520288908L;
@@ -254,11 +255,9 @@ public class GUI extends JFrame implements IRViewCommand{
 		return new ImageIcon(newimg);
 	}
 	
-	public String getIMG(String image) {
-		String img;
-		String DIRETORIO = GUI.class.getResource("images/").getPath();
-	    img=DIRETORIO + image;
-	    return img;
+	public URL getIMG(String image) {
+		URL DIRETORIO = GUI.class.getResource("images/" + image);
+	    return DIRETORIO;
 	}
 
 
