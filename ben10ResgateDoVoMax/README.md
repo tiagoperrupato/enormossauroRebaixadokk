@@ -26,53 +26,380 @@
 
 ## Relatório de Evolução
 
+> criamos classe propria de interface grafica jlabelbar (melhorias)
+> clock unificado, em vez de uma thread em cada objeto (evolucao de design)
+> view nao é isolado, comunica com model para atualizar atores nas celulas (mudanca de rumo)
+> implementar mudança de herois (dificuldade e evulaçao de design)
 > 
 
 > Relatório de evolução, descrevendo as evoluções do design do projeto, dificuldades enfrentadas, mudanças de rumo, melhorias e lições aprendidas. Referências aos diagramas e recortes de mudanças são bem-vindos.
 
 # Destaques de Código
 
-> Escolha trechos relevantes e/ou de destaque do seu código. Apresente um recorte (você pode usar reticências para remover partes menos importantes). Veja como foi usado o highlight de Java para o código.
+## Implementação de um Clock Universal
+
+> Para automatizar algumas mecânicas do jogo com o tempo, foi criado um objeto que sempre, a partir de um tempo predeterminado, chama os atores envolvidos para se atualizarem. Tornando o jogo mais fluido e dinâmico.
 
 ~~~java
-// Recorte do seu código
-public void algoInteressante(…) {
-   …
-   trechoInteressante = 100;
+// Implementação do Clock
+public class Clock implements Subject {
+	private ArrayList<Observer> observers;
+	private Timer timer;
+	private long rate;
+	private ControlCommand controlCommand;
+	
+	public Clock(int rate) {
+		this.observers = new ArrayList<Observer>();
+		this.rate=rate;
+		this.timer=new Timer();
+	}
+
+    ...
+
+    // inicia o Clock
+	public void start() {
+		this.timer.scheduleAtFixedRate(new TimerTask() {
+		public void run() {notifyObservers();}  // notifica os atores envolvidos
+		}, this.rate, this.rate);
+	}
+
+    ...
+}
+~~~
+
+## Troca de Heróis
+
+> Sempre que o usuário pede pra trocar de herói, existe uma função que faz a dinâmica de atualizar alguns parâmetros para ativar e desativar heróis, além de fazer a comunicação entre o command e o novo herói.
+
+~~~java
+/* troca de personagem a depender do comando
+ * retorna esse personagem novo
+ */
+public Hero changeHero(String command) {
+    
+    this.remove();
+    this.setTransformed(false);
+    for (int i = 0; i < this.getHeros().length; i++) {
+        Hero hero = this.getHeros()[i];
+        if (hero.getTypeActor().equals(command)) {
+            hero.setPosRow(this.getPosRow());
+            hero.setPosColumn(this.getPosColumn());
+            hero.setTransformed(true);
+            hero.connect(this.getRoom());
+            hero.insert();
+            return hero;
+        }	
+    }
+    
+    return null;
+}
+~~~
+
+## Inimigos com Tomadas de Decisão Inteligentes
+
+> Os inimigos possuem um campo de visão e, a partir dele, procuram o ben10 e tomar decisões de movimentação e ataque. Essas tomadas de decisões sempre acontecem quando o Clock chama o seu update. 
+
+~~~java
+// define sua estrategia de movimentação e ataque a cada clock (exemplo do NearEnemy)
+public void update() {
+    Hero hero = searchHero();
+    if(hero!=null){
+        
+        int rowDist=this.getPosRow() - hero.getPosRow();
+        int columnDist=this.getPosColumn() - hero.getPosColumn();
+        // caso esteja nas casas adjacentes ele ataca
+        if ((rowDist == 1 || rowDist == -1) && columnDist == 0
+                || (columnDist == 1 || columnDist == -1) && rowDist == 0){
+            attack();
+        }
+        //deixa o movimento mais aleatorio
+        Random randomMove = new Random();
+        switch(randomMove.nextInt(2)) {
+            //da preferencia aos movimentos do entre as linhas
+            case 0:
+                if(rowDist>0) {
+                    if(verifyMovement("forward")) {
+                        move("forward");
+                    }
+                }
+
+                ...
+
+                break;
+        }
+    }
+}
+~~~
+
+## Estamina dos Heróis
+> Cada heroi tem uma estamina própria que, quando este é ativado, sua estamina decresce com o tempo e, caso chegue em zero, o jogador volta a ser o Ben10, perdendo a chance de usar habilidades do heroi que estava usando. Quando um heroi não está ativado, a estamina volta a crescer até chegar no máximo novamente ou  até o heroi ser ativado pelo jogador novamente.
+
+~~~java
+public class Hero extends Actor implements IHero {
+	
+	...
+
+	private int stamina = 10;
+	
+    ...
+
+	private boolean isTransformed = false;
+
+    // com o tempo, o hero recebe uma chamada do Clock para ele se atualizar, fazendo a dinâmica da estamina
+    public void update() {
+        if(this.getTypeActor() != "B10") {
+            Hero hero=this;
+            if((hero.isTransformed) && (hero.getStamina() > 0)) {
+                hero.setStamina(hero.getStamina() - 1);				
+            }
+            else if(!(hero.isTransformed) && (hero.getStamina() < 10)){
+                hero.setStamina(hero.getStamina() + 1);
+            }
+        }
+    }
+    // arruma a stamina do heroi e caso chegue em zero, força a mudança para o Ben10
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
+		this.getLabel().resizeImage(stamina*12 + 1,BAR_HEIGHT);
+		if(stamina==0) {
+			this.getSubject().updateControlCommand(this.changeHero("B10"));
+		}
+	}
 }
 ~~~
 
 # Destaques de Orientação a Objetos
-> Destaque partes do código em que a orientação a objetos foi aplicada para aprimorar seu código. Por exemplo, o uso de polimorfismo para ajustar ações conforme o contexto. Sugestão de estrutura:
 
-## Diagrama de Classes usada no destaque OO:
-> Sugere-se um diagrama de classes para o destaque, mas podem ser usados outros tipos de diagrama, conforme a necessidade.
+## Herança dos Heróis no jogo
 
-## Código do Destaque OO
+> Os heróis do jogo são classes herdeiras de uma superclasse Hero que centraliza algumas funções e habilidades deles. Por sua vez a classe Hero é herdeira da classe Actor que é responsável por fazer a comunicação com as células do mapa
+
+![Herança de Herois](assets/EmphasisInheritanceHeros.png)
+
 ~~~java
-// Recorte do código do pattern seguindo as mesmas diretrizes de outros destaques
-public void algoInteressante(…) {
-   …
-   trechoInteressante = 100;
+// Hero herdeira de Actor
+public class Hero extends Actor implements IHero {
+	
+	private static int life = 10;
+	private int stamina = 10;
+    private static boolean win = false;
+	private static Subject clock;
+	private static Hero heros[];
+	private boolean isTransformed=false;
+	private String aim;
+
+    ...
+	
+	public Hero(int posRow, int posColumn, String typeActor) {
+		
+		super(posRow, posColumn, typeActor);
+		this.aim = "right";		
+		
+        ...
+
+	}
+}
+
+// Exemplo do Ben10 que é herdeiro do Hero
+public class Ben10 extends Hero {
+
+	public Ben10(int posRow, int posColumn, String typeActor) {
+		super(posRow, posColumn, typeActor);
+		this.setTransformed(true);
+	}
+}
+~~~
+
+## Polimorfismo
+### Movimentação de Atores na Sala
+
+> Os atores são instanciados como classes específicas de cada um, mas como todas são herdeiras de Actor, a inserção e remoção de atores nas células é feita considerando que os objetos são Actors.
+
+~~~java
+// declara como Actor e instancia como classes específica
+public void createActor(int posRow, int posColumn, String actorType) {
+    
+    IActor obj;
+    
+    switch (actorType) {
+
+    ...
+        
+    case "NE":
+        obj = new NearEnemy(posRow, posColumn, actorType);
+        break;
+    
+    case "DE":
+        obj = new DistantEnemy(posRow, posColumn, actorType);
+        break;
+        
+    ...
+        
+    default:
+        return;
+    }
+    
+    ...
+}
+
+// coloca os atores nas celulas como atores no geral pelo ArrayList
+public class Cell implements ICell {
+	
+	private ArrayList<IActor> actors;
+
+    ...
+	
+	public Cell() {
+		
+		this.actors = new ArrayList<IActor>();
+		
+        ...
+		
+	}
+
+    ...
+}
+~~~
+
+### Vetor de Heróis em cada Herói
+
+> Heróis são instanciados em suas classes específicas, mas declarados como Hero, então eles podem tanto ser adicionados nas células como guardados como referência no vetor de Heros que todos os heróis compartilham
+
+~~~java
+// cria todos os herois
+public void createHeros(int posRow, int posColumn) {
+    
+    //instancia todos os herois
+    Hero ben10 = new Ben10(posRow, posColumn, "B10");
+    Hero fourArms = new FourArms(posRow, posColumn, "FA");
+    Hero flames = new Flames(posRow, posColumn, "FL");
+    Hero diamond = new Diamond(posRow, posColumn, "DI");
+
+    //coloca eles em um vetor para cada um ter acesso aos outros herois
+    Hero heros[] = {ben10, fourArms, flames, diamond};
+    this.heros=heros;
+    ben10.setHeros(heros);
+    fourArms.setHeros(heros);
+    flames.setHeros(heros);
+    diamond.setHeros(heros);
+
+    ...
+}
+
+public class Hero extends Actor implements IHero {
+	
+	...
+    // vetor com todos os heros
+	private static Hero heros[];
+
+    ...
 }
 ~~~
 
 # Destaques de Pattern
-> Destaque de patterns adotados pela equipe. Sugestão de estrutura:
+## Strategy
 
-## Diagrama do Pattern
-> Diagrama do pattern dentro do contexto da aplicação.
+> Alguns atores do jogo possuem estratégias de jogo como movimentação e ataque, assim, o design pattern do tipo Strategy fo implementado para organizar essas implementações de habilidades. No caso, todo agente que implementa esses strategies implementam uma interface geral DynamicActors que junta essas Strategies.
+
+![Diagrama de Strategy](assets/EmphasisStrategy.png)
 
 ## Código do Pattern
 ~~~java
-// Recorte do código do pattern seguindo as mesmas diretrizes de outros destaques
-public void algoInteressante(…) {
-   …
-   trechoInteressante = 100;
+// strategy de movimentação
+public interface MovementStrategy {
+	
+	public void move(String direction);
+	public boolean verifyMovement(String direction);
 }
+
+// strategy de ataque
+public interface AttackStrategy {
+	
+	public void attack();
+}
+
+// a interface dynamicActor herda as estratégias
+public interface DynamicActor extends Observer, RSubject, AttackStrategy, MovementStrategy {
+	
+	public void disconnectToClock(Observer target);
+}
+
+// os herois vão implementar elas
+public interface IHero extends DynamicActor, IModelCommand {
+	
+    ...
+
+}
+
+// os inimigos também implementam elas
+public interface INearEnemy extends DynamicActor {}
+
+public interface IDistantEnemy extends DynamicActor {}
 ~~~
 
-> Explicação de como o pattern foi adotado e quais suas vantagens, referenciando o diagrama.
+> Como cada ator implementa as strategies da sua forma, é possível padronizar as chamadas delas durante a mecânica do jogo, pois, devido a sobrecarga de métodos, para uma mesma assinatura de método, cada objeto executa sua própria estratégia. Permitindo um código e estrutura de código mais organizada.
+
+## Observer
+
+> Para implementar o Clock Universal no jogo, foi usado o design pattern de Observer para sempre que o Clock der um tempo t, ele chamar todos os objetos que dependem dele para se atualizarem.
+
+### Diagrama do Observer no Actor
+![Diagrama Observer no Actor](assets/EmphasisObserverActors.png)
+
+### Diagrama do Observer no Clock
+![Diagrama Observer no ControlCommand](assets/EmphasisObserverClock.png)
+
+~~~java
+// interface de Subject
+public interface Subject {
+	
+	public void register(Observer obj);
+	public void remove(Observer obj);
+	public void notifyObservers();
+	public void updateControlCommand(IModelCommand hero);
+	public ArrayList<Observer> getObservers();
+	public void stop();
+}
+// interface para conectar um observer no subject
+public interface RObserver {
+	
+	public void connect(Observer obj);
+}
+// o Clock vai ter um ArrayList de Observers e notificá-los sempre que precisarem se atualizar
+public class Clock implements Subject {
+	private ArrayList<Observer> observers;
+	private Timer timer;
+	
+    ...
+    
+}
+
+
+// cada observer vai implementar essa interface
+public interface Observer {
+	
+	public void update();
+	public void setSubject(Subject obj);
+	public Subject getSubject();
+	public String getTypeActor();
+	public boolean isAlive();
+}
+// coloca um ponteiro do subject no Observer
+public interface RSubject {
+	
+	public void connect(Subject subj);
+}
+
+// exemplo de um inimigo que atua como observer (NearEnemy)
+public interface DynamicActor extends Observer, RSubject, AttackStrategy, MovementStrategy {
+	
+	public void disconnectToClock(Observer target);
+}
+// vai implementar as funções na sua classe
+public interface INearEnemy extends DynamicActor {}
+~~~
+
+> A implementação desse pattern permite centralizar a chamada de update sempre que o clock precisa, basta que o observer esteja no seu ArrayList. Essa dinâmica permite que os inimigos se movimentem sozinhos, ataquem, além de criar toda a dinâmica de estamina dos alienígenas, fazendo a dinâmica do jogador voltar a ser o Ben10 depois de um tempo
 
 # Conclusões e Trabalhos Futuros
 
@@ -192,18 +519,19 @@ Método | Objetivo
 
 # Plano de Exceções
 
-## Diagrama da hierarquia de exceções
-> Elabore um diagrama com a hierarquia de exceções como detalhado a seguir.
+## Diagrama da Hierarquia de Exceções
+> A seguir é apresentado o diagrama de hierarquia de exceções implementado no Jogo. Elas são usadas no processo de criação do mapa de jogo. Caso o arquivo .CSV apresente algumas caraterísticas não esperadas, ele entra em alguma exceção prevista.
 
-![Hierarquia Exceções](exception-hierarchy.png)
+![Hierarquia Exceções](assets/ExceptionsDiagram.png)
 
-## Descrição das classes de exceção
+## Descrição das Classes de Exceção
 
-> Monte uma tabela descritiva seguindo o exemplo:
+> A seguir tem uma descrição da função de cada classe de exceção
 
 Classe | Descrição
 ----- | -----
-DivisaoInvalida | Engloba todas as exceções de divisões não aceitas.
-DivisaoInutil | Indica que a divisão por 1 é inútil.
-DivisaoNaoInteira | Indica uma divisão não inteira.
-
+InvalidMap | Engloba todas as exceções de criação de mapa inválido
+ConcurrentActorsInCell | Indica se na criação do mapa tem mais de um ator na mesma célula, visto que no início somente pode haver um ator por célula
+InvalidPlayer | Engloba todas as exceções de criação de jogador no jogo
+NoPlayer | Indica se não foi adicionado um jogador no jogo
+MorePlayers | Indica se foi adicionado mais de um jogador no jogo, visto que é um jogo SinglePlayer
