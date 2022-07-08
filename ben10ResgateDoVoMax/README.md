@@ -407,10 +407,6 @@ public interface INearEnemy extends DynamicActor {}
 
 # Documentação dos Componentes
 
-O vídeo a seguir apresenta um detalhamento de um projeto baseado em componentes:
-
-[![Projeto baseado em Componentes](http://img.youtube.com/vi/1LcSghlin6o/0.jpg)](https://youtu.be/1LcSghlin6o)
-
 # Diagramas
 
 ## Diagrama Geral da Arquitetura do Jogo
@@ -423,25 +419,88 @@ O vídeo a seguir apresenta um detalhamento de um projeto baseado em componentes
 
 > Se você adotou componentes de software, apresente a documentação de componentes conforme o modelo.
 
-### Exemplo 1
 
-Este é o diagrama compondo componentes para análise:
+## Componente `Actor`
 
-![Diagrama Analise](diagrama-componentes-analise.png)
+> O Componente Actor tem o papel de unificar todos os atores que estão presentes no jogo. Desde atores dinâmicos independentes, jogador, até atores estáticos. Ele oferece serviços de comunicação com o CommandControl - responsável por controlar os comandos enviados para o jogador e pelo Clock -, permitindo os atores executarem habilidades durante o jogo. Além disso, ele oforece uma comunicação com o Map - responsável por representar a sala de jogo, que por sua vez é apresentada pelo View na interface gráfica.
 
-### Exemplo 2
+![Componente Actor](assets/ActorComponentDiagram.png)
 
-Este é um diagrama inicial do projeto de jogos:
+**Ficha Técnica**
+Item | Detalhamento
+----- | -----
+Classe | `model.actors`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes` 
+Interfaces | `Observer` <br>`IModelCommand` <br> `RSubject` <br> `IRRoom`
 
-![Diagrama Jogos](diagrama-componentes-jogos.png)
+### Interfaces
 
-### Exemplo 3
+Diagramas:
 
-Este é outro diagrama de um projeto de vendas:
+![Diagrama Interfaces1](assets/ActorInterfaces1.png)
+![Diagrama Interfaces2](assets/ActorInterfaces2.png)
 
-![Diagrama Vendas](diagrama-componentes-vendas.png)
+Código Java:
 
-Para cada componente será apresentado um documento conforme o modelo a seguir:
+~~~java
+public interface Observer {
+	
+	public void update();
+	public void setSubject(Subject obj);
+	public Subject getSubject();
+	public String getTypeActor();
+	public boolean isAlive();
+}
+///////////////////////////////////////////////
+public interface IModelCommand {
+	
+	public Hero executeCommand(String command);
+}
+///////////////////////////////////////////////
+public interface RSubject {
+	
+	public void connect(Subject subj);
+}
+///////////////////////////////////////////////
+public interface IRRoom {
+	
+	public void connect(IRoom room);
+}
+~~~
+
+## Componente `Map`
+
+> O Componente Map tem o papel de representar a sala de jogo com suas células. Em cada célula é possível guardar atores que se movimentam e interagem entre si. O serviço desse componente se define em se comunicar com cada ator do jogo para permitir a sua mudança de posição, inserção ou remoção.
+
+![Componente](assets/MapComponentDiagram.png)
+
+**Ficha Técnica**
+item | detalhamento
+----- | -----
+Classe | `model.map`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes` 
+Interfaces | `IRoom`
+
+### Interfaces
+
+Diagrama:
+
+![Diagrama Interfaces](assets/MapInterfaces.png)
+
+Código:
+
+~~~java
+public interface IRoom {
+	
+	public int getQtyRows();
+	public int getQtyColumns();
+	public void buildCells();
+	public void insertInCell(IActor actor);
+	public void removeInCell(IActor actor);
+	public Cell[][] getCells();
+}
+~~~
+
 
 ## Componente `<Nome do Componente>`
 
@@ -469,53 +528,160 @@ public interface IDataSet extends ITableProducer, IDataSetProperties {
 }
 ~~~
 
+
+
+
+
+
 ## Detalhamento das Interfaces
 
-### Interface `<nome da interface>`
+### Interface `IRoom`
 
-`<Resumo do papel da interface.>`
-
-~~~
-<Interface em Java.>
-~~~
-
-Método | Objetivo
--------| --------
-`<id do método em Java>` | `<objetivo do método e descrição dos parâmetros>`
-
-## Exemplo:
-
-### Interface `ITableProducer`
-
-Interface provida por qualquer fonte de dados que os forneça na forma de uma tabela.
+Essa interface provida permite a comunicação dos atores do jogo com a sala de jogo e cada célula dentro dela, permitindo movimentações, inserções e remoções durante o jogo.
 
 ~~~java
-public interface ITableProducer {
-  String[] requestAttributes();
-  String[][] requestInstances();
+public interface IRoom {
+	
+	public int getQtyRows();
+	public int getQtyColumns();
+	public void buildCells();
+	public void insertInCell(IActor actor);
+	public void removeInCell(IActor actor);
+	public Cell[][] getCells();
 }
 ~~~
 
 Método | Objetivo
 -------| --------
-`requestAttributes` | Retorna um vetor com o nome de todos os atributos (colunas) da tabela.
-`requestInstances` | Retorna uma matriz em que cada linha representa uma instância e cada coluna o valor do respectivo atributo (a ordem dos atributos é a mesma daquela fornecida por `requestAttributes`.
+`public int getQtyRows()` | Retorna a quantidade de linhas da Sala
+`public int getQtyColumns()` | Retorna a quantidade de colunas da Sala
+`public void buildCells()` | Instancia todas as células da Sala
+`public void insertInCell(IActor actor)` | Insere um ator em uma célula da Sala
+`public void removeInCell(IActor actor)` | Remove um ator de uma célula da Sala
+`public Cell[][] getCells()` | Retorna um ponteiro para a matriz de células da Sala
 
-### Interface `IDataSetProperties`
+### Interface `IRRoom`
 
-Define o recurso (usualmente o caminho para um arquivo em disco) que é a fonte de dados.
+Interface requerida que adiciona um ponteiro da Sala de jogo em cada ator
 
 ~~~java
-public interface IDataSetProperties {
-  public String getDataSource();
-  public void setDataSource(String dataSource);
+public interface IRRoom {
+	
+	public void connect(IRoom room);
 }
 ~~~
 
 Método | Objetivo
 -------| --------
-`getDataSource` | Retorna o caminho da fonte de dados.
-`setDataSource` | Define o caminho da fonte de dados, informado através do parâmetro `dataSource`.
+`public void connect(IRoom room)` | Retorna um ponteiro para a Sala
+
+### Interface `IModelCommand`
+
+Interface provida que permite o Controller enviar comandos para o jogador no Actor
+
+~~~java
+public interface IModelCommand {
+	
+	public Hero executeCommand(String command);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public Hero executeCommand(String command)` | Função que vai executar o comando do usuário e retornar o personagem que estará ativo após o comando
+
+### Interface `IRModelCommand`
+
+Interface requerida que adiciona um ponteiro do Herói ativo para o ControlCommand
+
+~~~java
+public interface IRModelCommand {
+	
+	public void connect(IModelCommand hero);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void connect(IModelCommand hero)` | Retorna um ponteiro para o Herói ativo
+
+### Interface `Observer`
+
+Interface provida que permite o Controller enviar comandos pelo Clock para os atores que implementam essa interface se atualizem no jogo a partir de um intervalo de tempo arbitrário previamente estabelecido.
+
+~~~java
+public interface Observer {
+	
+	public void update();
+	public void setSubject(Subject obj);
+	public Subject getSubject();
+	public String getTypeActor();
+	public boolean isAlive();
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void update()` | Função que vai atualizar o observer a partir da chamada do Clock
+`public void setSubject(Subject obj)` | Função que vai adicionar um Subject, o Clock no jogo, para o Observer
+`public Subject getSubject()` | Função que retorna um ponteiro para o Subject do Observer, no caso o Clock
+`public String getTypeActor()` | Função que permite saber o tipo de ator do Observer
+`public boolean isAlive()` | Função que permite saber se o Observer está vivo no jogo ou não
+
+### Interface `RObserver`
+
+Interface requerida que adiciona um ponteiro de um Observer para o Clock (Subject)
+
+~~~java
+public interface RObserver {
+	
+	public void connect(Observer obj);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void connect(Observer obj)` | Retorna um ponteiro para um Observer
+
+### Interface `Subject`
+
+Interface provida que permite o Controller enviar comandos pelo Clock para os Observers dentro da sua lista. Permite modificar essa lista de Observers também.
+
+~~~java
+public interface Subject {
+	
+	public void register(Observer obj);
+	public void remove(Observer obj);
+	public void notifyObservers();
+	public void updateControlCommand(IModelCommand hero);
+	public ArrayList<Observer> getObservers();
+	public void stop();
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void register(Observer obj)` | Função que adiciona um Observer no ArrayList de Observers
+`public void remove(Observer obj)` | Função que remove um Observer do ArrayList de Observers
+`public void notifyObservers()` | Função que notifica os observers do ArrayList sempre que o Clock passar um intervalo de tempo
+`public void updateControlCommand(IModelCommand hero)` | Função que permite o Clock intermediar a troca de heroi que receberá comandos do ControlCommand
+`public ArrayList<Observer> getObservers()` | Função que retorna um ponteiro para o Arraylist de observers
+`public void stop()` | Função que interrompe o funcionamento do Subject, que no caso é o Clock
+
+### Interface `RSubject`
+
+Interface requerida que adiciona um ponteiro de um Subject para um Observer
+
+~~~java
+public interface RSubject {
+	
+	public void connect(Subject subj);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void connect(Subject subj)` | Retorna um ponteiro para um Subject
 
 # Plano de Exceções
 
