@@ -374,7 +374,6 @@ public class Clock implements Subject {
     
 }
 
-
 // cada observer vai implementar essa interface
 public interface Observer {
 	
@@ -498,6 +497,33 @@ public interface IRoom {
 	public void insertInCell(IActor actor);
 	public void removeInCell(IActor actor);
 	public Cell[][] getCells();
+}
+~~~
+
+## Componente `GUI`
+
+> O Componente GUI tem a responsabilidade sobre a interface gráfica do jogo, ele que tratará de todas as interações do jogo com o usuário. Ele recebe todos os inputs do usuário(cliques nos botões) e exibe as informações do jogo, como o status do mapa, mensagens ao jogador e barra de estamina.
+
+![Componente](assets/GUIComponentDiagram.png)
+
+**Ficha Técnica**
+item | detalhamento
+----- | -----
+Classe | `view`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes` 
+Interfaces | `IRViewCommand`
+
+### Interfaces
+
+Diagrama:
+
+![Diagrama Interfaces](assets/GUIInterfaces.png)
+
+Código:
+
+~~~java
+public interface IRViewCommand {
+	public void connect(IViewCommand commandCenter);
 }
 ~~~
 
@@ -682,6 +708,35 @@ public interface RSubject {
 Método | Objetivo
 -------| --------
 `public void connect(Subject subj)` | Retorna um ponteiro para um Subject
+
+### Interface `IViewCommand`
+
+Interface provida que permite o Controller receber comandos vindos da interface gráfica que são gerados pelo usuário ao interagir com ela. Posteriormente o Controle utiliza outras interfaces para se comunicar com o model. 
+
+~~~java
+public interface IViewCommand {
+	
+	public void modelAction(String actionType);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void modelAction(String actionType)` | Método que pede ao controle para fazer uma ação no model a partir da String passada, a String pode definir diversas ações diferentes, como movimentar, atacar, etc.
+
+### Interface `IRViewCommand`
+
+Interface requerida que adiciona um ponteiro do ControlCommand para a GUI.
+
+~~~java
+public interface IRViewCommand {
+	public void connect(IViewCommand commandCenter);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void connect(IViewCommand commandCenter)` | Passa um ponteiro de CommandControl para a GUI.
 
 # Plano de Exceções
 
