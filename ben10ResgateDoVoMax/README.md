@@ -374,7 +374,6 @@ public class Clock implements Subject {
     
 }
 
-
 // cada observer vai implementar essa interface
 public interface Observer {
 	
@@ -501,6 +500,7 @@ public interface IRoom {
 }
 ~~~
 
+<<<<<<< HEAD
 ## Componente `Controller`
 
 > O Controller é o componente responsável por enviar comandos para o actor, seja por meio do Clock que atualiza os actors em períodos de tempo, seja pelo ControlCommand que envia comandos feitos pelo jogador.
@@ -518,7 +518,7 @@ Interfaces | `IViewCommand` <br> `Subject` <br> `RObserver` <br> `IRModelCommand
 
 Diagrama:
 
-![Diagrama Interfaces](diagrama-interfaces.png)
+![Diagrama de Interfaces](assets/ControllerInterfaces.png)
 
 Códigos:
 
@@ -549,38 +549,32 @@ public interface IRModelCommand {
 }
 ~~~
 
+## Componente `GUI`
 
+> O Componente GUI tem a responsabilidade sobre a interface gráfica do jogo, ele que tratará de todas as interações do jogo com o usuário. Ele recebe todos os inputs do usuário(cliques nos botões) e exibe as informações do jogo, como o status do mapa, mensagens ao jogador e barra de estamina.
 
-## Componente `<Nome do Componente>`
-
-> Resumo do papel do componente e serviços que ele oferece.
-
-![Componente](diagrama-componente.png)
+![Componente](assets/GUIComponentDiagram.png)
 
 **Ficha Técnica**
 item | detalhamento
 ----- | -----
-Classe | `<caminho completo da classe com pacotes>` <br> Exemplo: `pt.c08componentes.s20catalog.s10ds.DataSetComponent`
-Autores | `<nome dos membros que criaram o componente>`
-Interfaces | `<listagem das interfaces do componente>`
+Classe | `view`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes` 
+Interfaces | `IRViewCommand`
 
 ### Interfaces
 
-Interfaces associadas a esse componente:
+Diagrama:
 
-![Diagrama Interfaces](diagrama-interfaces.png)
+![Diagrama Interfaces](assets/GUIInterfaces.png)
 
-Interface agregadora do componente em Java:
+Código:
 
 ~~~java
-public interface IDataSet extends ITableProducer, IDataSetProperties {
+public interface IRViewCommand {
+	public void connect(IViewCommand commandCenter);
 }
 ~~~
-
-
-
-
-
 
 ## Detalhamento das Interfaces
 
@@ -681,6 +675,8 @@ Método | Objetivo
 
 Interface requerida que adiciona um ponteiro de um Observer para o Clock (Subject)
 
+>Vale ressaltar que por erro de projeto esse interface foi indiretamente usada pelo método `public void register(Observer obj)` do Subject, mas a rigor era para ter sido implementado juntamente com o método connect
+
 ~~~java
 public interface RObserver {
 	
@@ -734,7 +730,7 @@ Método | Objetivo
 
 ### Interface `IViewCommand`
 
-Interface provida que permite o View de enviar para o Controller qual o comando que o Usuário fez na interface gráfica.
+Interface provida que permite o Controller receber comandos vindos da interface gráfica que são gerados pelo usuário ao interagir com ela. Posteriormente o Controle utiliza outras interfaces para se comunicar com o model. 
 
 ~~~java
 public interface IViewCommand {
@@ -745,11 +741,11 @@ public interface IViewCommand {
 
 Método | Objetivo
 -------| --------
-`public void modelAction(String actionType)` | Função que chama o Controller para fazer a execução do comando feito pelo usuário
+`public void modelAction(String actionType)` | Método que pede ao controle para fazer uma ação no model a partir da String passada, a String pode definir diversas ações diferentes, como movimentar, atacar, etc.
 
 ### Interface `IRViewCommand`
 
-Interface requerida que adiciona um ponteiro do ControlCommand no View
+Interface requerida que adiciona um ponteiro do ControlCommand para a GUI.
 
 ~~~java
 public interface IRViewCommand {
