@@ -424,9 +424,15 @@ public interface INearEnemy extends DynamicActor {}
 
 > No fim foi obtido ótimos resultados, os elementos do jogo se interagiram muito bem a partir do clock e do polimorfismo entre os atores que herdavam a classe Actor.
 
->
+>Para melhorar o jogo, foi discutido sobre a implementação de um acumulador de clocks, dessa forma seria possível distinguir o tempo de update dos objetos. Por exemplo, o LaserShot poderia agir mais rapidamente, visto que um tiro é muito rápido. Ao mesmo tempo, que seria possível tem um delay maior para o DistantEnemy atirar essas LaserShots. Assim  jogo ficaria mais divertido de se jogar.
 
-> Apresente aqui as conclusões do projeto e propostas de trabalho futuro. Esta é a oportunidade em que você pode indicar melhorias no projeto a partir de lições aprendidas e conhecimentos adquiridos durante a realização do projeto, mas que não puderam ser implementadas por questões de tempo. Por exemplo, há design patterns aprendidos no final do curso que provavelmente não puderam ser implementados no jogo -- este é o espaço onde você pode apresentar como aplicaria o pattern no futuro para melhorar o jogo.
+>Como o a sala é criada a partir de um .csv, seria ideia a criação de mais fases onde o heroi passaria por desafios diferentes, e o uso de determinada habilidade seria essencial em cada uma das fases.
+
+>Também seria interessante criar um menu de jogo com um tutorial e um botão para iniciar o jogo, dessa forma não seria necessário abrir e fechar o jogo toda vez que o personagem morre. Trabalhar mais na finalização e na história do jogo em sí, poderia ser de grande vantagem.
+
+>Foi idealizado que seria interessante melhorar a arquitetura de nossa interface gráfica, utilizar classes customizadas que herdam os conteiners do JAVA SWING (JLabel, JPanel, JFrame, JButtom, etc), tornando o código mais legível.
+
+> E por fim, seria interessante implementar o modo de jogo pelo teclado a partir da classe nativa do java "KeyListener".
 
 # Documentação dos Componentes
 
