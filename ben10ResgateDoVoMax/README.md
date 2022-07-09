@@ -500,9 +500,24 @@ public interface IRoom {
 }
 ~~~
 
-<<<<<<< HEAD
-## Componente `Controller`
+## Componente `Builder`
 
+> O Componente Builder tem a responsabilidade de ler o arquivo de entrada e engatilhar a criação de todos os objetos necessários para o funcionamento do jogo.
+
+![Componente](assets/BuilderComponentDiagram.png)
+
+**Ficha Técnica**
+item | detalhamento
+----- | -----
+Classe | `controller.builder`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes` 
+Interfaces | `-`
+
+### Interfaces
+
+>Não há interfaces nesse componente
+
+## Componente `Controller`
 > O Controller é o componente responsável por enviar comandos para o actor, seja por meio do Clock que atualiza os actors em períodos de tempo, seja pelo ControlCommand que envia comandos feitos pelo jogador.
 
 ![Controller](assets/ControllerComponentDiagram.png)
