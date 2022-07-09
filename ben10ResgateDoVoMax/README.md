@@ -26,11 +26,30 @@
 
 ## Relatório de Evolução
 
-> criamos classe propria de interface grafica jlabelbar (melhorias)
-> clock unificado, em vez de uma thread em cada objeto (evolucao de design)
-> view nao é isolado, comunica com model para atualizar atores nas celulas (mudanca de rumo)
+> No inicio da criação da arquitetura do projeto, foi planejado utilizar a atualização de todos atores dinâmicos a partir de um temporizador por um Thread interno em cada ator. Pórem ao finalizar a arquitetura do pojeto, o plano foi mudado para a utilização do padrão de projeto Observer e a criação da classe Clock, responsável por manejar o tempo.
+
+![Design Pattern Observer - Clock & Subject](assets/DesignPatternObserver(ClockSubject).png)
+
+> Foi desenvolvido um classe unica GUI responsável por criar toda a interface gráfica, essa classe não ficou da melhor maneira possível visto que todas os containers foram criadas pela instancia nativas do java (JLabel, JButtom, etc). Porém, ao implementar as barras de vida e estamina na interface, foi criado uma classe JLabelBar que herda JLabel, desta forma o código ficou muito mais limpo e legível. 
+A ideia seria implementar essa mudança em toda interface gráfica, porém, devido a falta de tempo não foi possível fazer tal melhoria.
+
+![JLabelBar Class](assets/JLabelBarClassDiagram.png)
+
+> No inicio do projeto, foi planejado instanciar todas as celulas do jogo dentro do view do projeto. Porém, foi decidido manejar essa parte do código dentro da própria celula e passar o ponteiro desse JLabel para a classe GUI.
+Assim, quando o modelo for atualizado, a interface gráfica será atualizada automaticamente.
+
+~~~java
+    ...
+	public Cell() {	
+		this.actors = new ArrayList<IActor>();
+		this.cellLabel=new JLabel();
+		this.cellLabel.setPreferredSize(new Dimension(IMAGE_WEIGHT,IMAGE_HEIGHT));	
+	}
+    ...
+~~~
+
 > implementar mudança de herois (dificuldade e evulaçao de design)
-> 
+
 
 > Relatório de evolução, descrevendo as evoluções do design do projeto, dificuldades enfrentadas, mudanças de rumo, melhorias e lições aprendidas. Referências aos diagramas e recortes de mudanças são bem-vindos.
 
