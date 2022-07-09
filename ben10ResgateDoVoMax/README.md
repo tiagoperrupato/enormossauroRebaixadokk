@@ -500,6 +500,23 @@ public interface IRoom {
 }
 ~~~
 
+## Componente `Builder`
+
+> O Componente Builder tem a responsabilidade de ler o arquivo de entrada e engatilhar a criação de todos os objetos necessários para o funcionamento do jogo.
+
+![Componente](assets/BuilderComponentDiagram.png)
+
+**Ficha Técnica**
+item | detalhamento
+----- | -----
+Classe | `controller.builder`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes` 
+Interfaces | `-`
+
+### Interfaces
+
+>Não há interfaces nesse componente
+
 ## Componente `GUI`
 
 > O Componente GUI tem a responsabilidade sobre a interface gráfica do jogo, ele que tratará de todas as interações do jogo com o usuário. Ele recebe todos os inputs do usuário(cliques nos botões) e exibe as informações do jogo, como o status do mapa, mensagens ao jogador e barra de estamina.
