@@ -501,6 +501,55 @@ public interface IRoom {
 }
 ~~~
 
+## Componente `Controller`
+
+> O Controller é o componente responsável por enviar comandos para o actor, seja por meio do Clock que atualiza os actors em períodos de tempo, seja pelo ControlCommand que envia comandos feitos pelo jogador.
+
+![Controller](assets/ControllerComponentDiagram.png)
+
+**Ficha Técnica**
+item | detalhamento
+----- | -----
+Classe | `controller.control`
+Autores | `João Vitor Mendes` <br> `Tiago Perrupato Antunes`
+Interfaces | `IViewCommand` <br> `Subject` <br> `RObserver` <br> `IRModelCommand`
+
+### Interfaces
+
+Diagrama:
+
+![Diagrama Interfaces](diagrama-interfaces.png)
+
+Códigos:
+
+~~~java
+public interface IViewCommand {
+	
+	public void modelAction(String actionType);
+}
+/////////////////////////////////////////////////////////
+public interface Subject {
+	
+	public void register(Observer obj);
+	public void remove(Observer obj);
+	public void notifyObservers();
+	public void updateControlCommand(IModelCommand hero);
+	public ArrayList<Observer> getObservers();
+	public void stop();
+}
+/////////////////////////////////////////////////////////
+public interface RObserver {
+	
+	public void connect(Observer obj);
+}
+/////////////////////////////////////////////////////////
+public interface IRModelCommand {
+	
+	public void connect(IModelCommand hero);
+}
+~~~
+
+
 
 ## Componente `<Nome do Componente>`
 
@@ -682,6 +731,35 @@ public interface RSubject {
 Método | Objetivo
 -------| --------
 `public void connect(Subject subj)` | Retorna um ponteiro para um Subject
+
+### Interface `IViewCommand`
+
+Interface provida que permite o View de enviar para o Controller qual o comando que o Usuário fez na interface gráfica.
+
+~~~java
+public interface IViewCommand {
+	
+	public void modelAction(String actionType);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void modelAction(String actionType)` | Função que chama o Controller para fazer a execução do comando feito pelo usuário
+
+### Interface `IRViewCommand`
+
+Interface requerida que adiciona um ponteiro do ControlCommand no View
+
+~~~java
+public interface IRViewCommand {
+	public void connect(IViewCommand commandCenter);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public void connect(IViewCommand commandCenter)` | Retorna um ponteiro para o Controller (ControlCommand)
 
 # Plano de Exceções
 
