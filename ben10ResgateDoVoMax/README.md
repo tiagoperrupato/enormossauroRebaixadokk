@@ -48,10 +48,11 @@ Assim, quando o modelo for atualizado, a interface gráfica será atualizada aut
     ...
 ~~~
 
-> implementar mudança de herois (dificuldade e evulaçao de design)
+> No desenvolvimento da arquitetura, uma dificuldade encontrada foi na representação dos 4 tipos de herois joagáveis (ben10, flames, fourarms e diamond), no inicio foi planejado criar uma classe pai "Ben10" e 3 subclasses representando cada alien, já que esses aliens teriam habilidades a mais que o proprio personagem principal. Então foi desenvolvida a seguinte estrutura.
+![Arquitetura Antiga - Ben 10](assets/ClassicHeroArchitecture.png)
 
-
-> Relatório de evolução, descrevendo as evoluções do design do projeto, dificuldades enfrentadas, mudanças de rumo, melhorias e lições aprendidas. Referências aos diagramas e recortes de mudanças são bem-vindos.
+> Pórem, foi encontrado certa dificuldade em implementar esses personagens e transitar por eles durante o jogo. Então foi feita uma arquitetura na qual uma classe pai "Hero" seria herdada pelos 4 herois jogáveis para tornar possível essas transições.
+![Arquitetura Atual - Ben 10](assets/HeroArchitecture.png)
 
 # Destaques de Código
 
@@ -421,6 +422,10 @@ public interface INearEnemy extends DynamicActor {}
 
 # Conclusões e Trabalhos Futuros
 
+> No fim foi obtido ótimos resultados, os elementos do jogo se interagiram muito bem a partir do clock e do polimorfismo entre os atores que herdavam a classe Actor.
+
+>
+
 > Apresente aqui as conclusões do projeto e propostas de trabalho futuro. Esta é a oportunidade em que você pode indicar melhorias no projeto a partir de lições aprendidas e conhecimentos adquiridos durante a realização do projeto, mas que não puderam ser implementadas por questões de tempo. Por exemplo, há design patterns aprendidos no final do curso que provavelmente não puderam ser implementados no jogo -- este é o espaço onde você pode apresentar como aplicaria o pattern no futuro para melhorar o jogo.
 
 # Documentação dos Componentes
@@ -429,13 +434,15 @@ public interface INearEnemy extends DynamicActor {}
 
 ## Diagrama Geral da Arquitetura do Jogo
 
-![Components Architecture](assets/Ben10ComponentsArchitecture.png)
+![Components Architecture](assets/GeneralArchitecture.png)
 
-> Faça uma breve descrição do diagrama.
+> Diagrama geral da arquitetura do jogo, com todos os metodos de todas as classes. Baixe a imagem e de zoom para melhor visualização.
+> A arquitetura foi baseada no modelo MVC de projeto. Na parte do Model temos os componentes `Map` e `Actor`, na parte do Controller estão os componentes `Controller` e `Builder`. Por fim, no View está o componente `GUI`.
+> A comunicação entre esses componentes e majoritariamente feita por interfaces. 
 
 ## Diagrama Geral de Componentes
 
-> Se você adotou componentes de software, apresente a documentação de componentes conforme o modelo.
+![Components Architecture](assets/Ben10ComponentsArchitecture.png)
 
 
 ## Componente `Actor`
